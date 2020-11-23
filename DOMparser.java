@@ -15,15 +15,17 @@ import genre.Genre;
 
 public class DOMparser {
   private File inputXMLFile;
+  private String mainTag;
   private Document document;
   private int i;
 
   public DOMparser() {}
 
-  public DOMparser(File inputXMLFile) {
+  public DOMparser(File inputXMLFile, String mainTag) {
     super();
     this.inputXMLFile = inputXMLFile;
     this.document = this.setupDOMparser();
+    this.mainTag = mainTag;
     this.i = 0;
   }
 
@@ -43,22 +45,22 @@ public class DOMparser {
     }
   }
 
-  private NodeList nodes(String tag) {
-    return this.document.getElementsByTagName(tag);
+  private NodeList nodes() {
+    return this.document.getElementsByTagName(this.mainTag);
   }
 
-  public Node nextNode(String tag) {
-    NodeList authorNodes = this.nodes(tag);
+  public Node nextNode() {
+    NodeList authorNodes = this.nodes();
     Node node = authorNodes.item(this.i++);
     if(node == null) this.i = 0;
     return node;
   }
 
-  public Element nextElement(String tag) {
-    Node node = this.nextNode(tag);
+  public Element nextElement() {
+    Node node = this.nextNode();
 
     while ((node != null) && (node.getNodeType() != Node.ELEMENT_NODE)) {
-      node = this.nextNode(tag);
+      node = this.nextNode();
     }
 
     return (Element) node;

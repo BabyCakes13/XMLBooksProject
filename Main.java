@@ -23,9 +23,9 @@ public class Main {
 
     ArrayList<File> inputXMLFiles = new ArrayList<File>();
 
-    DOMparser booksParser = new DOMparser(new File("book/books.xml"));
-    DOMparser authorsParser = new DOMparser(new File("author/authors.xml"));
-    DOMparser genresParser = new DOMparser(new File("genre/genres.xml"));
+    DOMparser booksParser = new DOMparser(new File("book/books.xml"), "book");
+    DOMparser authorsParser = new DOMparser(new File("author/authors.xml"), "author");
+    DOMparser genresParser = new DOMparser(new File("genre/genres.xml"), "genre");
 
     Interogation interogation = new Interogation(booksParser,
                                                  authorsParser,

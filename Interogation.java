@@ -1,7 +1,6 @@
 import book.Book;
 import author.Author;
 import genre.Genre;
-import org.w3c.dom.Node;
 import java.util.ArrayList;
 import org.w3c.dom.Element;
 
@@ -21,7 +20,7 @@ public class Interogation {
   public ArrayList<Author> getEnglishAuthors() {
     Element element = null;
 
-    while((element = this.authorsParser.nextElement("author")) != null){
+    while((element = this.authorsParser.nextElement()) != null){
         String nationality =
           this.authorsParser.extractElementFromTag(element, "nationality");
         String name =
@@ -30,8 +29,6 @@ public class Interogation {
         if (nationality.equals("English")) {
           System.out.println(name);
         }
-
-      // System.out.println("Current element:" + node.getNodeName());
     }
     return null;
   }
