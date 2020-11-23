@@ -57,12 +57,9 @@ public class DOMparser {
   }
 
   public Element nextElement() {
-    Node node = this.nextNode();
-
-    while ((node != null) && (node.getNodeType() != Node.ELEMENT_NODE)) {
-      node = this.nextNode();
-    }
-
+    Node node = null;
+    while (((node = this.nextNode()) != null) &&
+           (node.getNodeType() != Node.ELEMENT_NODE)) {}
     return (Element) node;
   }
 
