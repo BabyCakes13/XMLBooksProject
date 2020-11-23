@@ -10,7 +10,7 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Starting the application.");
 
-    // unmarshal
+    // unmarshal from hand-written (for now) XML DB.
     try {
        File file = new File("xml_databases/books.xml");
        JAXBContext jaxbContext = JAXBContext.newInstance(Books.class);
@@ -18,16 +18,10 @@ public class Main {
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
        Books books_element = (Books) jaxbUnmarshaller.unmarshal(file);
 
-       System.out.println(books_element);
-
        ArrayList<Book> books = books_element.getBooks();
-       System.out.println(books);
 
        for (Book book: books) {
-         System.out.println(book.getId() + " " +
-                            book.getTitle() + " (" +
-                            book.getAuthor() + " (" +
-                            book.getGenre() + ")");
+         System.out.println(book);
         }
        } catch (JAXBException e) {
         e.printStackTrace();
