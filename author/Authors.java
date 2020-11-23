@@ -16,6 +16,7 @@ public class Authors {
 
   public Authors() {}
 
+  // resulted from JAXB unmarshalling
   public Authors(ArrayList<Author> authors) {
     super();
     this.authors = authors;
@@ -26,7 +27,8 @@ public class Authors {
   }
 
   @Override
-    public String toString() {
-        return "Authors: " + this.authors;
-    }
+  public String toString() {
+    return "Authors: " + this.authors;
+  }
+
 }
