@@ -19,12 +19,9 @@ public class Interogation {
   }
 
   public ArrayList<Author> getEnglishAuthors() {
-    Node node = null;
-    while((node = this.authorsParser.nextNode("author")) != null){
+    Element element = null;
 
-      if (node.getNodeType() == Node.ELEMENT_NODE) {
-        Element element = (Element) node;
-
+    while((element = this.authorsParser.nextElement("author")) != null){
         String nationality =
           element.getElementsByTagName("nationality").item(0).getTextContent();
         String name =
@@ -33,7 +30,6 @@ public class Interogation {
         if (nationality.equals("English")) {
           System.out.println(name);
         }
-      }
 
       // System.out.println("Current element:" + node.getNodeName());
     }

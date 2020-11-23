@@ -47,10 +47,20 @@ public class DOMparser {
     return this.document.getElementsByTagName(tag);
   }
 
-  Node nextNode(String tag) {
+  public Node nextNode(String tag) {
     NodeList authorNodes = this.nodes(tag);
     Node node = authorNodes.item(this.i++);
     if(node == null) this.i = 0;
     return node;
+  }
+
+  public Element nextElement(String tag) {
+    Node node = this.nextNode(tag);
+
+    while ((node != null) && (node.getNodeType() != Node.ELEMENT_NODE)) {
+      node = this.nextNode(tag);
+    }
+
+    return (Element) node;
   }
 }
