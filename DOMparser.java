@@ -16,6 +16,7 @@ import genre.Genre;
 public class DOMparser {
   private File inputXMLFile;
   private Document document;
+  private int i;
 
   public DOMparser() {}
 
@@ -23,6 +24,7 @@ public class DOMparser {
     super();
     this.inputXMLFile = inputXMLFile;
     this.document = this.setupDOMparser();
+    this.i = 0;
   }
 
   private Document setupDOMparser() {
@@ -41,7 +43,14 @@ public class DOMparser {
     }
   }
 
-  public NodeList nodes(String tag) {
+  private NodeList nodes(String tag) {
     return this.document.getElementsByTagName(tag);
+  }
+
+  Node nextNode(String tag) {
+    NodeList authorNodes = this.nodes(tag);
+    Node node = authorNodes.item(this.i++);
+    if(node == null) this.i = 0;
+    return node;
   }
 }

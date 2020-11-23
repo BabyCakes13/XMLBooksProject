@@ -1,7 +1,6 @@
 import book.Book;
 import author.Author;
 import genre.Genre;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import java.util.ArrayList;
 import org.w3c.dom.Element;
@@ -20,10 +19,8 @@ public class Interogation {
   }
 
   public ArrayList<Author> getEnglishAuthors() {
-    NodeList authorNodes = authorsParser.nodes("author");
-
-    for(int i = 0; i < authorNodes.getLength(); i++) {
-      Node node = authorNodes.item(i);
+    Node node = null;
+    while((node = this.authorsParser.nextNode("author")) != null){
 
       if (node.getNodeType() == Node.ELEMENT_NODE) {
         Element element = (Element) node;
