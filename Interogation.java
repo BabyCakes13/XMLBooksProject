@@ -34,7 +34,18 @@ public class Interogation {
   }
 
   public ArrayList<Book> getRomanceBooks() {
-    // TODO
+    Element element = null;
+
+    while((element = this.booksParser.nextElement()) != null){
+        String genre =
+          this.authorsParser.extractElementFromTag(element, "genre");
+        String title =
+          this.authorsParser.extractElementFromTag(element, "title");
+
+        if (genre.equals("Romance")) {
+          System.out.println(title);
+        }
+    }
     return null;
   }
 

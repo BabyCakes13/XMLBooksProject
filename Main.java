@@ -31,6 +31,7 @@ public class Main {
                                                  authorsParser,
                                                  genresParser);
     interogation.getEnglishAuthors();
+    interogation.getRomanceBooks();
   }
 
   public static void loadBooks() {
