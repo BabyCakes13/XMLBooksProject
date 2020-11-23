@@ -2,17 +2,32 @@
 <authors>
   <author id="1">
     <name>Fyodor Dostoevsky</name>
+    <birthYear>1821</birthYear>
+    <deathYear>1821</deathYear>
+    <nationality>Russian</nationality>
   </author>
   <author id="2">
     <name>George Orwell</name>
+    <birthYear>1903</birthYear>
+    <deathYear>1950</deathYear>
+    <nationality>English</nationality>
   </author>
   <author id="3">
     <name>Aldous Huxley</name>
+    <birthYear>1894</birthYear>
+    <deathYear>1963</deathYear>
+    <nationality>English</nationality>
   </author>
   <author id="4">
     <name>J. K. Rowling</name>
+    <birthYear>1965</birthYear>
+    <deathYear>-</deathYear>
+    <nationality>English</nationality>
   </author>
   <author id="4">
     <name>Gabriel García Márquez</name>
+    <birthYear>1927</birthYear>
+    <deathYear>2014</deathYear>
+    <nationality>Colombian</nationality>
   </author>
 </authors>
