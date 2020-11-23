@@ -22,11 +22,15 @@ public class Main {
     loadGenres();
 
     ArrayList<File> inputXMLFiles = new ArrayList<File>();
-    inputXMLFiles.add(new File("book/books.xml"));
-    inputXMLFiles.add(new File("author/authors.xml"));
-    inputXMLFiles.add(new File("genre/genres.xml"));
 
-    parseXMLFiles(inputXMLFiles);
+    DOMparser booksParser = new DOMparser(new File("book/books.xml"));
+    DOMparser authorsParser = new DOMparser(new File("author/authors.xml"));
+    DOMparser genresParser = new DOMparser(new File("genre/genres.xml"));
+
+    Interogation interogation = new Interogation(booksParser,
+                                                 authorsParser,
+                                                 genresParser);
+    interogation.getEnglishAuthors();
   }
 
   public static void loadBooks() {
@@ -87,16 +91,5 @@ public class Main {
        } catch (JAXBException e) {
         e.printStackTrace();
       }
-  }
-
-  public static void parseXMLFiles(ArrayList<File> inputXMLFiles) {
-    for(File inputXMLFile: inputXMLFiles) {
-      parseDOM(inputXMLFile);
-    }
-  }
-
-  public static void parseDOM(File inputXMLFile) {
-    System.out.println("\nStarting DOM parser...\n");
-    DOMparser domParser = new DOMparser(inputXMLFile);
   }
 }

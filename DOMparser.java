@@ -10,22 +10,19 @@ import java.io.File;
 import java.util.List;
 
 import book.Book;
-import book.Books;
 import author.Author;
-import author.Authors;
 import genre.Genre;
-import genre.Genres;
 
 public class DOMparser {
   private File inputXMLFile;
+  private Document document;
 
   public DOMparser() {}
 
   public DOMparser(File inputXMLFile) {
     super();
     this.inputXMLFile = inputXMLFile;
-
-    this.setupDOMparser();
+    this.document = this.setupDOMparser();
   }
 
   private Document setupDOMparser() {
@@ -44,33 +41,7 @@ public class DOMparser {
     }
   }
 
-  public ArrayList<Author> getEnglishAuthors() {
-    //  TODO
-    return null;
-  }
-
-  public ArrayList<Book> getRomanceBooks() {
-    // TODO
-    return null;
-  }
-
-  public ArrayList<Book> getColombianRomanceBooks() {
-    // TODO
-    return null;
-  }
-
-  public ArrayList<Author> getAuthorsWithDystopianGenre() {
-    // TODO
-    return null;
-  }
-
-  public ArrayList<Author> getEnglishAuthorsAlive() {
-    // TODO
-    return null;
-  }
-
-  public ArrayList<Genre> getAllEnglishGenres() {
-    // TODO
-    return null;
+  public NodeList nodes(String tag) {
+    return this.document.getElementsByTagName(tag);
   }
 }
