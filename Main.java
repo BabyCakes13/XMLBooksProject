@@ -6,13 +6,16 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import book.Book;
+import book.Books;
+
 public class Main {
   public static void main(String[] args) {
     System.out.println("Starting the application.");
 
     // unmarshal from hand-written (for now) XML DB.
     try {
-       File file = new File("xml_databases/books.xml");
+       File file = new File("book/books.xml");
        JAXBContext jaxbContext = JAXBContext.newInstance(Books.class);
 
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
