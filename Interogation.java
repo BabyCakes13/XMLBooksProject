@@ -23,9 +23,9 @@ public class Interogation {
 
     while((element = this.authorsParser.nextElement("author")) != null){
         String nationality =
-          element.getElementsByTagName("nationality").item(0).getTextContent();
+          this.authorsParser.extractElementFromTag(element, "nationality");
         String name =
-          element.getElementsByTagName("name").item(0).getTextContent();
+          this.authorsParser.extractElementFromTag(element, "name");
 
         if (nationality.equals("English")) {
           System.out.println(name);

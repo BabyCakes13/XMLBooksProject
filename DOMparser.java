@@ -63,4 +63,8 @@ public class DOMparser {
 
     return (Element) node;
   }
+
+  public String extractElementFromTag(Element element, String tag) {
+    return element.getElementsByTagName(tag).item(0).getTextContent();
+  }
 }
