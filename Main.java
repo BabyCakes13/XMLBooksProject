@@ -8,12 +8,20 @@ import javax.xml.bind.Unmarshaller;
 
 import book.Book;
 import book.Books;
+import author.Author;
+import author.Authors;
 
 public class Main {
   public static void main(String[] args) {
-    System.out.println("Starting the application.");
+    System.out.println("Starting the application.\n");
 
-    // unmarshal from hand-written (for now) XML DB.
+    loadBooks();
+    loadAuthors();
+  }
+
+  public static void loadBooks() {
+    System.out.println("\nLoading books from XML into objects through unmarshalling...");
+
     try {
        File file = new File("book/books.xml");
        JAXBContext jaxbContext = JAXBContext.newInstance(Books.class);
@@ -25,6 +33,26 @@ public class Main {
 
        for (Book book: books) {
          System.out.println(book);
+        }
+       } catch (JAXBException e) {
+        e.printStackTrace();
+      }
+  }
+
+  public static void loadAuthors() {
+    System.out.println("\nLoading authors from XML into objects through unmarshalling...");
+
+    try {
+       File file = new File("author/authors.xml");
+       JAXBContext jaxbContext = JAXBContext.newInstance(Authors.class);
+
+       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+       Authors authors_element = (Authors) jaxbUnmarshaller.unmarshal(file);
+
+       ArrayList<Author> authors = authors_element.getAuthors();
+
+       for (Author author: authors) {
+         System.out.println(author);
         }
        } catch (JAXBException e) {
         e.printStackTrace();

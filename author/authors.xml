@@ -1,0 +1,18 @@
+<?xml version = "1.0"?>
+<authors>
+  <author id="1">
+    <name>Fyodor Dostoevsky</name>
+  </author>
+  <author id="2">
+    <name>George Orwell</name>
+  </author>
+  <author id="3">
+    <name>Aldous Huxley</name>
+  </author>
+  <author id="4">
+    <name>J. K. Rowling</name>
+  </author>
+  <author id="4">
+    <name>Gabriel García Márquez</name>
+  </author>
+</authors>
