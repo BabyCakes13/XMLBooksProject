@@ -9,6 +9,14 @@ public class Interogation {
   private DOMparser authorsParser;
   private DOMparser genresParser;
 
+/**
+* Interogation class.
+* 
+* Having been given three parsers for the books,
+* authors and genres, the Interogation class is
+* used for querying from the XML databases, based
+* on some questions.
+*/
   public Interogation(DOMparser booksParser,
                       DOMparser authorsParser,
                       DOMparser genresParser) {
@@ -18,6 +26,7 @@ public class Interogation {
   }
 
   public ArrayList<Author> getEnglishAuthors() {
+    System.out.println("\nQuerry for all English authors:");
     Element element = null;
 
     while((element = this.authorsParser.nextElement()) != null){
@@ -34,6 +43,7 @@ public class Interogation {
   }
 
   public ArrayList<Book> getRomanceBooks() {
+    System.out.println("\nQuerry for all romance genre books:");
     Element element = null;
 
     while((element = this.booksParser.nextElement()) != null){
@@ -50,22 +60,23 @@ public class Interogation {
   }
 
   public ArrayList<Book> getColombianRomanceBooks() {
+    System.out.println("\nQuerry for all Colombian romance books.");
 
     return null;
   }
 
   public ArrayList<Author> getAuthorsWithDystopianGenre() {
-    // TODO
+    System.out.println("\nQuerry for all authors with dystopian books.");
     return null;
   }
 
   public ArrayList<Author> getEnglishAuthorsAlive() {
-    // TODO
+    System.out.println("\nQuerry for all English authorts still alive:");
     return null;
   }
 
   public ArrayList<Genre> getAllEnglishGenres() {
-    // TODO
+    System.out.println("\nQuerry for all English genres:");
     return null;
   }
 }

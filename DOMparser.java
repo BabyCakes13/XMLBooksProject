@@ -13,6 +13,13 @@ import book.Book;
 import author.Author;
 import genre.Genre;
 
+/**
+* Parser for an XML file.
+*
+* Class which will be used for parsing over the
+* XML databases, and extracting information about
+* its elements.
+*/
 public class DOMparser {
   private File inputXMLFile;
   private String mainTag;
@@ -21,6 +28,23 @@ public class DOMparser {
 
   public DOMparser() {}
 
+  /**
+  * Constructor for the DOMparser class.
+  *
+  * The constructor is given the input XML file
+  * and the main tag it will search for in the XML.
+  *
+  * For example, if we have the following structure:
+  * <?xml version = "1.0"?>
+  * <books>
+  *  <book id="1">
+  *    <title>Notes from Underground</title>
+  *    <author>Fyodor Dostoevsky</author>
+  *    <genre>Philosophical</genre>
+  *  </book>
+  *</books>
+  * The mainTag would be "book".
+  */
   public DOMparser(File inputXMLFile, String mainTag) {
     super();
     this.inputXMLFile = inputXMLFile;
@@ -29,6 +53,11 @@ public class DOMparser {
     this.i = 0;
   }
 
+  /**
+  * Setup the DOM parser and normalize the document.
+  *
+  * @return The parsed document through DOM.
+  */
   private Document setupDOMparser() {
     try {
       DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -45,6 +74,20 @@ public class DOMparser {
     }
   }
 
+  /**
+  * @return The nodes for the mainTag parameter.
+  *
+  * For example, if we have the following structure:
+  * <?xml version = "1.0"?>
+  * <books>
+  *  <book id="1">
+  *    <title>Notes from Underground</title>
+  *    <author>Fyodor Dostoevsky</author>
+  *    <genre>Philosophical</genre>
+  *  </book>
+  *</books>
+  * The method will return: title, author and genre elements.
+  */
   private NodeList nodes() {
     return this.document.getElementsByTagName(this.mainTag);
   }
@@ -56,6 +99,10 @@ public class DOMparser {
     return node;
   }
 
+  /**
+  * Element is a subclass of Node. In the parser,
+  * we only want to work with elements for now.
+  */
   public Element nextElement() {
     Node node = null;
     while (((node = this.nextNode()) != null) &&
