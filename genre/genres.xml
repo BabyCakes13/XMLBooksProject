@@ -1,4 +1,9 @@
 <?xml version = "1.0"?>
+<!--
+The following XML database contains different book genres.
+
+For now, only the name of the genre is used.
+-->
 <genres>
   <genre id="1">
     <name>Philosophical</name>
