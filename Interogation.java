@@ -48,9 +48,9 @@ public class Interogation {
 
     while((element = this.booksParser.nextElement()) != null){
         String genre =
-          this.authorsParser.extractElementFromTag(element, "genre");
+          this.booksParser.extractElementFromTag(element, "genre");
         String title =
-          this.authorsParser.extractElementFromTag(element, "title");
+          this.booksParser.extractElementFromTag(element, "title");
 
         if (genre.equals("Romance")) {
           System.out.println(title);
