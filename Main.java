@@ -30,17 +30,17 @@ public class Main {
                                                  genresParser);
 
     System.out.println("\nQuerry for all English authors:");
-    printList(interogation.getEnglishAuthors());
+    print(interogation.getEnglishAuthors());
     System.out.println("\nQuerry for all romance genre books:");
-    printList(interogation.getRomanceBooks());
+    print(interogation.getRomanceBooks());
     System.out.println("\nQuerry for all Colombian romance books.");
-    printList(interogation.getColombianRomanceBooks());
+    print(interogation.getColombianRomanceBooks());
     System.out.println("\nQuerry for all authors with dystopian books.");
-    printList(interogation.getAuthorsWithDystopianGenre());
+    print(interogation.getAuthorsWithDystopianGenre());
     System.out.println("\nQuerry for all English authorts still alive:");
-    printList(interogation.getEnglishAuthorsAlive());
+    print(interogation.getEnglishAuthorsAlive());
     System.out.println("\nQuerry for all English genres:");
-    printList(interogation.getAllEnglishGenres());
+    print(interogation.getAllEnglishGenres());
   }
 
   public static void loadBooks() {
@@ -103,7 +103,7 @@ public class Main {
       }
   }
 
-  public static void printList(Set<String> list) {
+  public static void print(Set<String> list) {
     for(String s: list) {
       System.out.println(s);
     }
