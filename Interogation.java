@@ -1,7 +1,8 @@
 import book.Book;
 import author.Author;
 import genre.Genre;
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 import org.w3c.dom.Element;
 
 public class Interogation {
@@ -25,8 +26,8 @@ public class Interogation {
     this.genresParser = genresParser;
   }
 
-  public ArrayList<Author> getEnglishAuthors() {
-    System.out.println("\nQuerry for all English authors:");
+  public Set<String> getEnglishAuthors() {
+    Set<String> result = new HashSet<>();
     Element element = null;
 
     while((element = this.authorsParser.nextElement()) != null){
@@ -36,14 +37,14 @@ public class Interogation {
           this.authorsParser.extractElementFromTag(element, "name");
 
         if (nationality.equals("English")) {
-          System.out.println(name);
+          result.add(name);
         }
     }
-    return null;
+    return result;
   }
 
-  public ArrayList<Book> getRomanceBooks() {
-    System.out.println("\nQuerry for all romance genre books:");
+  public Set<String> getRomanceBooks() {
+    Set<String> result = new HashSet<>();
     Element element = null;
 
     while((element = this.booksParser.nextElement()) != null){
@@ -53,57 +54,101 @@ public class Interogation {
           this.booksParser.extractElementFromTag(element, "title");
 
         if (genre.equals("Romance")) {
-          System.out.println(title);
+          result.add(title);
         }
     }
-    return null;
+    return result;
   }
 
-  public ArrayList<Book> getColombianRomanceBooks() {
-    System.out.println("\nQuerry for all Colombian romance books.");
+  public Set<String> getColombianRomanceBooks() {
+    Set<String> result = new HashSet<>();
     Element element = null;
 
     while((element = this.authorsParser.nextElement()) != null){
+      Set<String> partialResult = new HashSet<>();
         String nationality =
           this.authorsParser.extractElementFromTag(element, "nationality");
         String authorName =
           this.authorsParser.extractElementFromTag(element, "name");
 
         if (nationality.equals("Colombian")) {
-          this.getAllBooksOfAuthor(authorName);
+          partialResult = this.getAllRomanceBooksOfAuthor(authorName);
+          result.addAll(partialResult);
         }
     }
-    return null;
+    return result;
   }
 
-  public ArrayList<Book> getAllBooksOfAuthor(String authorName) {
+  public Set<String> getAllRomanceBooksOfAuthor(String authorName) {
     Element element = null;
+    Set<String> result = new HashSet<>();
 
     while((element = this.booksParser.nextElement()) != null){
         String author =
           this.booksParser.extractElementFromTag(element, "author");
         String title =
           this.booksParser.extractElementFromTag(element, "title");
+        String genre =
+          this.booksParser.extractElementFromTag(element, "genre");
 
-        if (author.equals(authorName)) {
-          System.out.println(title);
+        if ((author.equals(authorName)) && (genre.equals("Romance"))) {
+          result.add(title);
         }
     }
-    return null;
+    return result;
   }
 
-  public ArrayList<Author> getAuthorsWithDystopianGenre() {
-    System.out.println("\nQuerry for all authors with dystopian books.");
-    return null;
+  public Set<String> getAuthorsWithDystopianGenre() {
+    Set<String> result = new HashSet<>();
+    Element element = null;
+
+    while((element = this.booksParser.nextElement()) != null){
+        String genre =
+          this.booksParser.extractElementFromTag(element, "genre");
+        String author =
+          this.booksParser.extractElementFromTag(element, "author");
+
+        if (genre.equals("Dystopian")) {
+          result.add(author);
+        }
+    }
+    return result;
   }
 
-  public ArrayList<Author> getEnglishAuthorsAlive() {
-    System.out.println("\nQuerry for all English authorts still alive:");
-    return null;
+  public Set<String> getEnglishAuthorsAlive() {
+    Set<String> result = new HashSet<>();
+    Element element = null;
+
+    while((element = this.authorsParser.nextElement()) != null){
+        String deathYear =
+          this.authorsParser.extractElementFromTag(element, "deathYear");
+        String nationality =
+          this.authorsParser.extractElementFromTag(element, "nationality");
+        String name =
+          this.authorsParser.extractElementFromTag(element, "name");
+
+        if ((deathYear.equals("-")) && (nationality.equals("English"))) {
+          result.add(name);
+        }
+    }
+    return result;
   }
 
-  public ArrayList<Genre> getAllEnglishGenres() {
-    System.out.println("\nQuerry for all English genres:");
-    return null;
+  public Set<String> getAllEnglishGenres() {
+    Set<String> result = new HashSet<>();
+    Set<String> authors = this.getEnglishAuthors();
+    Element element = null;
+
+    while((element = this.booksParser.nextElement()) != null){
+        String genre =
+          this.booksParser.extractElementFromTag(element, "genre");
+        String author =
+          this.booksParser.extractElementFromTag(element, "author");
+
+        if (authors.contains(author)) {
+          result.add(genre);
+        }
+    }
+    return result;
   }
 }

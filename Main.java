@@ -1,10 +1,10 @@
-import java.util.ArrayList;
 import java.io.File;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import java.util.Set;
 
 import book.Book;
 import book.Books;
@@ -21,8 +21,6 @@ public class Main {
     loadAuthors();
     loadGenres();
 
-    ArrayList<File> inputXMLFiles = new ArrayList<File>();
-
     DOMparser booksParser = new DOMparser(new File("book/books.xml"), "book");
     DOMparser authorsParser = new DOMparser(new File("author/authors.xml"), "author");
     DOMparser genresParser = new DOMparser(new File("genre/genres.xml"), "genre");
@@ -30,9 +28,19 @@ public class Main {
     Interogation interogation = new Interogation(booksParser,
                                                  authorsParser,
                                                  genresParser);
-    interogation.getEnglishAuthors();
-    interogation.getRomanceBooks();
-    interogation.getColombianRomanceBooks();
+
+    System.out.println("\nQuerry for all English authors:");
+    printList(interogation.getEnglishAuthors());
+    System.out.println("\nQuerry for all romance genre books:");
+    printList(interogation.getRomanceBooks());
+    System.out.println("\nQuerry for all Colombian romance books.");
+    printList(interogation.getColombianRomanceBooks());
+    System.out.println("\nQuerry for all authors with dystopian books.");
+    printList(interogation.getAuthorsWithDystopianGenre());
+    System.out.println("\nQuerry for all English authorts still alive:");
+    printList(interogation.getEnglishAuthorsAlive());
+    System.out.println("\nQuerry for all English genres:");
+    printList(interogation.getAllEnglishGenres());
   }
 
   public static void loadBooks() {
@@ -45,7 +53,7 @@ public class Main {
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
        Books books_element = (Books) jaxbUnmarshaller.unmarshal(file);
 
-       ArrayList<Book> books = books_element.getBooks();
+       Set<Book> books = books_element.getBooks();
 
        for (Book book: books) {
          System.out.println(book);
@@ -65,7 +73,7 @@ public class Main {
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
        Authors authors_element = (Authors) jaxbUnmarshaller.unmarshal(file);
 
-       ArrayList<Author> authors = authors_element.getAuthors();
+       Set<Author> authors = authors_element.getAuthors();
 
        for (Author author: authors) {
          System.out.println(author);
@@ -85,7 +93,7 @@ public class Main {
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
        Genres genres_element = (Genres) jaxbUnmarshaller.unmarshal(file);
 
-       ArrayList<Genre> genres = genres_element.getGenres();
+       Set<Genre> genres = genres_element.getGenres();
 
        for (Genre genre: genres) {
          System.out.println(genre);
@@ -93,5 +101,11 @@ public class Main {
        } catch (JAXBException e) {
         e.printStackTrace();
       }
+  }
+
+  public static void printList(Set<String> list) {
+    for(String s: list) {
+      System.out.println(s);
+    }
   }
 }

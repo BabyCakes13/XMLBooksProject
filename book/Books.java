@@ -6,23 +6,23 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
-import java.util.ArrayList;
+import java.util.Set;
 
 @XmlRootElement(name = "books")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Books {
 
   @XmlElement(name = "book")
-  private ArrayList<Book> books;
+  private Set<Book> books;
 
   public Books() {}
 
-  public Books(ArrayList<Book> books) {
+  public Books(Set<Book> books) {
     super();
     this.books = books;
   }
 
-  public ArrayList<Book> getBooks() {
+  public Set<Book> getBooks() {
     return this.books;
   }
 
