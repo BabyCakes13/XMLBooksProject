@@ -11,7 +11,7 @@ public class Interogation {
 
 /**
 * Interogation class.
-* 
+*
 * Having been given three parsers for the books,
 * authors and genres, the Interogation class is
 * used for querying from the XML databases, based
@@ -61,7 +61,34 @@ public class Interogation {
 
   public ArrayList<Book> getColombianRomanceBooks() {
     System.out.println("\nQuerry for all Colombian romance books.");
+    Element element = null;
 
+    while((element = this.authorsParser.nextElement()) != null){
+        String nationality =
+          this.authorsParser.extractElementFromTag(element, "nationality");
+        String authorName =
+          this.authorsParser.extractElementFromTag(element, "name");
+
+        if (nationality.equals("Colombian")) {
+          this.getAllBooksOfAuthor(authorName);
+        }
+    }
+    return null;
+  }
+
+  public ArrayList<Book> getAllBooksOfAuthor(String authorName) {
+    Element element = null;
+
+    while((element = this.booksParser.nextElement()) != null){
+        String author =
+          this.booksParser.extractElementFromTag(element, "author");
+        String title =
+          this.booksParser.extractElementFromTag(element, "title");
+
+        if (author.equals(authorName)) {
+          System.out.println(title);
+        }
+    }
     return null;
   }
 
