@@ -1,0 +1,108 @@
+<?xml version = "1.0"?>
+<!--
+The following XML database contains information about books.
+
+We are storing the title of the book, its author and its genre.
+We are also storing as attribute an unique identifier.
+ -->
+<books>
+  <!--Fyodor Dostoevsky-->
+  <book id="1">
+    <title>Notes from Underground</title>
+    <author>Fyodor Dostoevsky</author>
+    <genre>Philosophical</genre>
+  </book>
+  <book id="2">
+    <title>Crime and Punishment</title>
+    <author>Fyodor Dostoevsky</author>
+    <genre>Philosophical</genre>
+  </book>
+  <book id="3">
+    <title>The Idiot</title>
+    <author>Fyodor Dostoevsky</author>
+    <genre>Philosophical</genre>
+  </book>
+  <book id="4">
+    <title>The Brothers Karamazov</title>
+    <author>Fyodor Dostoevsky</author>
+    <genre>Philosophical</genre>
+  </book>
+
+  <!--George Orwell-->
+  <book id="5">
+    <title>Animal Farm</title>
+    <author>George Orwell</author>
+    <genre>Political satire</genre>
+  </book>
+  <book id="6">
+    <title>Nineteen Eighty-Four</title>
+    <author>George Orwell</author>
+    <genre>Dystopian</genre>
+  </book>
+
+  <!--Aldous Huxley-->
+  <book id="7">
+    <title>Brave New World</title>
+    <author>Aldous Huxley</author>
+    <genre>Dystopian</genre>
+  </book>
+
+  <!--J. K. Rowling-->
+  <book id="8">
+    <title>Philosopher's Stone</title>
+    <author>J. K. Rowling</author>
+    <genre>Fantasy</genre>
+  </book>
+  <book id="9">
+    <title>Chamber of Secrets</title>
+    <author>J. K. Rowling</author>
+    <genre>Fantasy</genre>
+  </book>
+  <book id="10">
+    <title>Prisoner of Azkaba</title>
+    <author>J. K. Rowling</author>
+    <genre>Fantasy</genre>
+  </book>
+  <book id="11">
+    <title>Goblet of Fire</title>
+    <author>J. K. Rowling</author>
+    <genre>Fantasy</genre>
+  </book>
+  <book id="12">
+    <title>Order of the Phoenix</title>
+    <author>J. K. Rowling</author>
+    <genre>Fantasy</genre>
+  </book>
+  <book id="13">
+    <title>Half-Blood Prince</title>
+    <author>J. K. Rowling</author>
+    <genre>Fantasy</genre>
+  </book>
+  <book id="14">
+    <title>Deathly Hallowse</title>
+    <author>Fyodor Dostoevsky</author>
+    <genre>Fantasy</genre>
+  </book>
+
+  <!--Gabriel García Márquez-->
+  <book id="15">
+    <title>One Hundred Years of Solitude</title>
+    <author>Gabriel García Márquez</author>
+    <genre>Realism</genre>
+  </book>
+  <book id="16">
+    <title>The Autumn of the Patriarch</title>
+    <author>Gabriel García Márquez</author>
+    <genre>Realism</genre>
+  </book>
+  <book id="17">
+    <title>Love in the Time of Cholera</title>
+    <author>Gabriel García Márquez</author>
+    <genre>Romance</genre>
+  </book>
+  <book id="18">
+    <title>Of Love and Other Demons</title>
+    <author>Gabriel García Márquez</author>
+    <genre>Romance</genre>
+  </book>
+</books>
