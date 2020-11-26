@@ -6,42 +6,42 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import java.util.Set;
 
-import book.Book;
-import author.Author;
+import book.Books;
+import author.Authors;
 import genre.Genres;
 
 @XmlRootElement(name = "library")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Library {
   // @XmlElement(name = "books")
-  private Set<Book> books;
+  private Books books;
   // @XmlElement(name = "authors")
-  private Set<Author> authors;
+  private Authors authors;
   // @XmlElement(name = "genres")
   private Genres genres;
 
   public Library() {}
 
-  public Library(Set<Book> books, Set<Author> authors, Genres genres) {
+  public Library(Books books, Authors authors, Genres genres) {
     super();
     this.books = books;
     this.authors = authors;
     this.genres = genres;
   }
 
-  public Set<Book> getBooks() {
+  public Books getBooks() {
     return this.books;
   }
 
-  public void setBooks(Set<Book> books) {
+  public void setBooks(Books books) {
     this.books = books;
   }
 
-  public Set<Author> getAuthors() {
+  public Authors getAuthors() {
     return this.authors;
   }
 
-  public void setAuthors(Set<Author> authors) {
+  public void setAuthors(Authors authors) {
     this.authors = authors;
   }
 

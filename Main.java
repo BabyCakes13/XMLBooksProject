@@ -5,6 +5,12 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.util.Set;
+import java.util.HashSet;
+
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import book.Book;
 import book.Books;
@@ -18,6 +24,7 @@ public class Main {
     System.out.println("Starting the application.\n");
 
     loadLibrary();
+
     // loadBooks();
     // loadAuthors();
     // loadGenres();
@@ -42,10 +49,16 @@ public class Main {
     // print(interogation.getEnglishAuthorsAlive());
     // System.out.println("\nQuerry for all English genres:");
     // print(interogation.getAllEnglishGenres());
+
+    // try {
+    // marshallLibrary();
+    // } catch (Exception e) {
+    //   System.out.println(e);
+    // }
   }
 
   public static void loadLibrary() {
-    System.out.println("\nLoading library...");
+    System.out.println("Loading library...");
     try {
        File file = new File("library.xml");
        JAXBContext jaxbContext = JAXBContext.newInstance(Library.class);
@@ -57,6 +70,23 @@ public class Main {
        } catch (JAXBException e) {
         e.printStackTrace();
       }
+  }
+
+  public static void marshallLibrary() throws Exception {
+    JAXBContext contextObj = JAXBContext.newInstance(Library.class);
+
+    Marshaller marshallerObj = contextObj.createMarshaller();
+    marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+    Genre genre = new Genre("g1" , "Dystopian");
+    Set<Genre> genre_set = new HashSet<>();
+    genre_set.add(genre);
+
+    Genres genres = new Genres(genre_set);
+
+    Library question=new Library(null, null, genres);
+
+    marshallerObj.marshal(question, new FileOutputStream("generated_library.xml"));
   }
 
   public static void loadBooks() {

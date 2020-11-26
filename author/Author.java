@@ -73,6 +73,6 @@ public class Author {
                             this.name + " (" +
                             this.birthYear + " - " +
                             this.deathYear + "), " +
-                            this.nationality;
+                            this.nationality + "\n";
     }
 }

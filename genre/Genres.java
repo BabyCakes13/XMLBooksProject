@@ -29,6 +29,6 @@ public class Genres {
 
   @Override
     public String toString() {
-        return "Genres: " + this.genre;
+        return "Genres:\n" + this.genre + "\n";
     }
 }

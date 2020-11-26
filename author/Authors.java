@@ -26,7 +26,7 @@ public class Authors {
 
   @Override
   public String toString() {
-    return "Authors: " + this.authors;
+    return "Authors:\n" + this.authors + "\n";
   }
 
 }
