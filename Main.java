@@ -4,8 +4,8 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.ArrayList;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class Main {
     marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
     Genre genre = new Genre("g1" , "Dystopian");
-    Set<Genre> genre_set = new HashSet<>();
+    ArrayList<Genre> genre_set = new ArrayList<>();
     genre_set.add(genre);
 
     Genres genres = new Genres(genre_set);
@@ -99,7 +99,7 @@ public class Main {
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
        Books books_element = (Books) jaxbUnmarshaller.unmarshal(file);
 
-       Set<Book> books = books_element.getBooks();
+       ArrayList<Book> books = books_element.getBooks();
 
        for (Book book: books) {
          System.out.println(book);
@@ -119,7 +119,7 @@ public class Main {
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
        Authors authors_element = (Authors) jaxbUnmarshaller.unmarshal(file);
 
-       Set<Author> authors = authors_element.getAuthors();
+       ArrayList<Author> authors = authors_element.getAuthors();
 
        for (Author author: authors) {
          System.out.println(author);
@@ -139,7 +139,7 @@ public class Main {
        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
        Genres genres_element = (Genres) jaxbUnmarshaller.unmarshal(file);
 
-       Set<Genre> genres = genres_element.getGenres();
+       ArrayList<Genre> genres = genres_element.getGenres();
 
        for (Genre genre: genres) {
          System.out.println(genre);
@@ -149,7 +149,7 @@ public class Main {
       }
   }
 
-  public static void print(Set<String> list) {
+  public static void print(ArrayList<String> list) {
     for(String s: list) {
       System.out.println(s);
     }

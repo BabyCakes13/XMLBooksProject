@@ -5,22 +5,22 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class Authors {
 
   @XmlElement(name = "author")
-  private Set<Author> authors;
+  private ArrayList<Author> authors;
 
   public Authors() {}
 
   // resulted from JAXB unmarshalling
-  public Authors(Set<Author> authors) {
+  public Authors(ArrayList<Author> authors) {
     super();
     this.authors = authors;
   }
 
-  public Set<Author> getAuthors() {
+  public ArrayList<Author> getAuthors() {
     return this.authors;
   }
 

@@ -6,21 +6,21 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class Books {
 
   @XmlElement(name = "book")
-  private Set<Book> books;
+  private ArrayList<Book> books;
 
   public Books() {}
 
-  public Books(Set<Book> books) {
+  public Books(ArrayList<Book> books) {
     super();
     this.books = books;
   }
 
-  public Set<Book> getBooks() {
+  public ArrayList<Book> getBooks() {
     return this.books;
   }
 

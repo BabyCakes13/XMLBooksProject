@@ -1,8 +1,8 @@
 import book.Book;
 import author.Author;
 import genre.Genre;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.ArrayList;
 import org.w3c.dom.Element;
 
 public class Interogation {
@@ -26,8 +26,8 @@ public class Interogation {
     this.genresParser = genresParser;
   }
 
-  public Set<String> getEnglishAuthors() {
-    Set<String> result = new HashSet<>();
+  public ArrayList<String> getEnglishAuthors() {
+    ArrayList<String> result = new ArrayList<>();
     Element element = null;
 
     while((element = this.authorsParser.nextElement()) != null){
@@ -43,8 +43,8 @@ public class Interogation {
     return result;
   }
 
-  public Set<String> getRomanceBooks() {
-    Set<String> result = new HashSet<>();
+  public ArrayList<String> getRomanceBooks() {
+    ArrayList<String> result = new ArrayList<>();
     Element element = null;
 
     while((element = this.booksParser.nextElement()) != null){
@@ -60,12 +60,12 @@ public class Interogation {
     return result;
   }
 
-  public Set<String> getColombianRomanceBooks() {
-    Set<String> result = new HashSet<>();
+  public ArrayList<String> getColombianRomanceBooks() {
+    ArrayList<String> result = new ArrayList<>();
     Element element = null;
 
     while((element = this.authorsParser.nextElement()) != null){
-      Set<String> partialResult = new HashSet<>();
+      ArrayList<String> partialResult = new ArrayList<>();
         String nationality =
           this.authorsParser.extractElementFromTag(element, "nationality");
         String authorName =
@@ -79,9 +79,9 @@ public class Interogation {
     return result;
   }
 
-  public Set<String> getAllRomanceBooksOfAuthor(String authorName) {
+  public ArrayList<String> getAllRomanceBooksOfAuthor(String authorName) {
     Element element = null;
-    Set<String> result = new HashSet<>();
+    ArrayList<String> result = new ArrayList<>();
 
     while((element = this.booksParser.nextElement()) != null){
         String author =
@@ -98,8 +98,8 @@ public class Interogation {
     return result;
   }
 
-  public Set<String> getAuthorsWithDystopianGenre() {
-    Set<String> result = new HashSet<>();
+  public ArrayList<String> getAuthorsWithDystopianGenre() {
+    ArrayList<String> result = new ArrayList<>();
     Element element = null;
 
     while((element = this.booksParser.nextElement()) != null){
@@ -115,8 +115,8 @@ public class Interogation {
     return result;
   }
 
-  public Set<String> getEnglishAuthorsAlive() {
-    Set<String> result = new HashSet<>();
+  public ArrayList<String> getEnglishAuthorsAlive() {
+    ArrayList<String> result = new ArrayList<>();
     Element element = null;
 
     while((element = this.authorsParser.nextElement()) != null){
@@ -134,9 +134,9 @@ public class Interogation {
     return result;
   }
 
-  public Set<String> getAllEnglishGenres() {
-    Set<String> result = new HashSet<>();
-    Set<String> authors = this.getEnglishAuthors();
+  public ArrayList<String> getAllEnglishGenres() {
+    ArrayList<String> result = new ArrayList<>();
+    ArrayList<String> authors = this.getEnglishAuthors();
     Element element = null;
 
     while((element = this.booksParser.nextElement()) != null){

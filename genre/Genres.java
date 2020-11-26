@@ -5,25 +5,25 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class Genres {
 
   @XmlElement(name = "genre")
-  private Set<Genre> genre;
+  private ArrayList<Genre> genre;
 
   public Genres() {}
 
-  public Genres(Set<Genre> genre) {
+  public Genres(ArrayList<Genre> genre) {
     super();
     this.genre = genre;
   }
 
-  public Set<Genre> getGenres() {
+  public ArrayList<Genre> getGenres() {
     return this.genre;
   }
 
-  public void setGenres(Set<Genre> genre) {
+  public void setGenres(ArrayList<Genre> genre) {
     this.genre = genre;
   }
 
