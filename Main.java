@@ -17,30 +17,46 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Starting the application.\n");
 
-    loadBooks();
-    loadAuthors();
-    loadGenres();
+    loadLibrary();
+    // loadBooks();
+    // loadAuthors();
+    // loadGenres();
 
-    DOMparser booksParser = new DOMparser(new File("book/books.xml"), "book");
-    DOMparser authorsParser = new DOMparser(new File("author/authors.xml"), "author");
-    DOMparser genresParser = new DOMparser(new File("genre/genres.xml"), "genre");
+    // DOMparser booksParser = new DOMparser(new File("book/books.xml"), "book");
+    // DOMparser authorsParser = new DOMparser(new File("author/authors.xml"), "author");
+    // DOMparser genresParser = new DOMparser(new File("genre/genres.xml"), "genre");
+    //
+    // Interogation interogation = new Interogation(booksParser,
+    //                                              authorsParser,
+    //                                              genresParser);
 
-    Interogation interogation = new Interogation(booksParser,
-                                                 authorsParser,
-                                                 genresParser);
+    // System.out.println("\nQuerry for all English authors:");
+    // print(interogation.getEnglishAuthors());
+    // System.out.println("\nQuerry for all romance genre books:");
+    // print(interogation.getRomanceBooks());
+    // System.out.println("\nQuerry for all Colombian romance books.");
+    // print(interogation.getColombianRomanceBooks());
+    // System.out.println("\nQuerry for all authors with dystopian books.");
+    // print(interogation.getAuthorsWithDystopianGenre());
+    // System.out.println("\nQuerry for all English authorts still alive:");
+    // print(interogation.getEnglishAuthorsAlive());
+    // System.out.println("\nQuerry for all English genres:");
+    // print(interogation.getAllEnglishGenres());
+  }
 
-    System.out.println("\nQuerry for all English authors:");
-    print(interogation.getEnglishAuthors());
-    System.out.println("\nQuerry for all romance genre books:");
-    print(interogation.getRomanceBooks());
-    System.out.println("\nQuerry for all Colombian romance books.");
-    print(interogation.getColombianRomanceBooks());
-    System.out.println("\nQuerry for all authors with dystopian books.");
-    print(interogation.getAuthorsWithDystopianGenre());
-    System.out.println("\nQuerry for all English authorts still alive:");
-    print(interogation.getEnglishAuthorsAlive());
-    System.out.println("\nQuerry for all English genres:");
-    print(interogation.getAllEnglishGenres());
+  public static void loadLibrary() {
+    System.out.println("\nLoading library...");
+    try {
+       File file = new File("library.xml");
+       JAXBContext jaxbContext = JAXBContext.newInstance(Library.class);
+
+       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+       Library library = (Library) jaxbUnmarshaller.unmarshal(file);
+
+       System.out.println(library);
+       } catch (JAXBException e) {
+        e.printStackTrace();
+      }
   }
 
   public static void loadBooks() {

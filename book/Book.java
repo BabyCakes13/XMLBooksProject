@@ -6,14 +6,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 public class Book {
-  private int id;
+  private String id;
   private String title;
   private String author;
   private String genre;
 
   public Book() {}
 
-  public Book(int id, String title, String author, String genre) {
+  public Book(String id, String title, String author, String genre) {
     super();
     this.id = id;
     this.title = title;
@@ -22,11 +22,11 @@ public class Book {
   }
 
   @XmlAttribute
-  public int getId() {
+  public String getId() {
     return this.id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 

@@ -5,23 +5,23 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 public class Genre {
-  private int id;
+  private String id;
   private String name;
 
   public Genre() {}
 
-  public Genre(int id, String name) {
+  public Genre(String id, String name) {
     super();
     this.id = id;
     this.name = name;
   }
 
   @XmlAttribute
-  public int getId() {
+  public String getId() {
     return this.id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 

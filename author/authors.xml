@@ -3,7 +3,7 @@
 The following XML database contains information about authors.
 
 We are storing their names, birth and death year as well as nationality.
-An unique identifier is also stored for each 
+An unique identifier is also stored for each
 -->
 <authors>
   <author id="1">

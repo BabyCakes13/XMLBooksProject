@@ -1,5 +1,12 @@
 <?xml version = "1.0"?>
 <!--
+The following XML database contains information represeting a library.
+
+Books, their authors and genres are stored as XML Elements below.
+ -->
+
+
+<!--
 The following XML database contains information about books.
 
 We are storing the title of the book, its author and its genre.

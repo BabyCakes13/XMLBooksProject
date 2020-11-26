@@ -7,30 +7,28 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import java.util.Set;
 
-@XmlRootElement(name = "genres")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Genres {
 
   @XmlElement(name = "genre")
-  private Set<Genre> genres;
+  private Set<Genre> genre;
 
   public Genres() {}
 
-  public Genres(Set<Genre> genres) {
+  public Genres(Set<Genre> genre) {
     super();
-    this.genres = genres;
+    this.genre = genre;
   }
 
   public Set<Genre> getGenres() {
-    return this.genres;
+    return this.genre;
   }
 
-  public void setGenres(Set<Genre> genres) {
-    this.genres = genres;
+  public void setGenres(Set<Genre> genre) {
+    this.genre = genre;
   }
 
   @Override
     public String toString() {
-        return "Genres: " + this.genres;
+        return "Genres: " + this.genre;
     }
 }

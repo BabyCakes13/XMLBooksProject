@@ -8,8 +8,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import java.util.Set;
 
-@XmlRootElement(name = "books")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Books {
 
   @XmlElement(name = "book")

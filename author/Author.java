@@ -5,15 +5,15 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 public class Author {
-  private int id;
+  private String id;
   private String name;
-  private int birthYear;
-  private int deathYear;
+  private String birthYear;
+  private String deathYear;
   private String nationality;
 
   public Author() {}
 
-  public Author(int id, String name, int birthYear, int deathYear, String nationality) {
+  public Author(String id, String name, String birthYear, String deathYear, String nationality) {
     super();
     this.id = id;
     this.name = name;
@@ -23,11 +23,11 @@ public class Author {
   }
 
   @XmlAttribute
-  public int getId() {
+  public String getId() {
     return this.id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -41,20 +41,20 @@ public class Author {
   }
 
   @XmlElement
-  public int getBirthYear() {
+  public String getBirthYear() {
     return this.birthYear;
   }
 
-  public void setBirthYear(int birthYear) {
+  public void setBirthYear(String birthYear) {
     this.birthYear = birthYear;
   }
 
   @XmlElement
-  public int getDeathYear() {
+  public String getDeathYear() {
     return this.deathYear;
   }
 
-  public void setDeathYear(int deathYear) {
+  public void setDeathYear(String deathYear) {
     this.deathYear = deathYear;
   }
 
