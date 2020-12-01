@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="library" type="library"/>
+
+  <xs:complexType name="books">
+    <xs:sequence>
+      <xs:element name="book" type="book" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="book">
+    <xs:sequence>
+      <xs:element name="author" type="xs:string" minOccurs="0"/>
+      <xs:element name="genre" type="xs:string" minOccurs="0"/>
+      <xs:element name="title" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="library">
+    <xs:sequence>
+      <xs:element name="books" type="books" minOccurs="0"/>
+      <xs:element name="authors" type="authors" minOccurs="0"/>
+      <xs:element name="genres" type="genres" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="authors">
+    <xs:sequence>
+      <xs:element name="author" type="author" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="author">
+    <xs:sequence>
+      <xs:element name="birthYear" type="xs:string" minOccurs="0"/>
+      <xs:element name="deathYear" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="nationality" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="genres">
+    <xs:sequence>
+      <xs:element name="genre" type="genre" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="genres" type="genre" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="genre">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string"/>
+  </xs:complexType>
+</xs:schema>
+

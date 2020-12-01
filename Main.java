@@ -1,26 +1,24 @@
 import java.io.File;
-import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.util.Set;
 
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
+import java.io.IOException;
 
-import book.Book;
-import book.Books;
-import author.Author;
-import author.Authors;
-import genre.Genre;
-import genre.Genres;
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import org.xml.sax.SAXException;
 
 public class Main {
   public static void main(String[] args) {
     System.out.println("Starting the application.\n");
+    
+    System.out.println(validateXMLSchema("library.xsd", "library.xml"));
 
     loadLibrary();
 
@@ -55,22 +53,20 @@ public class Main {
         e.printStackTrace();
       }
   }
-
-  public static void marshallLibrary() throws Exception {
-    JAXBContext contextObj = JAXBContext.newInstance(Library.class);
-
-    Marshaller marshallerObj = contextObj.createMarshaller();
-    marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-    Genre genre = new Genre("g1" , "Dystopian");
-    ArrayList<Genre> genre_set = new ArrayList<>();
-    genre_set.add(genre);
-
-    Genres genres = new Genres(genre_set);
-
-    Library question=new Library(null, null, genres);
-
-    marshallerObj.marshal(question, new FileOutputStream("generated_library.xml"));
+  
+  public static boolean validateXMLSchema(String xsdPath, String xmlPath){
+      
+      try {
+          SchemaFactory factory = 
+                  SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+          Schema schema = factory.newSchema(new File(xsdPath));
+          Validator validator = schema.newValidator();
+          validator.validate(new StreamSource(new File(xmlPath)));
+      } catch (IOException | SAXException e) {
+          System.out.println("Exception: "+e.getMessage());
+          return false;
+      }
+      return true;
   }
 
   public static void print(Set<String> list) {
