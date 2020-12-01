@@ -3,6 +3,22 @@
 
   <xs:element name="library" type="library"/>
 
+  <xs:complexType name="writers">
+    <xs:sequence>
+      <xs:element name="writer" type="writer" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="writer">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="birthYear" type="xs:string" minOccurs="0"/>
+      <xs:element name="deathYear" type="xs:string" minOccurs="0"/>
+      <xs:element name="nationality" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string"/>
+  </xs:complexType>
+
   <xs:complexType name="books">
     <xs:sequence>
       <xs:element name="book" type="book" minOccurs="0" maxOccurs="unbounded"/>
@@ -11,9 +27,9 @@
 
   <xs:complexType name="book">
     <xs:sequence>
+      <xs:element name="title" type="xs:string" minOccurs="0"/>
       <xs:element name="author" type="xs:string" minOccurs="0"/>
       <xs:element name="genre" type="xs:string" minOccurs="0"/>
-      <xs:element name="title" type="xs:string" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:string"/>
   </xs:complexType>
@@ -24,22 +40,6 @@
       <xs:element name="writers" type="writers" minOccurs="0"/>
       <xs:element name="genres" type="genres" minOccurs="0"/>
     </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="writers">
-    <xs:sequence>
-      <xs:element name="writer" type="writer" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="writer">
-    <xs:sequence>
-      <xs:element name="birthYear" type="xs:string" minOccurs="0"/>
-      <xs:element name="deathYear" type="xs:string" minOccurs="0"/>
-      <xs:element name="name" type="xs:string" minOccurs="0"/>
-      <xs:element name="nationality" type="xs:string" minOccurs="0"/>
-    </xs:sequence>
-    <xs:attribute name="id" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="genres">

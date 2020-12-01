@@ -18,7 +18,11 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Starting the application.\n");
     
-    System.out.println(validateXMLSchema("library.xsd", "library.xml"));
+    if (!validateXMLSchema("library.xsd", "library.xml")) {
+    	System.out.println("The XML schema is not valid. Aborting mission.");
+    } else {
+    	System.out.println("The XML schema is valid.");
+    }
 
     loadLibrary();
 
@@ -55,7 +59,7 @@ public class Main {
   }
   
   public static boolean validateXMLSchema(String xsdPath, String xmlPath){
-      
+      System.out.println("Validating XML schema based on XSD...");
       try {
           SchemaFactory factory = 
                   SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
