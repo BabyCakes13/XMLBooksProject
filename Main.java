@@ -4,8 +4,7 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.util.ArrayList;
-import java.util.ArrayList;
+import java.util.Set;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -23,10 +22,10 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Starting the application.\n");
 
-    // loadLibrary();
+    loadLibrary();
 
-    File libraryFile = new File("library.xml");
-    Interogation interogation = new Interogation(libraryFile);
+    DOMparser parser = new DOMparser(new File("library.xml"));
+    Interogation interogation = new Interogation(parser);
 
     System.out.println("\nQuerry for all English authors:");
     print(interogation.getEnglishAuthors());
@@ -140,7 +139,7 @@ public class Main {
       }
   }
 
-  public static void print(ArrayList<String> list) {
+  public static void print(Set<String> list) {
     for(String s: list) {
       System.out.println(s);
     }

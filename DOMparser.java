@@ -7,6 +7,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import book.Book;
 import author.Author;
@@ -22,16 +24,18 @@ import genre.Genre;
 public class DOMparser {
   private File inputXMLFile;
   private Document document;
-  private int i;
   private NodeList library;
+  private Map<String, Integer> iterators;
+
   public DOMparser() {}
 
   public DOMparser(File inputXMLFile) {
     super();
     this.inputXMLFile = inputXMLFile;
     this.document = this.setupDOMparser();
-    this.i = 0;
     this.library = this.getLibrary();
+
+    this.iterators  = new HashMap<String, Integer>();
   }
 
   /**
@@ -75,9 +79,13 @@ public class DOMparser {
 
   public Node nextNode(String nodeName) {
     NodeList nodes = this.nodes(nodeName);
-    Node node = nodes.item(this.i++);
+    int iterator = this.iterators.getOrDefault(nodeName, 0);
+    Node node = nodes.item(iterator);
+    
+    this.iterators.put(nodeName, iterator + 1);
+
     if(node == null)
-      this.i = 0;
+      this.iterators.put(nodeName, 0);
     return node;
   }
 
