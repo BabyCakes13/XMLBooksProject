@@ -23,38 +23,29 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Starting the application.\n");
 
-    loadLibrary();
+    // loadLibrary();
 
-    // loadBooks();
-    // loadAuthors();
-    // loadGenres();
+    File libraryFile = new File("library.xml");
+    Interogation interogation = new Interogation(libraryFile);
 
-    // DOMparser booksParser = new DOMparser(new File("book/books.xml"), "book");
-    // DOMparser authorsParser = new DOMparser(new File("author/authors.xml"), "author");
-    // DOMparser genresParser = new DOMparser(new File("genre/genres.xml"), "genre");
-    //
-    // Interogation interogation = new Interogation(booksParser,
-    //                                              authorsParser,
-    //                                              genresParser);
+    System.out.println("\nQuerry for all English authors:");
+    print(interogation.getEnglishAuthors());
+    System.out.println("\nQuerry for all romance genre books:");
+    print(interogation.getRomanceBooks());
+    System.out.println("\nQuerry for all Colombian romance books.");
+    print(interogation.getColombianRomanceBooks());
+    System.out.println("\nQuerry for all authors with dystopian books.");
+    print(interogation.getAuthorsWithDystopianGenre());
+    System.out.println("\nQuerry for all English authorts still alive:");
+    print(interogation.getEnglishAuthorsAlive());
+    System.out.println("\nQuerry for all English genres:");
+    print(interogation.getAllEnglishGenres());
 
-    // System.out.println("\nQuerry for all English authors:");
-    // print(interogation.getEnglishAuthors());
-    // System.out.println("\nQuerry for all romance genre books:");
-    // print(interogation.getRomanceBooks());
-    // System.out.println("\nQuerry for all Colombian romance books.");
-    // print(interogation.getColombianRomanceBooks());
-    // System.out.println("\nQuerry for all authors with dystopian books.");
-    // print(interogation.getAuthorsWithDystopianGenre());
-    // System.out.println("\nQuerry for all English authorts still alive:");
-    // print(interogation.getEnglishAuthorsAlive());
-    // System.out.println("\nQuerry for all English genres:");
-    // print(interogation.getAllEnglishGenres());
-
-    // try {
-    // marshallLibrary();
-    // } catch (Exception e) {
-    //   System.out.println(e);
-    // }
+    try {
+    marshallLibrary();
+    } catch (Exception e) {
+      System.out.println(e);
+    }
   }
 
   public static void loadLibrary() {

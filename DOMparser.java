@@ -6,7 +6,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 
 import book.Book;
 import author.Author;
@@ -21,35 +21,17 @@ import genre.Genre;
 */
 public class DOMparser {
   private File inputXMLFile;
-  private String mainTag;
   private Document document;
   private int i;
-
+  private NodeList library;
   public DOMparser() {}
 
-  /**
-  * Constructor for the DOMparser class.
-  *
-  * The constructor is given the input XML file
-  * and the main tag it will search for in the XML.
-  *
-  * For example, if we have the following structure:
-  * <?xml version = "1.0"?>
-  * <books>
-  *  <book id="1">
-  *    <title>Notes from Underground</title>
-  *    <author>Fyodor Dostoevsky</author>
-  *    <genre>Philosophical</genre>
-  *  </book>
-  *</books>
-  * The mainTag would be "book".
-  */
-  public DOMparser(File inputXMLFile, String mainTag) {
+  public DOMparser(File inputXMLFile) {
     super();
     this.inputXMLFile = inputXMLFile;
     this.document = this.setupDOMparser();
-    this.mainTag = mainTag;
     this.i = 0;
+    this.library = this.getLibrary();
   }
 
   /**
@@ -64,7 +46,7 @@ public class DOMparser {
       Document doc = dBuilder.parse(this.inputXMLFile);
       doc.getDocumentElement().normalize();
 
-      System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
+      // System.out.println("Root element is:" + doc.getDocumentElement().getNodeName());
 
       return doc;
     } catch (Exception e) {
@@ -73,28 +55,29 @@ public class DOMparser {
     }
   }
 
-  /**
-  * @return The nodes for the mainTag parameter.
-  *
-  * For example, if we have the following structure:
-  * <?xml version = "1.0"?>
-  * <books>
-  *  <book id="1">
-  *    <title>Notes from Underground</title>
-  *    <author>Fyodor Dostoevsky</author>
-  *    <genre>Philosophical</genre>
-  *  </book>
-  *</books>
-  * The method will return: title, author and genre elements.
-  */
-  private NodeList nodes() {
-    return this.document.getElementsByTagName(this.mainTag);
+  private NodeList getLibrary() {
+    return this.document.getElementsByTagName("library");
   }
 
-  public Node nextNode() {
-    NodeList authorNodes = this.nodes();
-    Node node = authorNodes.item(this.i++);
-    if(node == null) this.i = 0;
+  private NodeList nodes(String nodeName) {
+    NodeList nodes = this.document.getElementsByTagName(nodeName + "s");
+    NodeList authorNodes = ((Element)nodes.item(0)).getElementsByTagName(nodeName);
+
+    if (false) {
+      for(int i = 0; i < authorNodes.getLength(); i++) {
+        System.out.println("..." + authorNodes.item(i).getTextContent());
+      }
+      System.out.println("Done.");
+    }
+
+    return authorNodes;
+  }
+
+  public Node nextNode(String nodeName) {
+    NodeList nodes = this.nodes(nodeName);
+    Node node = nodes.item(this.i++);
+    if(node == null)
+      this.i = 0;
     return node;
   }
 
@@ -102,9 +85,9 @@ public class DOMparser {
   * Element is a subclass of Node. In the parser,
   * we only want to work with elements for now.
   */
-  public Element nextElement() {
+  public Element nextElement(String nodeName) {
     Node node = null;
-    while (((node = this.nextNode()) != null) &&
+    while (((node = this.nextNode(nodeName)) != null) &&
            (node.getNodeType() != Node.ELEMENT_NODE)) {}
     return (Element) node;
   }

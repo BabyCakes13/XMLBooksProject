@@ -4,12 +4,10 @@ import genre.Genre;
 import java.util.ArrayList;
 import java.util.ArrayList;
 import org.w3c.dom.Element;
+import java.io.File;
 
 public class Interogation {
-  private DOMparser booksParser;
-  private DOMparser authorsParser;
-  private DOMparser genresParser;
-
+  private File libraryFile;
 /**
 * Interogation class.
 *
@@ -18,23 +16,20 @@ public class Interogation {
 * used for querying from the XML databases, based
 * on some questions.
 */
-  public Interogation(DOMparser booksParser,
-                      DOMparser authorsParser,
-                      DOMparser genresParser) {
-    this.booksParser = booksParser;
-    this.authorsParser = authorsParser;
-    this.genresParser = genresParser;
+  public Interogation(File libraryFile) {
+    this.libraryFile = libraryFile;
   }
 
   public ArrayList<String> getEnglishAuthors() {
     ArrayList<String> result = new ArrayList<>();
     Element element = null;
+    DOMparser parser = new DOMparser(this.libraryFile);
 
-    while((element = this.authorsParser.nextElement()) != null){
+    while((element = parser.nextElement("author")) != null){
         String nationality =
-          this.authorsParser.extractElementFromTag(element, "nationality");
+          parser.extractElementFromTag(element, "nationality");
         String name =
-          this.authorsParser.extractElementFromTag(element, "name");
+          parser.extractElementFromTag(element, "name");
 
         if (nationality.equals("English")) {
           result.add(name);
@@ -46,12 +41,13 @@ public class Interogation {
   public ArrayList<String> getRomanceBooks() {
     ArrayList<String> result = new ArrayList<>();
     Element element = null;
+    DOMparser parser = new DOMparser(this.libraryFile);
 
-    while((element = this.booksParser.nextElement()) != null){
+    while((element = parser.nextElement("book")) != null){
         String genre =
-          this.booksParser.extractElementFromTag(element, "genre");
+          parser.extractElementFromTag(element, "genre");
         String title =
-          this.booksParser.extractElementFromTag(element, "title");
+          parser.extractElementFromTag(element, "title");
 
         if (genre.equals("Romance")) {
           result.add(title);
@@ -63,13 +59,14 @@ public class Interogation {
   public ArrayList<String> getColombianRomanceBooks() {
     ArrayList<String> result = new ArrayList<>();
     Element element = null;
+    DOMparser parser = new DOMparser(this.libraryFile);
 
-    while((element = this.authorsParser.nextElement()) != null){
+    while((element = parser.nextElement("author")) != null){
       ArrayList<String> partialResult = new ArrayList<>();
         String nationality =
-          this.authorsParser.extractElementFromTag(element, "nationality");
+          parser.extractElementFromTag(element, "nationality");
         String authorName =
-          this.authorsParser.extractElementFromTag(element, "name");
+          parser.extractElementFromTag(element, "name");
 
         if (nationality.equals("Colombian")) {
           partialResult = this.getAllRomanceBooksOfAuthor(authorName);
@@ -82,14 +79,15 @@ public class Interogation {
   public ArrayList<String> getAllRomanceBooksOfAuthor(String authorName) {
     Element element = null;
     ArrayList<String> result = new ArrayList<>();
+    DOMparser parser = new DOMparser(this.libraryFile);
 
-    while((element = this.booksParser.nextElement()) != null){
+    while((element = parser.nextElement("book")) != null){
         String author =
-          this.booksParser.extractElementFromTag(element, "author");
+          parser.extractElementFromTag(element, "author");
         String title =
-          this.booksParser.extractElementFromTag(element, "title");
+          parser.extractElementFromTag(element, "title");
         String genre =
-          this.booksParser.extractElementFromTag(element, "genre");
+          parser.extractElementFromTag(element, "genre");
 
         if ((author.equals(authorName)) && (genre.equals("Romance"))) {
           result.add(title);
@@ -101,12 +99,13 @@ public class Interogation {
   public ArrayList<String> getAuthorsWithDystopianGenre() {
     ArrayList<String> result = new ArrayList<>();
     Element element = null;
+    DOMparser parser = new DOMparser(this.libraryFile);
 
-    while((element = this.booksParser.nextElement()) != null){
+    while((element = parser.nextElement("book")) != null){
         String genre =
-          this.booksParser.extractElementFromTag(element, "genre");
+          parser.extractElementFromTag(element, "genre");
         String author =
-          this.booksParser.extractElementFromTag(element, "author");
+          parser.extractElementFromTag(element, "author");
 
         if (genre.equals("Dystopian")) {
           result.add(author);
@@ -118,14 +117,15 @@ public class Interogation {
   public ArrayList<String> getEnglishAuthorsAlive() {
     ArrayList<String> result = new ArrayList<>();
     Element element = null;
+    DOMparser parser = new DOMparser(this.libraryFile);
 
-    while((element = this.authorsParser.nextElement()) != null){
+    while((element = parser.nextElement("author")) != null){
         String deathYear =
-          this.authorsParser.extractElementFromTag(element, "deathYear");
+          parser.extractElementFromTag(element, "deathYear");
         String nationality =
-          this.authorsParser.extractElementFromTag(element, "nationality");
+          parser.extractElementFromTag(element, "nationality");
         String name =
-          this.authorsParser.extractElementFromTag(element, "name");
+          parser.extractElementFromTag(element, "name");
 
         if ((deathYear.equals("-")) && (nationality.equals("English"))) {
           result.add(name);
@@ -138,12 +138,13 @@ public class Interogation {
     ArrayList<String> result = new ArrayList<>();
     ArrayList<String> authors = this.getEnglishAuthors();
     Element element = null;
+    DOMparser parser = new DOMparser(this.libraryFile);
 
-    while((element = this.booksParser.nextElement()) != null){
+    while((element = parser.nextElement("book")) != null){
         String genre =
-          this.booksParser.extractElementFromTag(element, "genre");
+          parser.extractElementFromTag(element, "genre");
         String author =
-          this.booksParser.extractElementFromTag(element, "author");
+          parser.extractElementFromTag(element, "author");
 
         if (authors.contains(author)) {
           result.add(genre);
