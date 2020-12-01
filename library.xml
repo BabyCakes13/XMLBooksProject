@@ -119,38 +119,38 @@ Books, their authors and genres are stored as XML Elements below.
   We are storing their names, birth and death year as well as nationality.
   An unique identifier is also stored for each
   -->
-  <authors>
-    <author id="a1">
+  <writers>
+    <writer id="a1">
       <name>Fyodor Dostoevsky</name>
       <birthYear>1821</birthYear>
       <deathYear>1821</deathYear>
       <nationality>Russian</nationality>
-    </author>
-    <author id="a2">
+    </writer>
+    <writer id="a2">
       <name>George Orwell</name>
       <birthYear>1903</birthYear>
       <deathYear>1950</deathYear>
       <nationality>English</nationality>
-    </author>
-    <author id="a3">
+    </writer>
+    <writer id="a3">
       <name>Aldous Huxley</name>
       <birthYear>1894</birthYear>
       <deathYear>1963</deathYear>
       <nationality>English</nationality>
-    </author>
-    <author id="a4">
+    </writer>
+    <writer id="a4">
       <name>J. K. Rowling</name>
       <birthYear>1965</birthYear>
       <deathYear>-</deathYear>
       <nationality>English</nationality>
-    </author>
-    <author id="a5">
+    </writer>
+    <writer id="a5">
       <name>Gabriel García Márquez</name>
       <birthYear>1927</birthYear>
       <deathYear>2014</deathYear>
       <nationality>Colombian</nationality>
-    </author>
-  </authors>
+    </writer>
+  </writers>
 
   <!--
   The following XML database contains different book genres.

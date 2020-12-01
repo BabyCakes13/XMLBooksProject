@@ -1,6 +1,7 @@
 import book.Book;
-import author.Author;
 import genre.Genre;
+import writer.Writer;
+
 import java.util.HashSet;
 import java.util.Set;
 import org.w3c.dom.Element;
@@ -12,7 +13,7 @@ public class Interogation {
 * Interogation class.
 *
 * Having been given three parsers for the books,
-* authors and genres, the Interogation class is
+* writers and genres, the Interogation class is
 * used for querying from the XML databases, based
 * on some questions.
 */
@@ -20,11 +21,11 @@ public class Interogation {
     this.parser = parser;
   }
 
-  public Set<String> getEnglishAuthors() {
+  public Set<String> getEnglishWriters() {
     Set<String> result = new HashSet<>();
     Element element = null;
 
-    while((element = this.parser.nextElement("author")) != null){
+    while((element = this.parser.nextElement("writer")) != null){
         String nationality =
           this.parser.extractElementFromTag(element, "nationality");
         String name =
@@ -58,62 +59,62 @@ public class Interogation {
     Set<String> result = new HashSet<>();
     Element element = null;
 
-    while((element = this.parser.nextElement("author")) != null){
+    while((element = this.parser.nextElement("writer")) != null){
       Set<String> partialResult = new HashSet<>();
         String nationality =
           this.parser.extractElementFromTag(element, "nationality");
-        String authorName =
+        String writerName =
           this.parser.extractElementFromTag(element, "name");
 
         if (nationality.equals("Colombian")) {
-          partialResult = this.getAllRomanceBooksOfAuthor(authorName);
+          partialResult = this.getAllRomanceBooksOfWriter(writerName);
           result.addAll(partialResult);
         }
     }
     return result;
   }
 
-  public Set<String> getAllRomanceBooksOfAuthor(String authorName) {
+  public Set<String> getAllRomanceBooksOfWriter(String writerName) {
     Element element = null;
     Set<String> result = new HashSet<>();
 
     while((element = this.parser.nextElement("book")) != null){
-        String author =
+        String writer =
           this.parser.extractElementFromTag(element, "author");
         String title =
           this.parser.extractElementFromTag(element, "title");
         String genre =
           this.parser.extractElementFromTag(element, "genre");
 
-        if ((author.equals(authorName)) && (genre.equals("Romance"))) {
+        if ((writer.equals(writerName)) && (genre.equals("Romance"))) {
           result.add(title);
         }
     }
     return result;
   }
 
-  public Set<String> getAuthorsWithDystopianGenre() {
+  public Set<String> getWritersWithDystopianGenre() {
     Set<String> result = new HashSet<>();
     Element element = null;
 
     while((element = this.parser.nextElement("book")) != null){
         String genre =
           this.parser.extractElementFromTag(element, "genre");
-        String author =
+        String writer =
           this.parser.extractElementFromTag(element, "author");
 
         if (genre.equals("Dystopian")) {
-          result.add(author);
+          result.add(writer);
         }
     }
     return result;
   }
 
-  public Set<String> getEnglishAuthorsAlive() {
+  public Set<String> getEnglishWritersAlive() {
     Set<String> result = new HashSet<>();
     Element element = null;
 
-    while((element = this.parser.nextElement("author")) != null){
+    while((element = this.parser.nextElement("writer")) != null){
         String deathYear =
           this.parser.extractElementFromTag(element, "deathYear");
         String nationality =
@@ -130,16 +131,16 @@ public class Interogation {
 
   public Set<String> getAllEnglishGenres() {
     Set<String> result = new HashSet<>();
-    Set<String> authors = this.getEnglishAuthors();
+    Set<String> writers = this.getEnglishWriters();
     Element element = null;
 
     while((element = this.parser.nextElement("book")) != null){
         String genre =
           this.parser.extractElementFromTag(element, "genre");
-        String author =
+        String writer =
           this.parser.extractElementFromTag(element, "author");
 
-        if (authors.contains(author)) {
+        if (writers.contains(writer)) {
           result.add(genre);
         }
     }

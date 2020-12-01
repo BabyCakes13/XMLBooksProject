@@ -7,25 +7,25 @@ import javax.xml.bind.annotation.XmlAccessType;
 import java.util.ArrayList;
 
 import book.Books;
-import author.Authors;
 import genre.Genres;
+import writer.Writers;
 
 @XmlRootElement(name = "library")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Library {
   // @XmlElement(name = "books")
   private Books books;
-  // @XmlElement(name = "authors")
-  private Authors authors;
+  // @XmlElement(name = "writers")
+  private Writers writers;
   // @XmlElement(name = "genres")
   private Genres genres;
 
   public Library() {}
 
-  public Library(Books books, Authors authors, Genres genres) {
+  public Library(Books books, Writers writers, Genres genres) {
     super();
     this.books = books;
-    this.authors = authors;
+    this.writers = writers;
     this.genres = genres;
   }
 
@@ -37,12 +37,12 @@ public class Library {
     this.books = books;
   }
 
-  public Authors getAuthors() {
-    return this.authors;
+  public Writers getWriters() {
+    return this.writers;
   }
 
-  public void setAuthors(Authors authors) {
-    this.authors = authors;
+  public void setWriters(Writers writers) {
+    this.writers = writers;
   }
 
   public Genres getGenre() {
@@ -55,6 +55,6 @@ public class Library {
 
   @Override
   public String toString() {
-    return "Library:\n" + this.books + "\n" + this.authors + "\n" + this.genres;
+    return "Library:\n" + this.books + "\n" + this.writers + "\n" + this.genres;
   }
 }

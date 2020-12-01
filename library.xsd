@@ -21,18 +21,18 @@
   <xs:complexType name="library">
     <xs:sequence>
       <xs:element name="books" type="books" minOccurs="0"/>
-      <xs:element name="authors" type="authors" minOccurs="0"/>
+      <xs:element name="writers" type="writers" minOccurs="0"/>
       <xs:element name="genres" type="genres" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="authors">
+  <xs:complexType name="writers">
     <xs:sequence>
-      <xs:element name="author" type="author" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="writer" type="writer" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="author">
+  <xs:complexType name="writer">
     <xs:sequence>
       <xs:element name="birthYear" type="xs:string" minOccurs="0"/>
       <xs:element name="deathYear" type="xs:string" minOccurs="0"/>

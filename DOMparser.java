@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import book.Book;
-import author.Author;
 import genre.Genre;
+import writer.Writer;
 
 /**
 * Parser for an XML file.
@@ -65,16 +65,16 @@ public class DOMparser {
 
   private NodeList nodes(String nodeName) {
     NodeList nodes = this.document.getElementsByTagName(nodeName + "s");
-    NodeList authorNodes = ((Element)nodes.item(0)).getElementsByTagName(nodeName);
+    NodeList subNodes = ((Element)nodes.item(0)).getElementsByTagName(nodeName);
 
     if (false) {
-      for(int i = 0; i < authorNodes.getLength(); i++) {
-        System.out.println("..." + authorNodes.item(i).getTextContent());
+      for(int i = 0; i < subNodes.getLength(); i++) {
+        System.out.println("..." + subNodes.item(i).getTextContent());
       }
       System.out.println("Done.");
     }
 
-    return authorNodes;
+    return subNodes;
   }
 
   public Node nextNode(String nodeName) {
