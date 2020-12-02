@@ -60,7 +60,8 @@ public class xPathParser {
   }
 
   public void displayAllBooks(NodeList nodeList) {
-    System.out.println("Trying to display the node list of books: " + nodeList);
+    System.out.println("Displaying all books from the library: " + nodeList);
+
     for (int i = 0; i < nodeList.getLength(); i++) {
         if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
             Element el = (Element) nodeList.item(i);
@@ -68,6 +69,7 @@ public class xPathParser {
               String title = el.getElementsByTagName("title").item(0).getTextContent();
               String author = el.getElementsByTagName("author").item(0).getTextContent();
               String genre = el.getElementsByTagName("genre").item(0).getTextContent();
+
               System.out.println("Book: " + title + " (" + author + ", " + genre + ")");
             }
         }

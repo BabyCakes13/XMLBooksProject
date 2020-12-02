@@ -22,6 +22,7 @@ public class Interogation {
   }
 
   public Set<String> getEnglishWriters() {
+    System.out.println("\nQuerry for all English writers...");
     Set<String> result = new HashSet<>();
     Element element = null;
 
@@ -39,6 +40,7 @@ public class Interogation {
   }
 
   public Set<String> getRomanceBooks() {
+    System.out.println("\nQuerry for all romance genre books...");
     Set<String> result = new HashSet<>();
     Element element = null;
 
@@ -56,6 +58,7 @@ public class Interogation {
   }
 
   public Set<String> getColombianRomanceBooks() {
+    System.out.println("\nQuerry for all Colombian romance books...");
     Set<String> result = new HashSet<>();
     Element element = null;
 
@@ -75,6 +78,7 @@ public class Interogation {
   }
 
   public Set<String> getAllRomanceBooksOfWriter(String writerName) {
+    System.out.println("\nQuerry for all romance book of writer " + writerName + "...");
     Element element = null;
     Set<String> result = new HashSet<>();
 
@@ -94,6 +98,7 @@ public class Interogation {
   }
 
   public Set<String> getWritersWithDystopianGenre() {
+    System.out.println("\nQuerry for all writers with dystopian books...");
     Set<String> result = new HashSet<>();
     Element element = null;
 
@@ -111,6 +116,7 @@ public class Interogation {
   }
 
   public Set<String> getEnglishWritersAlive() {
+    System.out.println("\nQuerry for all English writers still alive...");
     Set<String> result = new HashSet<>();
     Element element = null;
 
@@ -130,6 +136,7 @@ public class Interogation {
   }
 
   public Set<String> getAllEnglishGenres() {
+    System.out.println("\nQuerry for all English genres...");
     Set<String> result = new HashSet<>();
     Set<String> writers = this.getEnglishWriters();
     Element element = null;

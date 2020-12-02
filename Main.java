@@ -40,17 +40,12 @@ public class Main {
     DOMparser parser = new DOMparser(xmlInputFile);
     Interogation interogation = new Interogation(parser);
 
-    System.out.println("\nQuerry for all English writers:");
     print(interogation.getEnglishWriters());
-    System.out.println("\nQuerry for all romance genre books:");
     print(interogation.getRomanceBooks());
-    System.out.println("\nQuerry for all Colombian romance books.");
     print(interogation.getColombianRomanceBooks());
-    System.out.println("\nQuerry for all writers with dystopian books.");
+    print(interogation.getAllRomanceBooksOfWriter("Gabriel García Márquez"));
     print(interogation.getWritersWithDystopianGenre());
-    System.out.println("\nQuerry for all English writers still alive:");
     print(interogation.getEnglishWritersAlive());
-    System.out.println("\nQuerry for all English genres:");
     print(interogation.getAllEnglishGenres());
 
     System.out.println("\n");
