@@ -49,19 +49,22 @@ public class xPathParser {
   }
 
   public void tryXPath() {
-    try{
-      String expression = "library/books/book";
-      NodeList nodeList = (NodeList) this.xPath.compile(expression).evaluate(this.document, XPathConstants.NODESET);
+    this.displayAllBooks("library/books/book");
+  }
 
-      this.displayAllBooks(nodeList);
-    } catch(XPathExpressionException e) {
+  public void displayAllBooks(String expression) {
+    System.out.println("Displaying all books from the library...");
+
+    try {
+      NodeList nodeList = (NodeList) this.xPath.compile(expression)
+        .evaluate(this.document, XPathConstants.NODESET);
+      this.parseAllBooks(nodeList);
+    } catch (XPathExpressionException e) {
       System.out.println(e);
     }
   }
 
-  public void displayAllBooks(NodeList nodeList) {
-    System.out.println("Displaying all books from the library: " + nodeList);
-
+  public void parseAllBooks(NodeList nodeList) {
     for (int i = 0; i < nodeList.getLength(); i++) {
         if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
             Element el = (Element) nodeList.item(i);
@@ -74,5 +77,26 @@ public class xPathParser {
             }
         }
       }
-    }
+  }
+
+  public void displayAllWriters(NodeList nodeList) {
+    System.out.println("Displaying all writers from the library: " + nodeList);
+
+    for (int i = 0; i < nodeList.getLength(); i++) {
+        if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+            Element el = (Element) nodeList.item(i);
+            if (el.getNodeName().contains("writer")) {
+              String name = el.getElementsByTagName("name").item(0).getTextContent();
+              String birthYear = el.getElementsByTagName("birthYear").item(0).getTextContent();
+              String deathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
+              String nationality = el.getElementsByTagName("nationality").item(0).getTextContent();
+
+              System.out.println("Writer: " + name + " (" +
+                                              birthYear + ", " +
+                                              deathYear + ", " +
+                                              nationality + ")");
+            }
+        }
+   }
+ }
 }
