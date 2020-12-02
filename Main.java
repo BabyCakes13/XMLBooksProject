@@ -6,6 +6,7 @@ import javax.xml.bind.Unmarshaller;
 import java.util.Set;
 
 import java.io.IOException;
+import java.io.File;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
@@ -24,13 +25,19 @@ public class Main {
     	System.out.println("The XML schema is valid.");
     }
 
+    File xmlInputFile = new File("library.xml");
     loadLibrary();
-
-    solveWithDOM();
+    solveWithDOM(xmlInputFile);
+    solveWithXPath(xmlInputFile);
   }
 
-  public static void solveWithDOM() {
-    DOMparser parser = new DOMparser(new File("library.xml"));
+  public static void solveWithXPath(File xmlInputFile) {
+    xPathParser xPath = new xPathParser(xmlInputFile);
+    xPath.tryXPath();
+  }
+
+  public static void solveWithDOM(File xmlInputFile) {
+    DOMparser parser = new DOMparser(xmlInputFile);
     Interogation interogation = new Interogation(parser);
 
     System.out.println("\nQuerry for all English writers:");
@@ -45,6 +52,8 @@ public class Main {
     print(interogation.getEnglishWritersAlive());
     System.out.println("\nQuerry for all English genres:");
     print(interogation.getAllEnglishGenres());
+
+    System.out.println("\n");
   }
 
   public static void loadLibrary() {
