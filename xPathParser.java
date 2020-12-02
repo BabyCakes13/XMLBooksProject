@@ -15,6 +15,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.IOException;
+import java.lang.IndexOutOfBoundsException;
 
 public class xPathParser {
   private File inputXMLFile;
@@ -22,18 +23,13 @@ public class xPathParser {
   private XPath xPath;
 
   public xPathParser(File inputXMLFile) {
-    System.out.println("Creating xPath parser...\n");
+    System.out.println("Creating xPath parser...");
 
     this.inputXMLFile = inputXMLFile;
     this.document = this.setupDocument();
     this.xPath = XPathFactory.newInstance().newXPath();
   }
 
-  /**
-  * Setup and normalize the document.
-  *
-  * @return The XML document.
-  */
   private Document setupDocument() {
     try {
       DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -49,16 +45,34 @@ public class xPathParser {
   }
 
   public void tryXPath() {
-    this.displayAllBooks("library/books/book");
+    this.displayAll("library/books/book");
+    this.displayAll("library/writers/writer");
+    this.displayAll("library/genres/genre");
   }
 
-  public void displayAllBooks(String expression) {
-    System.out.println("Displaying all books from the library...");
+  public void displayAll(String expression) {
+    String displayItem = this.getLastButOneElementOf(expression, "/");
+    System.out.println("\nDisplaying all " + displayItem + " from the library...");
 
     try {
       NodeList nodeList = (NodeList) this.xPath.compile(expression)
         .evaluate(this.document, XPathConstants.NODESET);
-      this.parseAllBooks(nodeList);
+
+        switch(displayItem) {
+          case "books":
+            this.parseAllBooks(nodeList);
+          break;
+          case "writers":
+            this.parseAllWriters(nodeList);
+          break;
+          case "genres":
+            this.parseAllGenres(nodeList);
+          break;
+          default:
+            System.out.println("The parsing option " + displayItem + " does not exist.");
+        }
+
+
     } catch (XPathExpressionException e) {
       System.out.println(e);
     }
@@ -79,9 +93,7 @@ public class xPathParser {
       }
   }
 
-  public void displayAllWriters(NodeList nodeList) {
-    System.out.println("Displaying all writers from the library: " + nodeList);
-
+  public void parseAllWriters(NodeList nodeList) {
     for (int i = 0; i < nodeList.getLength(); i++) {
         if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
             Element el = (Element) nodeList.item(i);
@@ -97,6 +109,39 @@ public class xPathParser {
                                               nationality + ")");
             }
         }
-   }
- }
+      }
+    }
+
+    public void parseAllGenres(NodeList nodeList) {
+      for (int i = 0; i < nodeList.getLength(); i++) {
+          if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+              Element el = (Element) nodeList.item(i);
+              if (el.getNodeName().contains("genre")) {
+                String name = el.getElementsByTagName("name").item(0).getTextContent();
+
+                System.out.println("Genre: " + name);
+              }
+          }
+        }
+    }
+
+  public String getLastButOneElementOf(String expression, String delimiter) {
+    String[] splited = expression.split(delimiter);
+
+    if(false) {
+      System.out.println("Printing the result of splitting:");
+      for (String word: splited) {
+        System.out.println(word + " ");
+      }
+    }
+
+    try {
+      String lastElement = splited[splited.length - 2];
+      return lastElement;
+    } catch (IndexOutOfBoundsException e) {
+      System.out.println(e);
+    }
+
+    return null;
+  }
 }
