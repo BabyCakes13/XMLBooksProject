@@ -23,7 +23,7 @@ public class xPathParser {
   private XPath xPath;
 
   public xPathParser(File inputXMLFile) {
-    System.out.println("Creating xPath parser...");
+    System.out.println("CREATING XPATH PARSER...");
 
     this.inputXMLFile = inputXMLFile;
     this.document = this.setupDocument();
@@ -58,21 +58,19 @@ public class xPathParser {
       NodeList nodeList = (NodeList) this.xPath.compile(expression)
         .evaluate(this.document, XPathConstants.NODESET);
 
-        switch(displayItem) {
-          case "books":
-            this.parseAllBooks(nodeList);
-          break;
-          case "writers":
-            this.parseAllWriters(nodeList);
-          break;
-          case "genres":
-            this.parseAllGenres(nodeList);
-          break;
-          default:
-            System.out.println("The parsing option " + displayItem + " does not exist.");
-        }
-
-
+      switch(displayItem) {
+        case "books":
+          this.parseAllBooks(nodeList);
+        break;
+        case "writers":
+          this.parseAllWriters(nodeList);
+        break;
+        case "genres":
+          this.parseAllGenres(nodeList);
+        break;
+        default:
+          System.out.println("The parsing option " + displayItem + " does not exist.");
+      }
     } catch (XPathExpressionException e) {
       System.out.println(e);
     }
