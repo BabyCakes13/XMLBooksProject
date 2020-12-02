@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 public class Main {
   public static void main(String[] args) {
     System.out.println("Starting the application.\n");
-    
+
     if (!validateXMLSchema("library.xsd", "library.xml")) {
     	System.out.println("The XML schema is not valid. Aborting mission.");
     } else {
@@ -26,6 +26,10 @@ public class Main {
 
     loadLibrary();
 
+    solveWithDOM();
+  }
+
+  public static void solveWithDOM() {
     DOMparser parser = new DOMparser(new File("library.xml"));
     Interogation interogation = new Interogation(parser);
 
@@ -57,11 +61,11 @@ public class Main {
         e.printStackTrace();
       }
   }
-  
+
   public static boolean validateXMLSchema(String xsdPath, String xmlPath){
       System.out.println("Validating XML schema based on XSD...");
       try {
-          SchemaFactory factory = 
+          SchemaFactory factory =
                   SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
           Schema schema = factory.newSchema(new File(xsdPath));
           Validator validator = schema.newValidator();
