@@ -56,6 +56,8 @@ public class xPathParser {
 		this.displayWriters("English", "nationality");
 		this.displayWriters(true);
 		this.displayWriters(false);
+		
+		this.displayGenres("Romance");
 	}
 
 
@@ -103,6 +105,7 @@ public class xPathParser {
 	}
 
 	// BOOK PRINTERS STARTING HERE
+	
 	public class BookPrinter implements ElementPrinter {
 		public void display(Element el) {
 			String title = el.getElementsByTagName("title").item(0).getTextContent();
@@ -231,6 +234,24 @@ public class xPathParser {
 
 			System.out.println("Genre: " + name);
 		}
+	}
+	
+	public class GenrePrinterByName extends GenrePrinter {
+		public String name;
+		public GenrePrinterByName(String name) {
+			this.name = name;
+		}
+
+		public void display(Element el) {
+			String genreName = el.getElementsByTagName("name").item(0).getTextContent();
+			if (genreName.equals(this.name))
+				super.display(el);
+		}
+	}
+	
+	public void displayGenres(String name) {
+		System.out.println("\nDisplaying " + name + " genre...");
+		iterateNodesAndApply("library/genres/genre", new GenrePrinterByName(name));
 	}
 
 	public String getLastButOneElementOf(String expression, String delimiter) {
