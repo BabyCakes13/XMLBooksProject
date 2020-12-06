@@ -11,6 +11,10 @@ public class Writer {
   private String nationality;
 
   public Writer() {}
+  
+  public Writer(String name) {
+	  this.name = name;
+  }
 
   public Writer(String id, String name, String birthYear, String deathYear, String nationality) {
     super();

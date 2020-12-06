@@ -16,6 +16,11 @@ public class Genre {
     this.name = name;
   }
 
+  public Genre(String name) {
+    super();
+    this.name = name;
+  }
+
   @XmlAttribute
   public String getId() {
     return this.id;

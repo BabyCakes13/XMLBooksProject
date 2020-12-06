@@ -49,7 +49,7 @@ public class Library {
     return this.genres;
   }
 
-  public void setGenre(Genres genre) {
+  public void setGenre(Genres genres) {
     this.genres = genres;
   }
 
