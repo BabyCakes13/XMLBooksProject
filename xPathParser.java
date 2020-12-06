@@ -48,9 +48,29 @@ public class xPathParser {
     this.displayAll("library/books/book");
     this.displayAll("library/writers/writer");
     this.displayAll("library/genres/genre");
+    this.displayAll("library/macarons/macaron"); // FAKE FAKE FAKE
   }
 
   public void displayAll(String expression) {
+    String displayItem = this.getLastButOneElementOf(expression, "/");
+    System.out.println("\nDisplaying all " + displayItem + " from the library...");
+    ElementPrinter ep;
+
+    switch(displayItem) {
+      case "books":
+        ep = new BookPrinter();
+        break;
+      case "writers":
+        ep = new WriterPrinter();
+        break;
+      case "genres":
+        ep = new GenrePrinter();
+        break;
+      default:
+        System.out.println("The parsing option " + displayItem + " does not exist.");
+        return;
+    }
+
     try {
       NodeList nodeList = (NodeList) this.xPath.compile(expression)
         .evaluate(this.document, XPathConstants.NODESET);
@@ -59,20 +79,7 @@ public class xPathParser {
           if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
               Element el = (Element) nodeList.item(i);
               String element_name = el.getNodeName();
-
-              switch(element_name) {
-                case "book":
-                  this.displayBookInfo(el);
-                  break;
-                case "writer":
-                  this.displayWriterInfo(el);
-                  break;
-                case "genre":
-                  this.displayGenreInfo(el);
-                  break;
-                default:
-                  System.out.println("The parsing option " + element_name + " does not exist.");
-              }
+              ep.display(el);
           }
       }
     } catch (XPathExpressionException e) {
@@ -80,31 +87,42 @@ public class xPathParser {
     }
   }
 
-  public void displayBookInfo(Element el) {
-    String title = el.getElementsByTagName("title").item(0).getTextContent();
-    String author = el.getElementsByTagName("author").item(0).getTextContent();
-    String genre = el.getElementsByTagName("genre").item(0).getTextContent();
-
-    System.out.println("Book: " + title + " (" + author + ", " + genre + ")");
+  public interface ElementPrinter {
+    public void display(Element el);
   }
 
-  public void displayWriterInfo(Element el) {
-    String name = el.getElementsByTagName("name").item(0).getTextContent();
-    String birthYear = el.getElementsByTagName("birthYear").item(0).getTextContent();
-    String deathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
-    String nationality = el.getElementsByTagName("nationality").item(0).getTextContent();
 
-    System.out.println("Writer: " + name + " (" +
-                                    birthYear + ", " +
-                                    deathYear + ", " +
-                                    nationality + ")");
+  public class BookPrinter implements ElementPrinter {
+    public void display(Element el) {
+      String title = el.getElementsByTagName("title").item(0).getTextContent();
+      String author = el.getElementsByTagName("author").item(0).getTextContent();
+      String genre = el.getElementsByTagName("genre").item(0).getTextContent();
+
+      System.out.println("Book: " + title + " (" + author + ", " + genre + ")");
     }
+  }
 
-    public void displayGenreInfo(Element el) {
+  public class WriterPrinter implements ElementPrinter {
+    public void display(Element el) {
+      String name = el.getElementsByTagName("name").item(0).getTextContent();
+      String birthYear = el.getElementsByTagName("birthYear").item(0).getTextContent();
+      String deathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
+      String nationality = el.getElementsByTagName("nationality").item(0).getTextContent();
+
+      System.out.println("Writer: " + name + " (" +
+                                      birthYear + ", " +
+                                      deathYear + ", " +
+                                      nationality + ")");
+    }
+  }
+
+  public class GenrePrinter implements ElementPrinter {
+    public void display(Element el) {
       String name = el.getElementsByTagName("name").item(0).getTextContent();
 
       System.out.println("Genre: " + name);
     }
+  }
 
   public String getLastButOneElementOf(String expression, String delimiter) {
     String[] splited = expression.split(delimiter);
