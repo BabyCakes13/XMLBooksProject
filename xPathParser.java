@@ -51,76 +51,59 @@ public class xPathParser {
   }
 
   public void displayAll(String expression) {
-    String displayItem = this.getLastButOneElementOf(expression, "/");
-    System.out.println("\nDisplaying all " + displayItem + " from the library...");
-
     try {
       NodeList nodeList = (NodeList) this.xPath.compile(expression)
         .evaluate(this.document, XPathConstants.NODESET);
 
-      switch(displayItem) {
-        case "books":
-          this.parseAllBooks(nodeList);
-        break;
-        case "writers":
-          this.parseAllWriters(nodeList);
-        break;
-        case "genres":
-          this.parseAllGenres(nodeList);
-        break;
-        default:
-          System.out.println("The parsing option " + displayItem + " does not exist.");
+      for (int i = 0; i < nodeList.getLength(); i++) {
+          if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+              Element el = (Element) nodeList.item(i);
+              String element_name = el.getNodeName();
+
+              switch(element_name) {
+                case "book":
+                  this.displayBookInfo(el);
+                  break;
+                case "writer":
+                  this.displayWriterInfo(el);
+                  break;
+                case "genre":
+                  this.displayGenreInfo(el);
+                  break;
+                default:
+                  System.out.println("The parsing option " + element_name + " does not exist.");
+              }
+          }
       }
     } catch (XPathExpressionException e) {
       System.out.println(e);
     }
   }
 
-  public void parseAllBooks(NodeList nodeList) {
-    for (int i = 0; i < nodeList.getLength(); i++) {
-        if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-            Element el = (Element) nodeList.item(i);
-            if (el.getNodeName().contains("book")) {
-              String title = el.getElementsByTagName("title").item(0).getTextContent();
-              String author = el.getElementsByTagName("author").item(0).getTextContent();
-              String genre = el.getElementsByTagName("genre").item(0).getTextContent();
+  public void displayBookInfo(Element el) {
+    String title = el.getElementsByTagName("title").item(0).getTextContent();
+    String author = el.getElementsByTagName("author").item(0).getTextContent();
+    String genre = el.getElementsByTagName("genre").item(0).getTextContent();
 
-              System.out.println("Book: " + title + " (" + author + ", " + genre + ")");
-            }
-        }
-      }
+    System.out.println("Book: " + title + " (" + author + ", " + genre + ")");
   }
 
-  public void parseAllWriters(NodeList nodeList) {
-    for (int i = 0; i < nodeList.getLength(); i++) {
-        if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-            Element el = (Element) nodeList.item(i);
-            if (el.getNodeName().contains("writer")) {
-              String name = el.getElementsByTagName("name").item(0).getTextContent();
-              String birthYear = el.getElementsByTagName("birthYear").item(0).getTextContent();
-              String deathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
-              String nationality = el.getElementsByTagName("nationality").item(0).getTextContent();
+  public void displayWriterInfo(Element el) {
+    String name = el.getElementsByTagName("name").item(0).getTextContent();
+    String birthYear = el.getElementsByTagName("birthYear").item(0).getTextContent();
+    String deathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
+    String nationality = el.getElementsByTagName("nationality").item(0).getTextContent();
 
-              System.out.println("Writer: " + name + " (" +
-                                              birthYear + ", " +
-                                              deathYear + ", " +
-                                              nationality + ")");
-            }
-        }
-      }
+    System.out.println("Writer: " + name + " (" +
+                                    birthYear + ", " +
+                                    deathYear + ", " +
+                                    nationality + ")");
     }
 
-    public void parseAllGenres(NodeList nodeList) {
-      for (int i = 0; i < nodeList.getLength(); i++) {
-          if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-              Element el = (Element) nodeList.item(i);
-              if (el.getNodeName().contains("genre")) {
-                String name = el.getElementsByTagName("name").item(0).getTextContent();
+    public void displayGenreInfo(Element el) {
+      String name = el.getElementsByTagName("name").item(0).getTextContent();
 
-                System.out.println("Genre: " + name);
-              }
-          }
-        }
+      System.out.println("Genre: " + name);
     }
 
   public String getLastButOneElementOf(String expression, String delimiter) {
