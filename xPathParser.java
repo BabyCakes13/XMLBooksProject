@@ -44,24 +44,24 @@ public class xPathParser {
 	}
 
 	public void tryXPath() {
-		this.displayAll("library/books/book");
-		this.displayAll("library/writers/writer");
-		this.displayAll("library/genres/genre");
-		this.displayAll("library/macarons/macaron"); // FAKE FAKE FAKE
+		this.parseAll("library/books/book");
+		this.parseAll("library/writers/writer");
+		this.parseAll("library/genres/genre");
+		this.parseAll("library/macarons/macaron"); // FAKE FAKE FAKE
 
-		this.displayBooks(new Genre("Romance"));
-		this.displayBooks(new Writer("Fyodor Dostoevsky"));
+		this.parseBooks(new Genre("Romance"));
+		this.parseBooks(new Writer("Fyodor Dostoevsky"));
 
-		this.displayWriters("Fyodor Dostoevsky", "name");
-		this.displayWriters("English", "nationality");
-		this.displayWriters(true);
-		this.displayWriters(false);
+		this.parseWriters("Fyodor Dostoevsky", "name");
+		this.parseWriters("English", "nationality");
+		this.parseWriters(true);
+		this.parseWriters(false);
 		
-		this.displayGenres("Romance");
+		this.parseGenres("Romance");
 	}
 
 
-	public void iterateNodesAndApply(String expression, ElementPrinter ep) {
+	public void iterateNodesAndApply(String expression, ElementParser ep) {
 		try {
 			NodeList nodeList = (NodeList) this.xPath.compile(expression)
 					.evaluate(this.document, XPathConstants.NODESET);
@@ -69,7 +69,7 @@ public class xPathParser {
 			for (int i = 0; i < nodeList.getLength(); i++) {
 				if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
 					Element el = (Element) nodeList.item(i);
-					ep.display(el);
+					ep.parse(el);
 				}
 			}
 		} catch (XPathExpressionException e) {
@@ -77,20 +77,20 @@ public class xPathParser {
 		}
 	}
 
-	public void displayAll(String expression) {
+	public void parseAll(String expression) {
 		String displayItem = this.getLastButOneElementOf(expression, "/");
 		System.out.println("\nDisplaying all " + displayItem + " from the library...");
-		ElementPrinter ep;
+		ElementParser ep;
 
 		switch(displayItem) {
 		case "books":
-			ep = new BookPrinter();
+			ep = new BookParser();
 			break;
 		case "writers":
-			ep = new WriterPrinter();
+			ep = new WriterParser();
 			break;
 		case "genres":
-			ep = new GenrePrinter();
+			ep = new GenreParser();
 			break;
 		default:
 			System.out.println("The parsing option " + displayItem + " does not exist.");
@@ -100,14 +100,14 @@ public class xPathParser {
 		this.iterateNodesAndApply(expression, ep);
 	}
 
-	public interface ElementPrinter {
-		public void display(Element el);
+	public interface ElementParser {
+		public void parse(Element el);
 	}
 
 	// BOOK PRINTERS STARTING HERE
 	
-	public class BookPrinter implements ElementPrinter {
-		public void display(Element el) {
+	public class BookParser implements ElementParser {
+		public void parse(Element el) {
 			String title = el.getElementsByTagName("title").item(0).getTextContent();
 			String author = el.getElementsByTagName("author").item(0).getTextContent();
 			String genre = el.getElementsByTagName("genre").item(0).getTextContent();
@@ -116,46 +116,46 @@ public class xPathParser {
 		}
 	}
 
-	public class BookPrinterByGenre extends BookPrinter {
+	public class BookParserByGenre extends BookParser {
 		public Genre genre;
-		public BookPrinterByGenre(Genre genre) {
+		public BookParserByGenre(Genre genre) {
 			this.genre = genre;
 		}
 
-		public void display(Element el) {
+		public void parse(Element el) {
 			String bookGenre = el.getElementsByTagName("genre").item(0).getTextContent();
 			if (bookGenre.equals(this.genre.getName()))
-				super.display(el);
+				super.parse(el);
 		}
 	}
 
-	public class BookPrinterByAuthor extends BookPrinter {
+	public class BookParserByAuthor extends BookParser {
 		public Writer writer;
-		public BookPrinterByAuthor(Writer writer) {
+		public BookParserByAuthor(Writer writer) {
 			this.writer = writer;
 		}
 
-		public void display(Element el) {
+		public void parse(Element el) {
 			String bookAuthor = el.getElementsByTagName("author").item(0).getTextContent();
 			if (bookAuthor.equals(this.writer.getName()))
-				super.display(el);
+				super.parse(el);
 		}
 	}
 
-	public void displayBooks(Genre genre) {
+	public void parseBooks(Genre genre) {
 		System.out.println("\nDisplaying books of genre " + genre.getName() + "...");
-		iterateNodesAndApply("library/books/book", new BookPrinterByGenre(genre));
+		iterateNodesAndApply("library/books/book", new BookParserByGenre(genre));
 	}
 
-	public void displayBooks(Writer writer) {
+	public void parseBooks(Writer writer) {
 		System.out.println("\nDisplaying books written by " + writer.getName() + "...");
-		iterateNodesAndApply("library/books/book", new BookPrinterByAuthor(writer));
+		iterateNodesAndApply("library/books/book", new BookParserByAuthor(writer));
 	}
 
 	// WRITER PRINTERS STARTING HERE
 
-	public class WriterPrinter implements ElementPrinter {
-		public void display(Element el) {
+	public class WriterParser implements ElementParser {
+		public void parse(Element el) {
 			String name = el.getElementsByTagName("name").item(0).getTextContent();
 			String birthYear = el.getElementsByTagName("birthYear").item(0).getTextContent();
 			String deathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
@@ -168,90 +168,90 @@ public class xPathParser {
 		}
 	}
 
-	public class WriterPrinterByName extends WriterPrinter {
+	public class WriterParserByName extends WriterParser {
 		public String name;
-		public WriterPrinterByName(String name) {
+		public WriterParserByName(String name) {
 			this.name = name;
 		}
 
-		public void display(Element el) {
+		public void parse(Element el) {
 			String writerName = el.getElementsByTagName("name").item(0).getTextContent();
 			if (writerName.equals(this.name))
-				super.display(el);
+				super.parse(el);
 		}
 	}
 	
-	public class WriterPrinterByNationality extends WriterPrinter {
+	public class WriterParserByNationality extends WriterParser {
 		public String nationality;
-		public WriterPrinterByNationality(String nationality) {
+		public WriterParserByNationality(String nationality) {
 			this.nationality = nationality;
 		}
 
-		public void display(Element el) {
+		public void parse(Element el) {
 			String writerNationality = el.getElementsByTagName("nationality").item(0).getTextContent();
 			if (writerNationality.equals(this.nationality))
-				super.display(el);
+				super.parse(el);
 		}
 	}
 
-	public class WriterPrinterByAlive extends WriterPrinter {
+	public class WriterParserByAlive extends WriterParser {
 		private boolean alive;
-		public WriterPrinterByAlive(boolean alive) {
+		public WriterParserByAlive(boolean alive) {
 			this.alive = alive;
 		}
 
-		public void display(Element el) {
+		public void parse(Element el) {
 			String writerDeathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
 			if (writerDeathYear.equals("-") && (this.alive))
-				super.display(el);
+				super.parse(el);
 			if (!writerDeathYear.equals("-") && (!this.alive))
-				super.display(el);
+				super.parse(el);
 		}
 	}
 
-	public void displayWriters(String element, String elementType) {
+	public void parseWriters(String element, String elementType) {
 		if (elementType.equals("nationality")) {
 			System.out.println("\nDisplaying writers of " + elementType + " " + element + "...");
-			iterateNodesAndApply("library/writers/writer", new WriterPrinterByNationality(element));
+			iterateNodesAndApply("library/writers/writer", new WriterParserByNationality(element));
 		} else if (elementType.equals("name")) {
 			System.out.println("\nDisplaying author of " + elementType + " " + element + "...");
-			iterateNodesAndApply("library/writers/writer", new WriterPrinterByName(element));
+			iterateNodesAndApply("library/writers/writer", new WriterParserByName(element));
 		}
 	}
 
-	public void displayWriters(boolean alive) {
+	public void parseWriters(boolean alive) {
 		if (alive) {
 			System.out.println("\nDisplaying alive authors...");
 		} else {
 			System.out.println("\nDisplaying dead authors...");
 		}
-		iterateNodesAndApply("library/writers/writer", new WriterPrinterByAlive(alive));
+		iterateNodesAndApply("library/writers/writer", new WriterParserByAlive(alive));
 	}
 
-	public class GenrePrinter implements ElementPrinter {
-		public void display(Element el) {
+	public class GenreParser implements ElementParser {
+		public void parse(Element el) {
 			String name = el.getElementsByTagName("name").item(0).getTextContent();
 
 			System.out.println("Genre: " + name);
 		}
 	}
 	
-	public class GenrePrinterByName extends GenrePrinter {
+	public class GenreParserByName extends GenreParser {
 		public String name;
-		public GenrePrinterByName(String name) {
+		public GenreParserByName(String name) {
 			this.name = name;
 		}
 
-		public void display(Element el) {
+		public void parse(Element el) {
 			String genreName = el.getElementsByTagName("name").item(0).getTextContent();
 			if (genreName.equals(this.name))
-				super.display(el);
+				super.parse(el);
 		}
 	}
 	
-	public void displayGenres(String name) {
+	public void parseGenres(String name) {
 		System.out.println("\nDisplaying " + name + " genre...");
-		iterateNodesAndApply("library/genres/genre", new GenrePrinterByName(name));
+		iterateNodesAndApply("library/genres/genre", new GenreParserByName(name));
 	}
 
 	public String getLastButOneElementOf(String expression, String delimiter) {
