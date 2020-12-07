@@ -1,10 +1,6 @@
 package elements;
 
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAccessType;
 import java.util.ArrayList;
 
 public class Genres {
@@ -28,7 +24,13 @@ public class Genres {
   }
 
   @Override
-    public String toString() {
-        return "Genres:\n" + this.genre + "\n";
-    }
+  public String toString() {
+		String toString = "";
+		
+		for (Genre genre : this.genre) {
+			toString = toString + genre + "\n";
+		}
+		
+		return toString;
+	}
 }

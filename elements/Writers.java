@@ -11,7 +11,6 @@ public class Writers {
 
   public Writers() {}
 
-  // resulted from JAXB unmarshalling
   public Writers(ArrayList<Writer> writers) {
     super();
     this.writers = writers;
@@ -23,7 +22,13 @@ public class Writers {
 
   @Override
   public String toString() {
-    return "Writers:\n" + this.writers + "\n";
-  }
+		String toString = "";
+		
+		for (Writer writer : this.writers) {
+			toString = toString + writer + "\n";
+		}
+		
+		return toString;
+	}
 
 }
