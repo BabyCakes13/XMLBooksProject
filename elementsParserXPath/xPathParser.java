@@ -12,6 +12,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.lang.IndexOutOfBoundsException;
+import java.util.ArrayList;
 
 import elements.Book;
 import elements.Genre;
@@ -45,24 +46,9 @@ public class xPathParser {
 		}
 	}
 
-	public void tryXPath() {
-		this.parseAll("library/books/book");
-		this.parseAll("library/writers/writer");
-		this.parseAll("library/genres/genre");
-		this.parseAll("library/macarons/macaron"); // FAKE FAKE FAKE
-
-		this.parseBooks(new Genre("Romance"));
-		this.parseBooks(new Writer("Fyodor Dostoevsky"));
-
-		this.parseWriters("Fyodor Dostoevsky", "name");
-		this.parseWriters("English", "nationality");
-		this.parseWriters(true);
-		this.parseWriters(false);
-
-		this.parseGenres("Romance");
-	}
-
-	public void iterateNodesAndApply(String expression, ElementParser ep) {
+	public ArrayList<XMLElement> iterateNodesAndApply(String expression, ElementParser ep) {
+		ArrayList<XMLElement> querryResults = new ArrayList<>();
+		
 		try {
 			NodeList nodeList = (NodeList) this.xPath.compile(expression).evaluate(this.document,
 					XPathConstants.NODESET);
@@ -70,15 +56,22 @@ public class xPathParser {
 			for (int i = 0; i < nodeList.getLength(); i++) {
 				if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
 					Element el = (Element) nodeList.item(i);
-					ep.parse(el);
+					XMLElement parsedObject = ep.parse(el);
+					
+					if(parsedObject != null) {
+						querryResults.add(parsedObject);
+					}
+					
 				}
 			}
 		} catch (XPathExpressionException e) {
 			System.out.println(e);
 		}
+		
+		return querryResults;
 	}
 
-	public void parseAll(String expression) {
+	public ArrayList<XMLElement> parseAll(String expression) {
 		String displayItem = this.getLastButOneElementOf(expression, "/");
 		System.out.println("\nDisplaying all " + displayItem + " from the library...");
 		ElementParser ep;
@@ -95,44 +88,36 @@ public class xPathParser {
 			break;
 		default:
 			System.out.println("The parsing option " + displayItem + " does not exist.");
-			return;
+			return null;
 		}
 
-		this.iterateNodesAndApply(expression, ep);
+		return this.iterateNodesAndApply(expression, ep);
 	}
 
-	public void parseBooks(Genre genre) {
-		System.out.println("\nDisplaying books of genre " + genre.getName() + "...");
-		iterateNodesAndApply("library/books/book", new BookParserByGenre(genre));
+	public ArrayList<XMLElement> parseBooks(Genre genre) {
+		return this.iterateNodesAndApply("library/books/book", new BookParserByGenre(genre));
 	}
 
-	public void parseBooks(Writer writer) {
-		System.out.println("\nDisplaying books written by " + writer.getName() + "...");
-		iterateNodesAndApply("library/books/book", new BookParserByAuthor(writer));
+	public ArrayList<XMLElement> parseBooks(Writer writer) {
+		return this.iterateNodesAndApply("library/books/book", new BookParserByAuthor(writer));
 	}
 
-	public void parseWriters(String element, String elementType) {
+	public ArrayList<XMLElement> parseWriters(String element, String elementType) {
 		if (elementType.equals("nationality")) {
-			System.out.println("\nDisplaying writers of " + elementType + " " + element + "...");
-			iterateNodesAndApply("library/writers/writer", new WriterParserByNationality(element));
+			return this.iterateNodesAndApply("library/writers/writer", new WriterParserByNationality(element));
 		} else if (elementType.equals("name")) {
-			System.out.println("\nDisplaying author of " + elementType + " " + element + "...");
-			iterateNodesAndApply("library/writers/writer", new WriterParserByName(element));
+			return this.iterateNodesAndApply("library/writers/writer", new WriterParserByName(element));
 		}
+		
+		return null;
 	}
 
-	public void parseWriters(boolean alive) {
-		if (alive) {
-			System.out.println("\nDisplaying alive authors...");
-		} else {
-			System.out.println("\nDisplaying dead authors...");
-		}
-		iterateNodesAndApply("library/writers/writer", new WriterParserByAlive(alive));
+	public ArrayList<XMLElement> parseWriters(boolean alive) {
+		return this.iterateNodesAndApply("library/writers/writer", new WriterParserByAlive(alive));
 	}
 
-	public void parseGenres(String name) {
-		System.out.println("\nDisplaying " + name + " genre...");
-		iterateNodesAndApply("library/genres/genre", new GenreParserByName(name));
+	public ArrayList<XMLElement> parseGenres(String name) {
+		return this.iterateNodesAndApply("library/genres/genre", new GenreParserByName(name));
 	}
 
 	public String getLastButOneElementOf(String expression, String delimiter) {
