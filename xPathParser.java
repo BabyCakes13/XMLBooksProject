@@ -15,6 +15,7 @@ import java.lang.IndexOutOfBoundsException;
 
 import genre.Genre;
 import writer.Writer;
+import book.Book;
 
 public class xPathParser {
 	private File inputXMLFile;
@@ -108,11 +109,13 @@ public class xPathParser {
 	
 	public class BookParser implements ElementParser {
 		public void parse(Element el) {
+			String id = el.getAttribute("id");
 			String title = el.getElementsByTagName("title").item(0).getTextContent();
 			String author = el.getElementsByTagName("author").item(0).getTextContent();
 			String genre = el.getElementsByTagName("genre").item(0).getTextContent();
-
-			System.out.println("Book: " + title + " (" + author + ", " + genre + ")");
+			
+			Book parsedBook = new Book(id, title, author, genre);
+			System.out.println(parsedBook);
 		}
 	}
 
@@ -156,15 +159,14 @@ public class xPathParser {
 
 	public class WriterParser implements ElementParser {
 		public void parse(Element el) {
+			String id = el.getAttribute("id");
 			String name = el.getElementsByTagName("name").item(0).getTextContent();
 			String birthYear = el.getElementsByTagName("birthYear").item(0).getTextContent();
 			String deathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
 			String nationality = el.getElementsByTagName("nationality").item(0).getTextContent();
 
-			System.out.println("Writer: " + name + " (" +
-					birthYear + ", " +
-					deathYear + ", " +
-					nationality + ")");
+			Writer parsedWriter = new Writer(id, name, birthYear, deathYear, nationality);
+			System.out.println(parsedWriter);
 		}
 	}
 
@@ -230,9 +232,11 @@ public class xPathParser {
 
 	public class GenreParser implements ElementParser {
 		public void parse(Element el) {
+			String id = el.getAttribute("id");
 			String name = el.getElementsByTagName("name").item(0).getTextContent();
 
-			System.out.println("Genre: " + name);
+			Genre parsedGenre = new Genre(id, name);
+			System.out.println(parsedGenre);
 		}
 	}
 	

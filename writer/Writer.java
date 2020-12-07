@@ -76,6 +76,6 @@ public class Writer {
                             this.name + " (" +
                             this.birthYear + " - " +
                             this.deathYear + "), " +
-                            this.nationality + "\n";
+                            this.nationality;
     }
 }

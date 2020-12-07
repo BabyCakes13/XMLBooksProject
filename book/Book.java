@@ -60,6 +60,6 @@ public class Book {
   @Override
     public String toString() {
         return "Book [" + this.id + "]: " + this.title +
-        ", " + this.author + ", " + this.genre + "\n";
+        ", " + this.author + ", " + this.genre;
     }
 }
