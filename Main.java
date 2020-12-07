@@ -6,7 +6,6 @@ import javax.xml.bind.Unmarshaller;
 import java.util.Set;
 
 import java.io.IOException;
-import java.io.File;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
@@ -14,6 +13,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import org.xml.sax.SAXException;
+
+import elementsParserXPath.xPathParser;
 
 public class Main {
   public static void main(String[] args) {

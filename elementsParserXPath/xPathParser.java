@@ -1,3 +1,4 @@
+package elementsParserXPath;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -100,56 +101,6 @@ public class xPathParser {
 		this.iterateNodesAndApply(expression, ep);
 	}
 
-	public interface ElementParser {
-		public XMLElement parse(Element el);
-	}
-
-	// BOOK PARSERS STARTING HERE
-
-	public class BookParser implements ElementParser {
-		public XMLElement parse(Element el) {
-			String id = el.getAttribute("id");
-			String title = el.getElementsByTagName("title").item(0).getTextContent();
-			String author = el.getElementsByTagName("author").item(0).getTextContent();
-			String genre = el.getElementsByTagName("genre").item(0).getTextContent();
-
-			Book parsedBook = new Book(id, title, author, genre);
-			System.out.println(parsedBook);
-
-			return parsedBook;
-		}
-	}
-
-	public class BookParserByGenre extends BookParser {
-		public Genre genre;
-
-		public BookParserByGenre(Genre genre) {
-			this.genre = genre;
-		}
-
-		public XMLElement parse(Element el) {
-			String bookGenre = el.getElementsByTagName("genre").item(0).getTextContent();
-			if (bookGenre.equals(this.genre.getName()))
-				return super.parse(el);
-			return null;
-		}
-	}
-
-	public class BookParserByAuthor extends BookParser {
-		public Writer writer;
-
-		public BookParserByAuthor(Writer writer) {
-			this.writer = writer;
-		}
-
-		public XMLElement parse(Element el) {
-			String bookAuthor = el.getElementsByTagName("author").item(0).getTextContent();
-			if (bookAuthor.equals(this.writer.getName()))
-				return super.parse(el);
-			return null;
-		}
-	}
-
 	public void parseBooks(Genre genre) {
 		System.out.println("\nDisplaying books of genre " + genre.getName() + "...");
 		iterateNodesAndApply("library/books/book", new BookParserByGenre(genre));
@@ -158,68 +109,6 @@ public class xPathParser {
 	public void parseBooks(Writer writer) {
 		System.out.println("\nDisplaying books written by " + writer.getName() + "...");
 		iterateNodesAndApply("library/books/book", new BookParserByAuthor(writer));
-	}
-
-	// WRITER PARSERS STARTING HERE
-
-	public class WriterParser implements ElementParser {
-		public XMLElement parse(Element el) {
-			String id = el.getAttribute("id");
-			String name = el.getElementsByTagName("name").item(0).getTextContent();
-			String birthYear = el.getElementsByTagName("birthYear").item(0).getTextContent();
-			String deathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
-			String nationality = el.getElementsByTagName("nationality").item(0).getTextContent();
-
-			Writer parsedWriter = new Writer(id, name, birthYear, deathYear, nationality);
-			System.out.println(parsedWriter);
-			
-			return parsedWriter;
-		}
-	}
-
-	public class WriterParserByName extends WriterParser {
-		public String name;
-
-		public WriterParserByName(String name) {
-			this.name = name;
-		}
-
-		public XMLElement parse(Element el) {
-			String writerName = el.getElementsByTagName("name").item(0).getTextContent();
-			if (writerName.equals(this.name))
-				return super.parse(el);
-			return null;
-		}
-	}
-
-	public class WriterParserByNationality extends WriterParser {
-		public String nationality;
-
-		public WriterParserByNationality(String nationality) {
-			this.nationality = nationality;
-		}
-
-		public XMLElement parse(Element el) {
-			String writerNationality = el.getElementsByTagName("nationality").item(0).getTextContent();
-			if (writerNationality.equals(this.nationality))
-				return super.parse(el);
-			return null;
-		}
-	}
-
-	public class WriterParserByAlive extends WriterParser {
-		private boolean alive;
-
-		public WriterParserByAlive(boolean alive) {
-			this.alive = alive;
-		}
-
-		public XMLElement parse(Element el) {
-			String writerDeathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
-			if ((writerDeathYear.equals("-") && (this.alive)) || (!writerDeathYear.equals("-") && (!this.alive)))
-				return super.parse(el);
-			return null;
-		}
 	}
 
 	public void parseWriters(String element, String elementType) {
@@ -239,36 +128,6 @@ public class xPathParser {
 			System.out.println("\nDisplaying dead authors...");
 		}
 		iterateNodesAndApply("library/writers/writer", new WriterParserByAlive(alive));
-	}
-
-// GENRE PARSERS STARTING HERE
-
-	public class GenreParser implements ElementParser {
-		public XMLElement parse(Element el) {
-			String id = el.getAttribute("id");
-			String name = el.getElementsByTagName("name").item(0).getTextContent();
-
-			Genre parsedGenre = new Genre(id, name);
-			System.out.println(parsedGenre);
-
-			return parsedGenre;
-		}
-	}
-
-	public class GenreParserByName extends GenreParser {
-		public String name;
-
-		public GenreParserByName(String name) {
-			this.name = name;
-		}
-
-		public XMLElement parse(Element el) {
-			String genreName = el.getElementsByTagName("name").item(0).getTextContent();
-			if (genreName.equals(this.name))
-				return super.parse(el);
-			return null;
-		}
-
 	}
 
 	public void parseGenres(String name) {
