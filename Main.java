@@ -85,14 +85,14 @@ public class Main {
 	}
 	
 	public static void complexXPathQuerries(xPathParser xPath) {
-		ArrayList<XMLElement> gabrielRomanceBooks = xPath.parseBooks(new Genre("Realism"), new Writer("Gabriel García Márquez"));
+		ArrayList<XMLElement> gabrielRealism = xPath.parseBooks(new Genre("Realism"), new Writer("Gabriel García Márquez"));
 		ArrayList<XMLElement> fyodorPhilosophicalBooks = xPath.parseBooks(new Genre("Philosophical"), new Writer("Fyodor Dostoevsky"));
 		
 		ArrayList<XMLElement> colombianRomanceBooks = xPath.parseBooks(new Genre("Romance"), "Colombian");
 		ArrayList<XMLElement> englishDystopianBooks = xPath.parseBooks(new Genre("Dystopian"), "English");
 		
 		System.out.println("\nXPath querry to list all the realism books of Gabriel Garcia Marqez...");
-		print(gabrielRomanceBooks);
+		print(gabrielRealism);
 		System.out.println("\nXPath querry to list all the philosophical books of Fyodor Dostoevsky...");
 		print(fyodorPhilosophicalBooks);
 		System.out.println("\nXPath querry to list all the Colombian romance books...");
