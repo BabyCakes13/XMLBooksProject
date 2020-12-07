@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import book.Book;
-import genre.Genre;
-import writer.Writer;
+import elements.Book;
+import elements.Genre;
+import elements.Writer;
 
 /**
 * Parser for an XML file.

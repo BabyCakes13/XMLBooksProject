@@ -2,13 +2,14 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import elements.Books;
+import elements.Genres;
+import elements.Writers;
+
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import java.util.ArrayList;
-
-import book.Books;
-import genre.Genres;
-import writer.Writers;
 
 @XmlRootElement(name = "library")
 @XmlAccessorType(XmlAccessType.FIELD)

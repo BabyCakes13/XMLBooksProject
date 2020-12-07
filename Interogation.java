@@ -1,6 +1,6 @@
-import book.Book;
-import genre.Genre;
-import writer.Writer;
+import elements.Book;
+import elements.Genre;
+import elements.Writer;
 
 import java.util.HashSet;
 import java.util.Set;
