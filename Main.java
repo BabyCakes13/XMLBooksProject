@@ -20,8 +20,10 @@ import org.xml.sax.SAXException;
 import elements.Author;
 import elements.Genre;
 import elements.Id;
+import elements.Nationality;
 import elements.Title;
 import elements.Writer;
+import elements.WriterName;
 import elements.XMLElement;
 import elementsParserXPath.xPathParser;
 import elementsParserXPath.xPathParserBook;
@@ -73,8 +75,14 @@ public class Main {
 //		xPathBook.deleteBooks(new Id("b4"));
 //		xPathBook.deleteBooks(new Author("George Orwell"));
 		
-		xPathGenre.deleteGenres("Romance");
-		xPathGenre.deleteGenres(new Id("g1"));
+//		xPathGenre.deleteGenres("Romance");
+//		xPathGenre.deleteGenres(new Id("g1"));
+		
+//		 xPathWriter.deleteWriters(new Id("a1"));
+//		 xPathWriter.deleteWriters(new Nationality("Colombian"));
+//		 xPathWriter.deleteWriters("alive");
+//		 xPathWriter.deleteWriters("dead");
+//		 xPathWriter.deleteWriters(new WriterName("Aldous Huxley"));
 	}
 
 	public static void oneFilterXPathQuerries(xPathParserBook xPathBook,
