@@ -54,7 +54,7 @@ public class xPathParser {
 
 	public ArrayList<XMLElement> iterateNodesAndApply(String expression, ElementOperation ep) {
 		ArrayList<XMLElement> querryResults = new ArrayList<>();
-		
+
 		try {
 			NodeList nodeList = (NodeList) this.xPath.compile(expression).evaluate(this.document,
 					XPathConstants.NODESET);
@@ -63,17 +63,17 @@ public class xPathParser {
 				if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
 					Element el = (Element) nodeList.item(i);
 					XMLElement parsedObject = ep.elementOperation(el);
-					
-					if(parsedObject != null) {
+
+					if (parsedObject != null) {
 						querryResults.add(parsedObject);
 					}
-					
+
 				}
 			}
 		} catch (XPathExpressionException e) {
 			System.out.println(e);
 		}
-		
+
 		return querryResults;
 	}
 
@@ -99,15 +99,21 @@ public class xPathParser {
 
 		return this.iterateNodesAndApply(expression, ep);
 	}
-	
+
 	public ArrayList<XMLElement> deleteAll(String expression) {
 		String displayItem = this.getLastButOneElementOf(expression, "/");
-		System.out.println("\nDisplaying all " + displayItem + " from the library...");
+		System.out.println("Deleting all " + displayItem + " from the library...");
 		ElementOperation ep;
 
 		switch (displayItem) {
 		case "books":
 			ep = new BookDeleter();
+			break;
+		case "writers":
+			ep = new WriterDeleter();
+			break;
+		case "genres":
+			ep = new GenreDeleter();
 			break;
 		default:
 			System.out.println("The parsing option " + displayItem + " does not exist.");
@@ -115,9 +121,9 @@ public class xPathParser {
 		}
 
 		this.iterateNodesAndApply(expression, ep);
-		
+
 		TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer t;
+		Transformer t;
 		try {
 			t = tf.newTransformer();
 			t.transform(new DOMSource(document), new StreamResult(System.out));
@@ -126,49 +132,68 @@ public class xPathParser {
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
-        
-        return null;
+
+		return null;
 	}
 
 	public ArrayList<XMLElement> parseBooks(Genre genre) {
 		return this.iterateNodesAndApply("library/books/book", new BookParserByGenre(genre));
 	}
-	
+
+	public ArrayList<XMLElement> deleteBooks(Genre genre) {
+		this.iterateNodesAndApply("library/books/book", new BookDeleterByGenre(genre));
+
+		TransformerFactory tf = TransformerFactory.newInstance();
+		Transformer t;
+		try {
+			t = tf.newTransformer();
+			t.transform(new DOMSource(document), new StreamResult(System.out));
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 	public ArrayList<XMLElement> parseBooks(Genre genre, Writer writer) {
-		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply("library/books/book", new BookParserByGenre(genre));
+		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply("library/books/book",
+				new BookParserByGenre(genre));
 		ArrayList<XMLElement> querryResult = new ArrayList<>();
-		
-		for(XMLElement element: booksByGenre) {
+
+		for (XMLElement element : booksByGenre) {
 			Book book = (Book) element;
 			if (book.getAuthor().equals(writer.getName())) {
 				querryResult.add(book);
 			}
 		}
-		
+
 		return querryResult;
 	}
-	
+
 	public ArrayList<XMLElement> parseBooks(Genre genre, String nationality) {
-		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply("library/books/book", new BookParserByGenre(genre));
-		ArrayList<XMLElement> colombianAuthors = this.iterateNodesAndApply("library/writers/writer", new WriterParserByNationality(nationality));
-		
+		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply("library/books/book",
+				new BookParserByGenre(genre));
+		ArrayList<XMLElement> colombianAuthors = this.iterateNodesAndApply("library/writers/writer",
+				new WriterParserByNationality(nationality));
+
 		ArrayList<XMLElement> querryResult = new ArrayList<>();
-		
-		for(XMLElement bookElement: booksByGenre) {
+
+		for (XMLElement bookElement : booksByGenre) {
 			Book book = (Book) bookElement;
-			
-			for(XMLElement writerElement: colombianAuthors) {
+
+			for (XMLElement writerElement : colombianAuthors) {
 				Writer writer = (Writer) writerElement;
-				
+
 				if (book.getAuthor().equals(writer.getName()) && (writer.getNationality().equals(nationality))) {
 					querryResult.add(book);
 				}
 			}
 		}
-		
+
 		return querryResult;
 	}
-
 
 	public ArrayList<XMLElement> parseBooks(Writer writer) {
 		return this.iterateNodesAndApply("library/books/book", new BookParserByAuthor(writer));
@@ -180,7 +205,7 @@ public class xPathParser {
 		} else if (elementType.equals("name")) {
 			return this.iterateNodesAndApply("library/writers/writer", new WriterParserByName(element));
 		}
-		
+
 		return null;
 	}
 

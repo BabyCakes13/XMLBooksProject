@@ -41,17 +41,28 @@ public class Main {
 	public static void solveWithXPath(File xmlInputFile) {
 		xPathParser xPath = new xPathParser(xmlInputFile);
 		
-		deleteAllBooks(xPath);
+		//oneFilterDelete(xPath);
+		twoFilterDelete(xPath);
 		// simpleXPathQuerries(xPath);
 		// mediumXPathQuerries(xPath);
 		// complexXPathQuerries(xPath);
 	}
 	
-	public static void deleteAllBooks(xPathParser xPath) {
+	/**
+	 * Method which deletes all entries with the filter book, writer or genre.
+	 * @param xPath xPath object interogator.
+	 */
+	public static void oneFilterDelete(xPathParser xPath) {
 		xPath.deleteAll("library/books/book");
+		xPath.deleteAll("library/writers/writer");
+		xPath.deleteAll("library/genres/genre");
+	}
+	
+	public static void twoFilterDelete(xPathParser xPath) {
+		xPath.deleteBooks(new Genre("Romance"));
 	}
 
-	public static void simpleXPathQuerries(xPathParser xPath) {
+	public static void oneFilterXPathQuerries(xPathParser xPath) {
 		ArrayList<XMLElement> allBooks = xPath.parseAll("library/books/book");
 		ArrayList<XMLElement> allWriters = xPath.parseAll("library/writers/writer");
 		ArrayList<XMLElement> allGenres = xPath.parseAll("library/genres/genre");
@@ -64,7 +75,7 @@ public class Main {
 		print(allGenres);
 	}
 
-	public static void mediumXPathQuerries(xPathParser xPath) {
+	public static void twoFilterXPathQuerries(xPathParser xPath) {
 		ArrayList<XMLElement> romanceBooks = xPath.parseBooks(new Genre("Romance"));
 		ArrayList<XMLElement> fyodorWriter = xPath.parseBooks(new Writer("Fyodor Dostoevsky"));
 
@@ -91,7 +102,7 @@ public class Main {
 		print(romanceGenre);
 	}
 
-	public static void complexXPathQuerries(xPathParser xPath) {
+	public static void threeFilterXPathQuerries(xPathParser xPath) {
 		ArrayList<XMLElement> gabrielRealism = xPath.parseBooks(new Genre("Realism"), new Writer("Gabriel García Márquez"));
 		ArrayList<XMLElement> fyodorPhilosophicalBooks = xPath.parseBooks(new Genre("Philosophical"), new Writer("Fyodor Dostoevsky"));
 
