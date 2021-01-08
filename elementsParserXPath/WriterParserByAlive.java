@@ -11,10 +11,10 @@ public class WriterParserByAlive extends WriterParser {
 		this.alive = alive;
 	}
 
-	public XMLElement parse(Element el) {
+	public XMLElement elementOperation(Element el) {
 		String writerDeathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
 		if ((writerDeathYear.equals("-") && (this.alive)) || (!writerDeathYear.equals("-") && (!this.alive)))
-			return super.parse(el);
+			return super.elementOperation(el);
 		return null;
 	}
 }

@@ -11,10 +11,10 @@ public class GenreParserByName extends GenreParser {
 		this.name = name;
 	}
 
-	public XMLElement parse(Element el) {
+	public XMLElement elementOperation(Element el) {
 		String genreName = el.getElementsByTagName("name").item(0).getTextContent();
 		if (genreName.equals(this.name))
-			return super.parse(el);
+			return super.elementOperation(el);
 		return null;
 	}
 }

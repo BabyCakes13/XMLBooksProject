@@ -11,10 +11,10 @@ public class WriterParserByName extends WriterParser {
 		this.name = name;
 	}
 
-	public XMLElement parse(Element el) {
+	public XMLElement elementOperation(Element el) {
 		String writerName = el.getElementsByTagName("name").item(0).getTextContent();
 		if (writerName.equals(this.name))
-			return super.parse(el);
+			return super.elementOperation(el);
 		return null;
 	}
 }

@@ -12,10 +12,10 @@ public class BookParserByGenre extends BookParser {
 		this.genre = genre;
 	}
 
-	public XMLElement parse(Element el) {
+	public XMLElement elementOperation(Element el) {
 		String bookGenre = el.getElementsByTagName("genre").item(0).getTextContent();
 		if (bookGenre.equals(this.genre.getName()))
-			return super.parse(el);
+			return super.elementOperation(el);
 		return null;
 	}
 }

@@ -12,10 +12,10 @@ public class BookParserByAuthor extends BookParser {
 		this.writer = writer;
 	}
 
-	public XMLElement parse(Element el) {
+	public XMLElement elementOperation(Element el) {
 		String bookAuthor = el.getElementsByTagName("author").item(0).getTextContent();
 		if (bookAuthor.equals(this.writer.getName()))
-			return super.parse(el);
+			return super.elementOperation(el);
 		return null;
 	}
 }

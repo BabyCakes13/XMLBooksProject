@@ -5,8 +5,8 @@ import org.w3c.dom.Element;
 import elements.Writer;
 import elements.XMLElement;
 
-public class WriterParser implements ElementParser {
-	public XMLElement parse(Element el) {
+public class WriterParser implements ElementOperation {
+	public XMLElement elementOperation(Element el) {
 		String id = el.getAttribute("id");
 		String name = el.getElementsByTagName("name").item(0).getTextContent();
 		String birthYear = el.getElementsByTagName("birthYear").item(0).getTextContent();

@@ -34,23 +34,28 @@ public class Main {
 
 		File xmlInputFile = new File("library.xml");
 		loadLibrary();
-		solveWithDOM(xmlInputFile);
+		// solveWithDOM(xmlInputFile);
 		solveWithXPath(xmlInputFile);
 	}
 
 	public static void solveWithXPath(File xmlInputFile) {
 		xPathParser xPath = new xPathParser(xmlInputFile);
 		
-		simpleXPathQuerries(xPath);
-		mediumXPathQuerries(xPath);
-		complexXPathQuerries(xPath);
+		deleteAllBooks(xPath);
+		// simpleXPathQuerries(xPath);
+		// mediumXPathQuerries(xPath);
+		// complexXPathQuerries(xPath);
 	}
 	
+	public static void deleteAllBooks(xPathParser xPath) {
+		xPath.deleteAll("library/books/book");
+	}
+
 	public static void simpleXPathQuerries(xPathParser xPath) {
 		ArrayList<XMLElement> allBooks = xPath.parseAll("library/books/book");
 		ArrayList<XMLElement> allWriters = xPath.parseAll("library/writers/writer");
 		ArrayList<XMLElement> allGenres = xPath.parseAll("library/genres/genre");
-		
+
 		System.out.println("\nXPath querry to list all the books from the library...");
 		print(allBooks);
 		System.out.println("\nXPath querry to list all the writers from the library...");
@@ -58,7 +63,7 @@ public class Main {
 		System.out.println("\nXPath querry to list all the genres from the library...");
 		print(allGenres);
 	}
-	
+
 	public static void mediumXPathQuerries(xPathParser xPath) {
 		ArrayList<XMLElement> romanceBooks = xPath.parseBooks(new Genre("Romance"));
 		ArrayList<XMLElement> fyodorWriter = xPath.parseBooks(new Writer("Fyodor Dostoevsky"));
@@ -69,11 +74,13 @@ public class Main {
 		ArrayList<XMLElement> deadAuthors = xPath.parseWriters(false);
 
 		ArrayList<XMLElement> romanceGenre = xPath.parseGenres("Romance");
-		
+
 		System.out.println("\nXPath querry to list all the romance books...");
 		print(romanceBooks);
 		System.out.println("\nXPath querry to list all information about Fyodor Dostoevski...");
 		print(fyodorWriter);
+		System.out.println("\nXPath querry to list all books written by Fyodor Dostoevski...");
+		print(fyodorBooks);
 		System.out.println("\nXPath querry to list all the English writers...");
 		print(englishWriters);
 		System.out.println("\nXPath querry to list all alive writers...");
@@ -83,14 +90,14 @@ public class Main {
 		System.out.println("\nXPath querry to list information about the romance genre...");
 		print(romanceGenre);
 	}
-	
+
 	public static void complexXPathQuerries(xPathParser xPath) {
 		ArrayList<XMLElement> gabrielRealism = xPath.parseBooks(new Genre("Realism"), new Writer("Gabriel García Márquez"));
 		ArrayList<XMLElement> fyodorPhilosophicalBooks = xPath.parseBooks(new Genre("Philosophical"), new Writer("Fyodor Dostoevsky"));
-		
+
 		ArrayList<XMLElement> colombianRomanceBooks = xPath.parseBooks(new Genre("Romance"), "Colombian");
 		ArrayList<XMLElement> englishDystopianBooks = xPath.parseBooks(new Genre("Dystopian"), "English");
-		
+
 		System.out.println("\nXPath querry to list all the realism books of Gabriel Garcia Marqez...");
 		print(gabrielRealism);
 		System.out.println("\nXPath querry to list all the philosophical books of Fyodor Dostoevsky...");
@@ -124,7 +131,7 @@ public class Main {
 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Library library = (Library) jaxbUnmarshaller.unmarshal(file);
-			
+
 			System.out.println(library);
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -150,7 +157,7 @@ public class Main {
 			System.out.println(s);
 		}
 	}
-	
+
 	public static void print(ArrayList<XMLElement> list) {
 		for (XMLElement s : list) {
 			System.out.println(s);

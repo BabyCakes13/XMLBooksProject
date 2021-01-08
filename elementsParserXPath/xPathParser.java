@@ -2,6 +2,12 @@ package elementsParserXPath;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -46,7 +52,7 @@ public class xPathParser {
 		}
 	}
 
-	public ArrayList<XMLElement> iterateNodesAndApply(String expression, ElementParser ep) {
+	public ArrayList<XMLElement> iterateNodesAndApply(String expression, ElementOperation ep) {
 		ArrayList<XMLElement> querryResults = new ArrayList<>();
 		
 		try {
@@ -56,7 +62,7 @@ public class xPathParser {
 			for (int i = 0; i < nodeList.getLength(); i++) {
 				if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
 					Element el = (Element) nodeList.item(i);
-					XMLElement parsedObject = ep.parse(el);
+					XMLElement parsedObject = ep.elementOperation(el);
 					
 					if(parsedObject != null) {
 						querryResults.add(parsedObject);
@@ -74,7 +80,7 @@ public class xPathParser {
 	public ArrayList<XMLElement> parseAll(String expression) {
 		String displayItem = this.getLastButOneElementOf(expression, "/");
 		System.out.println("\nDisplaying all " + displayItem + " from the library...");
-		ElementParser ep;
+		ElementOperation ep;
 
 		switch (displayItem) {
 		case "books":
@@ -92,6 +98,36 @@ public class xPathParser {
 		}
 
 		return this.iterateNodesAndApply(expression, ep);
+	}
+	
+	public ArrayList<XMLElement> deleteAll(String expression) {
+		String displayItem = this.getLastButOneElementOf(expression, "/");
+		System.out.println("\nDisplaying all " + displayItem + " from the library...");
+		ElementOperation ep;
+
+		switch (displayItem) {
+		case "books":
+			ep = new BookDeleter();
+			break;
+		default:
+			System.out.println("The parsing option " + displayItem + " does not exist.");
+			return null;
+		}
+
+		this.iterateNodesAndApply(expression, ep);
+		
+		TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer t;
+		try {
+			t = tf.newTransformer();
+			t.transform(new DOMSource(document), new StreamResult(System.out));
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+        
+        return null;
 	}
 
 	public ArrayList<XMLElement> parseBooks(Genre genre) {
