@@ -42,52 +42,71 @@ public class Main {
 
 		File xmlInputFile = new File("library.xml");
 		loadLibrary();
-		// solveWithDOM(xmlInputFile);
-		solveWithXPath(xmlInputFile);
+//		solveWithDOM(xmlInputFile);
+//		solveWithXPath(xmlInputFile);
+
+//		deleteWithXPath(xmlInputFile);
+		editWithXPath(xmlInputFile);
 	}
 
 	public static void solveWithXPath(File xmlInputFile) {
 		xPathParserBook xPathBook = new xPathParserBook(xmlInputFile);
 		xPathParserWriter xPathWriter = new xPathParserWriter(xmlInputFile);
 		xPathParserGenre xPathGenre = new xPathParserGenre(xmlInputFile);
-		
-//		oneFilterXPathQuerries(xPathBook, xPathWriter, xPathGenre);
-//		twoFilterXPathQuerries(xPathBook, xPathWriter, xPathGenre);
-//		threeFilterXPathQuerries(xPathBook, xPathWriter, xPathGenre);
-		
-//		 oneFilterDelete(xPathBook, xPathWriter, xPathGenre);
-		 twoFilterDelete(xPathBook, xPathWriter, xPathGenre);
+
+		oneFilterXPathQuerries(xPathBook, xPathWriter, xPathGenre);
+		twoFilterXPathQuerries(xPathBook, xPathWriter, xPathGenre);
+		threeFilterXPathQuerries(xPathBook, xPathWriter, xPathGenre);
+	}
+
+	public static void deleteWithXPath(File xmlInputFile) {
+		xPathParserBook xPathBook = new xPathParserBook(xmlInputFile);
+		xPathParserWriter xPathWriter = new xPathParserWriter(xmlInputFile);
+		xPathParserGenre xPathGenre = new xPathParserGenre(xmlInputFile);
+
+		oneFilterDelete(xPathBook, xPathWriter, xPathGenre);
+		twoFilterDelete(xPathBook, xPathWriter, xPathGenre);
 	}
 	
-	public static void oneFilterDelete(xPathParserBook xPathBook,
-									   xPathParserWriter xPathWriter,
-									   xPathParserGenre xPathGenre) {
+	public static void editWithXPath(File xmlInputFile) {
+		xPathParserBook xPathBook = new xPathParserBook(xmlInputFile);
+		xPathParserWriter xPathWriter = new xPathParserWriter(xmlInputFile);
+		xPathParserGenre xPathGenre = new xPathParserGenre(xmlInputFile);
+
+		twoFilterEdit(xPathBook, xPathWriter, xPathGenre);
+	}
+	
+	public static void twoFilterEdit(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
+			xPathParserGenre xPathGenre) {
+		xPathGenre.editGenres("Romance", "New Romance");
+	}
+
+	public static void oneFilterDelete(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
+			xPathParserGenre xPathGenre) {
 		xPathBook.deleteAll("library/books/book");
 		xPathWriter.deleteAll("library/writers/writer");
 		xPathGenre.deleteAll("library/genres/genre");
 	}
-	
-	public static void twoFilterDelete(xPathParserBook xPathBook,
-			   						   xPathParserWriter xPathWriter,
-			   						   xPathParserGenre xPathGenre) {
-//		xPathBook.deleteBooks(new Genre("Romance"));
-//		xPathBook.deleteBooks(new Title("Brave New World"));
-//		xPathBook.deleteBooks(new Id("b4"));
-//		xPathBook.deleteBooks(new Author("George Orwell"));
-		
-//		xPathGenre.deleteGenres("Romance");
-//		xPathGenre.deleteGenres(new Id("g1"));
-		
-//		 xPathWriter.deleteWriters(new Id("a1"));
-//		 xPathWriter.deleteWriters(new Nationality("Colombian"));
-//		 xPathWriter.deleteWriters("alive");
-//		 xPathWriter.deleteWriters("dead");
-//		 xPathWriter.deleteWriters(new WriterName("Aldous Huxley"));
+
+	public static void twoFilterDelete(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
+			xPathParserGenre xPathGenre) {
+		xPathBook.deleteBooks(new Genre("Romance"));
+		xPathBook.deleteBooks(new Title("Brave New World"));
+		xPathBook.deleteBooks(new Id("b4"));
+		xPathBook.deleteBooks(new Author("George Orwell"));
+
+		xPathGenre.deleteGenres("Romance");
+		xPathGenre.deleteGenres(new Id("g1"));
+
+		xPathWriter.deleteWriters(new Id("a1"));
+		xPathWriter.deleteWriters(new Nationality("Colombian"));
+		xPathWriter.deleteWriters("alive");
+		xPathWriter.deleteWriters("dead");
+		xPathWriter.deleteWriters(new WriterName("Aldous Huxley"));
 	}
 
-	public static void oneFilterXPathQuerries(xPathParserBook xPathBook,
-			   								  xPathParserWriter xPathWriter,
-			   								  xPathParserGenre xPathGenre) {
+	public static void oneFilterXPathQuerries(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
+			xPathParserGenre xPathGenre) {
 		ArrayList<XMLElement> allBooks = xPathBook.parseAll("library/books/book");
 		ArrayList<XMLElement> allWriters = xPathWriter.parseAll("library/writers/writer");
 		ArrayList<XMLElement> allGenres = xPathGenre.parseAll("library/genres/genre");
@@ -100,9 +119,8 @@ public class Main {
 		print(allGenres);
 	}
 
-	public static void twoFilterXPathQuerries(xPathParserBook xPathBook,
-			   								  xPathParserWriter xPathWriter,
-			   								  xPathParserGenre xPathGenre) {
+	public static void twoFilterXPathQuerries(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
+			xPathParserGenre xPathGenre) {
 		ArrayList<XMLElement> romanceBooks = xPathBook.parseBooks(new Genre("Romance"));
 		ArrayList<XMLElement> fyodorWriter = xPathBook.parseBooks(new Writer("Fyodor Dostoevsky"));
 
@@ -129,11 +147,12 @@ public class Main {
 		print(romanceGenre);
 	}
 
-	public static void threeFilterXPathQuerries(xPathParserBook xPathBook,
-				  								xPathParserWriter xPathWriter,
-				  								xPathParserGenre xPathGenre) {
-		ArrayList<XMLElement> gabrielRealism = xPathBook.parseBooks(new Genre("Realism"), new Writer("Gabriel García Márquez"));
-		ArrayList<XMLElement> fyodorPhilosophicalBooks = xPathBook.parseBooks(new Genre("Philosophical"), new Writer("Fyodor Dostoevsky"));
+	public static void threeFilterXPathQuerries(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
+			xPathParserGenre xPathGenre) {
+		ArrayList<XMLElement> gabrielRealism = xPathBook.parseBooks(new Genre("Realism"),
+				new Writer("Gabriel García Márquez"));
+		ArrayList<XMLElement> fyodorPhilosophicalBooks = xPathBook.parseBooks(new Genre("Philosophical"),
+				new Writer("Fyodor Dostoevsky"));
 
 		ArrayList<XMLElement> colombianRomanceBooks = xPathBook.parseBooks(new Genre("Romance"), "Colombian");
 		ArrayList<XMLElement> englishDystopianBooks = xPathBook.parseBooks(new Genre("Dystopian"), "English");

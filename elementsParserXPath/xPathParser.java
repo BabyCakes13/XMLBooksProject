@@ -20,29 +20,13 @@ import org.w3c.dom.Element;
 import java.lang.IndexOutOfBoundsException;
 import java.util.ArrayList;
 
-import elements.Author;
-import elements.Book;
-import elements.Genre;
-import elements.Id;
-import elements.Title;
-import elements.Writer;
 import elements.XMLElement;
 import elementsParserXPath.operations.bookOperations.BookDeleter;
-import elementsParserXPath.operations.bookOperations.BookDeleterByAuthor;
-import elementsParserXPath.operations.bookOperations.BookDeleterByGenre;
-import elementsParserXPath.operations.bookOperations.BookDeleterById;
-import elementsParserXPath.operations.bookOperations.BookDeleterByTitle;
 import elementsParserXPath.operations.bookOperations.BookParser;
-import elementsParserXPath.operations.bookOperations.BookParserByAuthor;
-import elementsParserXPath.operations.bookOperations.BookParserByGenre;
 import elementsParserXPath.operations.genreOperations.GenreDeleter;
 import elementsParserXPath.operations.genreOperations.GenreParser;
-import elementsParserXPath.operations.genreOperations.GenreParserByName;
 import elementsParserXPath.operations.writerOperations.WriterDeleter;
 import elementsParserXPath.operations.writerOperations.WriterParser;
-import elementsParserXPath.operations.writerOperations.WriterParserByAlive;
-import elementsParserXPath.operations.writerOperations.WriterParserByName;
-import elementsParserXPath.operations.writerOperations.WriterParserByNationality;
 
 public class xPathParser {
 	private File inputXMLFile;

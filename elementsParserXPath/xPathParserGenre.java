@@ -7,6 +7,7 @@ import elements.Id;
 import elements.XMLElement;
 import elementsParserXPath.operations.genreOperations.GenreDeleterById;
 import elementsParserXPath.operations.genreOperations.GenreDeleterByName;
+import elementsParserXPath.operations.genreOperations.GenreEditorByName;
 import elementsParserXPath.operations.genreOperations.GenreParserByName;
 
 public class xPathParserGenre extends xPathParser {
@@ -29,4 +30,11 @@ public class xPathParserGenre extends xPathParser {
 		this.updateDocument();
 		return null;
 	}
+	
+	public ArrayList<XMLElement> editGenres(String name, String newName) {
+		this.iterateNodesAndApply("library/genres/genre", new GenreEditorByName(name, newName));
+		this.updateDocument();
+		return null;
+	}
+	
 }
