@@ -27,22 +27,22 @@ import elements.Id;
 import elements.Title;
 import elements.Writer;
 import elements.XMLElement;
-import operationsBooks.BookDeleter;
-import operationsBooks.BookDeleterByAuthor;
-import operationsBooks.BookDeleterByGenre;
-import operationsBooks.BookDeleterById;
-import operationsBooks.BookDeleterByTitle;
-import operationsBooks.BookParser;
-import operationsBooks.BookParserByAuthor;
-import operationsBooks.BookParserByGenre;
-import operationsGenre.GenreDeleter;
-import operationsGenre.GenreParser;
-import operationsGenre.GenreParserByName;
-import operationsWriter.WriterDeleter;
-import operationsWriter.WriterParser;
-import operationsWriter.WriterParserByAlive;
-import operationsWriter.WriterParserByName;
-import operationsWriter.WriterParserByNationality;
+import elementsParserXPath.operations.bookOperations.BookDeleter;
+import elementsParserXPath.operations.bookOperations.BookDeleterByAuthor;
+import elementsParserXPath.operations.bookOperations.BookDeleterByGenre;
+import elementsParserXPath.operations.bookOperations.BookDeleterById;
+import elementsParserXPath.operations.bookOperations.BookDeleterByTitle;
+import elementsParserXPath.operations.bookOperations.BookParser;
+import elementsParserXPath.operations.bookOperations.BookParserByAuthor;
+import elementsParserXPath.operations.bookOperations.BookParserByGenre;
+import elementsParserXPath.operations.genreOperations.GenreDeleter;
+import elementsParserXPath.operations.genreOperations.GenreParser;
+import elementsParserXPath.operations.genreOperations.GenreParserByName;
+import elementsParserXPath.operations.writerOperations.WriterDeleter;
+import elementsParserXPath.operations.writerOperations.WriterParser;
+import elementsParserXPath.operations.writerOperations.WriterParserByAlive;
+import elementsParserXPath.operations.writerOperations.WriterParserByName;
+import elementsParserXPath.operations.writerOperations.WriterParserByNationality;
 
 public class xPathParser {
 	private File inputXMLFile;
@@ -143,116 +143,8 @@ public class xPathParser {
 		this.updateDocument();
 		return null;
 	}
-
-	public ArrayList<XMLElement> parseBooks(Genre genre) {
-		return this.iterateNodesAndApply("library/books/book", new BookParserByGenre(genre));
-	}
-
-	public ArrayList<XMLElement> deleteBooks(Genre genre) {
-		this.iterateNodesAndApply("library/books/book", new BookDeleterByGenre(genre));
-		this.updateDocument();
-		return null;
-	}
 	
-	public ArrayList<XMLElement> deleteBooks(Title title) {
-		this.iterateNodesAndApply("library/books/book", new BookDeleterByTitle(title));
-		this.updateDocument();
-		return null;
-	}
-	
-	public ArrayList<XMLElement> deleteBooks(Id id) {
-		this.iterateNodesAndApply("library/books/book", new BookDeleterById(id));
-		this.updateDocument();
-		return null;
-	}
-	
-	public ArrayList<XMLElement> deleteBooks(Author author) {
-		this.iterateNodesAndApply("library/books/book", new BookDeleterByAuthor(author));
-		this.updateDocument();
-		return null;
-	}
-
-	public ArrayList<XMLElement> parseBooks(Genre genre, Writer writer) {
-		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply("library/books/book",
-				new BookParserByGenre(genre));
-		ArrayList<XMLElement> querryResult = new ArrayList<>();
-
-		for (XMLElement element : booksByGenre) {
-			Book book = (Book) element;
-			if (book.getAuthor().equals(writer.getName())) {
-				querryResult.add(book);
-			}
-		}
-
-		return querryResult;
-	}
-
-	public ArrayList<XMLElement> parseBooks(Genre genre, String nationality) {
-		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply("library/books/book",
-				new BookParserByGenre(genre));
-		ArrayList<XMLElement> colombianAuthors = this.iterateNodesAndApply("library/writers/writer",
-				new WriterParserByNationality(nationality));
-
-		ArrayList<XMLElement> querryResult = new ArrayList<>();
-
-		for (XMLElement bookElement : booksByGenre) {
-			Book book = (Book) bookElement;
-
-			for (XMLElement writerElement : colombianAuthors) {
-				Writer writer = (Writer) writerElement;
-
-				if (book.getAuthor().equals(writer.getName()) && (writer.getNationality().equals(nationality))) {
-					querryResult.add(book);
-				}
-			}
-		}
-
-		return querryResult;
-	}
-
-	public ArrayList<XMLElement> parseBooks(Writer writer) {
-		return this.iterateNodesAndApply("library/books/book", new BookParserByAuthor(writer));
-	}
-
-	public ArrayList<XMLElement> parseWriters(String element, String elementType) {
-		if (elementType.equals("nationality")) {
-			return this.iterateNodesAndApply("library/writers/writer", new WriterParserByNationality(element));
-		} else if (elementType.equals("name")) {
-			return this.iterateNodesAndApply("library/writers/writer", new WriterParserByName(element));
-		}
-
-		return null;
-	}
-
-	public ArrayList<XMLElement> parseWriters(boolean alive) {
-		return this.iterateNodesAndApply("library/writers/writer", new WriterParserByAlive(alive));
-	}
-
-	public ArrayList<XMLElement> parseGenres(String name) {
-		return this.iterateNodesAndApply("library/genres/genre", new GenreParserByName(name));
-	}
-
-	public String getLastButOneElementOf(String expression, String delimiter) {
-		String[] splited = expression.split(delimiter);
-
-		if (false) {
-			System.out.println("Printing the result of splitting:");
-			for (String word : splited) {
-				System.out.println(word + " ");
-			}
-		}
-
-		try {
-			String lastElement = splited[splited.length - 2];
-			return lastElement;
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println(e);
-		}
-
-		return null;
-	}
-	
-	private void updateDocument() {
+	protected void updateDocument() {
 		TransformerFactory tf = TransformerFactory.newInstance();
 		Transformer t;
 		try {
@@ -263,5 +155,18 @@ public class xPathParser {
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String getLastButOneElementOf(String expression, String delimiter) {
+		String[] splited = expression.split(delimiter);
+
+		try {
+			String lastElement = splited[splited.length - 2];
+			return lastElement;
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println(e);
+		}
+
+		return null;
 	}
 }
