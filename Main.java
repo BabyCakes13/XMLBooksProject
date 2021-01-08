@@ -80,6 +80,11 @@ public class Main {
 			xPathParserGenre xPathGenre) {
 		xPathGenre.editGenres("Romance", "New Romance");
 		xPathGenre.editGenres(new Id("g5"), new Id("newG5"));
+		
+		xPathBook.editBooks(new Title("Love in the Time of Cholera"), new Title("Love in the Time of Covid"));
+		xPathBook.editBooks(new Author("Aldous Huxley"), new Author("Not Aldous Huxley"));
+		xPathBook.editBooks(new Genre("Romance"), new Genre("Totally Not Romance"));
+		xPathBook.editBooks(new Id("b1"), new Id("NewB1"));
 	}
 
 	public static void oneFilterDelete(xPathParserBook xPathBook, xPathParserWriter xPathWriter,

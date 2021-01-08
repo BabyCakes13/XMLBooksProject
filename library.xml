@@ -15,7 +15,8 @@ Books, their authors and genres are stored as XML Elements below.
     <!--Fyodor Dostoevsky-->
     <book id="b1">
       <title>Notes from Underground</title>
-      <author>Fyodor Dostoevsky</author>      <genre>Philosophical</genre>
+      <author>Fyodor Dostoevsky</author>      
+      <genre>Philosophical</genre>
     </book>
     <book id="b2">
       <title>Crime and Punishment</title>

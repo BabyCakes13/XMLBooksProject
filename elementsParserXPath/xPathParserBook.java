@@ -14,8 +14,14 @@ import elementsParserXPath.operations.bookOperations.BookDeleterByAuthor;
 import elementsParserXPath.operations.bookOperations.BookDeleterByGenre;
 import elementsParserXPath.operations.bookOperations.BookDeleterById;
 import elementsParserXPath.operations.bookOperations.BookDeleterByTitle;
+import elementsParserXPath.operations.bookOperations.BookEditorByAuthor;
+import elementsParserXPath.operations.bookOperations.BookEditorByGenre;
+import elementsParserXPath.operations.bookOperations.BookEditorById;
+import elementsParserXPath.operations.bookOperations.BookEditorByTitle;
 import elementsParserXPath.operations.bookOperations.BookParserByAuthor;
 import elementsParserXPath.operations.bookOperations.BookParserByGenre;
+import elementsParserXPath.operations.genreOperations.GenreEditorById;
+import elementsParserXPath.operations.genreOperations.GenreEditorByName;
 import elementsParserXPath.operations.writerOperations.WriterParserByNationality;
 
 public class xPathParserBook extends xPathParser{
@@ -47,6 +53,30 @@ public class xPathParserBook extends xPathParser{
 	
 	public ArrayList<XMLElement> deleteBooks(Author author) {
 		this.iterateNodesAndApply("library/books/book", new BookDeleterByAuthor(author));
+		this.updateDocument();
+		return null;
+	}
+	
+	public ArrayList<XMLElement> editBooks(Title title, Title newTitle) {
+		this.iterateNodesAndApply("library/books/book", new BookEditorByTitle(title, newTitle));
+		this.updateDocument();
+		return null;
+	}
+	
+	public ArrayList<XMLElement> editBooks(Genre genre, Genre newGenre) {
+		this.iterateNodesAndApply("library/books/book", new BookEditorByGenre(genre, newGenre));
+		this.updateDocument();
+		return null;
+	}
+	
+	public ArrayList<XMLElement> editBooks(Author author, Author newAuthor) {
+		this.iterateNodesAndApply("library/books/book", new BookEditorByAuthor(author, newAuthor));
+		this.updateDocument();
+		return null;
+	}
+	
+	public ArrayList<XMLElement> editBooks(Id id, Id newId) {
+		this.iterateNodesAndApply("library/books/book", new BookEditorById(id, newId));
 		this.updateDocument();
 		return null;
 	}
