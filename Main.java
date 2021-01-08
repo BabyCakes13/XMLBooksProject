@@ -79,6 +79,7 @@ public class Main {
 	public static void twoFilterEdit(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
 			xPathParserGenre xPathGenre) {
 		xPathGenre.editGenres("Romance", "New Romance");
+		xPathGenre.editGenres(new Id("g5"), new Id("newG5"));
 	}
 
 	public static void oneFilterDelete(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
