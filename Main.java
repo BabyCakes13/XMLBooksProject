@@ -68,12 +68,13 @@ public class Main {
 	public static void twoFilterDelete(xPathParserBook xPathBook,
 			   						   xPathParserWriter xPathWriter,
 			   						   xPathParserGenre xPathGenre) {
-		xPathBook.deleteBooks(new Genre("Romance"));
-		xPathBook.deleteBooks(new Title("Brave New World"));
-		xPathBook.deleteBooks(new Id("b4"));
-		xPathBook.deleteBooks(new Author("George Orwell"));
+//		xPathBook.deleteBooks(new Genre("Romance"));
+//		xPathBook.deleteBooks(new Title("Brave New World"));
+//		xPathBook.deleteBooks(new Id("b4"));
+//		xPathBook.deleteBooks(new Author("George Orwell"));
 		
-		
+		xPathGenre.deleteGenres("Romance");
+		xPathGenre.deleteGenres(new Id("g1"));
 	}
 
 	public static void oneFilterXPathQuerries(xPathParserBook xPathBook,

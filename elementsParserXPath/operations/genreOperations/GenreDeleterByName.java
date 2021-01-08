@@ -1,13 +1,13 @@
-package operationsGenre;
+package elementsParserXPath.operations.genreOperations;
 
 import org.w3c.dom.Element;
 
 import elements.XMLElement;
 
-public class GenreParserByName extends GenreParser {
+public class GenreDeleterByName extends GenreDeleter {
 	public String name;
 
-	public GenreParserByName(String name) {
+	public GenreDeleterByName(String name) {
 		this.name = name;
 	}
 
