@@ -1,20 +1,20 @@
-package elementsParserXPath;
+package operationsBooks;
 
 import org.w3c.dom.Element;
 
-import elements.Writer;
+import elements.Author;
 import elements.XMLElement;
 
-public class BookParserByAuthor extends BookParser {
-	public Writer writer;
+public class BookDeleterByAuthor extends BookDeleter {
+	public Author author;
 
-	public BookParserByAuthor(Writer writer) {
-		this.writer = writer;
+	public BookDeleterByAuthor(Author author) {
+		this.author = author;
 	}
 
 	public XMLElement elementOperation(Element el) {
 		String bookAuthor = el.getElementsByTagName("author").item(0).getTextContent();
-		if (bookAuthor.equals(this.writer.getName()))
+		if (bookAuthor.equals(this.author.getName()))
 			return super.elementOperation(el);
 		return null;
 	}

@@ -1,9 +1,10 @@
-package elementsParserXPath;
+package operationsBooks;
 
 import org.w3c.dom.Element;
 
 import elements.Book;
 import elements.XMLElement;
+import elementsParserXPath.ElementOperation;
 
 public class BookParser implements ElementOperation{
 	public XMLElement elementOperation(Element el) {

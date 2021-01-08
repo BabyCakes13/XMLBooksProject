@@ -17,7 +17,10 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import org.xml.sax.SAXException;
 
+import elements.Author;
 import elements.Genre;
+import elements.Id;
+import elements.Title;
 import elements.Writer;
 import elements.XMLElement;
 import elementsParserXPath.xPathParser;
@@ -60,6 +63,11 @@ public class Main {
 	
 	public static void twoFilterDelete(xPathParser xPath) {
 		xPath.deleteBooks(new Genre("Romance"));
+		xPath.deleteBooks(new Title("Brave New World"));
+		xPath.deleteBooks(new Id("b4"));
+		xPath.deleteBooks(new Author("George Orwell"));
+		
+		
 	}
 
 	public static void oneFilterXPathQuerries(xPathParser xPath) {

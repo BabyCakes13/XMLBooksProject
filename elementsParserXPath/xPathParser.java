@@ -20,10 +20,29 @@ import org.w3c.dom.Element;
 import java.lang.IndexOutOfBoundsException;
 import java.util.ArrayList;
 
+import elements.Author;
 import elements.Book;
 import elements.Genre;
+import elements.Id;
+import elements.Title;
 import elements.Writer;
 import elements.XMLElement;
+import operationsBooks.BookDeleter;
+import operationsBooks.BookDeleterByAuthor;
+import operationsBooks.BookDeleterByGenre;
+import operationsBooks.BookDeleterById;
+import operationsBooks.BookDeleterByTitle;
+import operationsBooks.BookParser;
+import operationsBooks.BookParserByAuthor;
+import operationsBooks.BookParserByGenre;
+import operationsGenre.GenreDeleter;
+import operationsGenre.GenreParser;
+import operationsGenre.GenreParserByName;
+import operationsWriter.WriterDeleter;
+import operationsWriter.WriterParser;
+import operationsWriter.WriterParserByAlive;
+import operationsWriter.WriterParserByName;
+import operationsWriter.WriterParserByNationality;
 
 public class xPathParser {
 	private File inputXMLFile;
@@ -121,18 +140,7 @@ public class xPathParser {
 		}
 
 		this.iterateNodesAndApply(expression, ep);
-
-		TransformerFactory tf = TransformerFactory.newInstance();
-		Transformer t;
-		try {
-			t = tf.newTransformer();
-			t.transform(new DOMSource(document), new StreamResult(System.out));
-		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			e.printStackTrace();
-		}
-
+		this.updateDocument();
 		return null;
 	}
 
@@ -142,18 +150,25 @@ public class xPathParser {
 
 	public ArrayList<XMLElement> deleteBooks(Genre genre) {
 		this.iterateNodesAndApply("library/books/book", new BookDeleterByGenre(genre));
-
-		TransformerFactory tf = TransformerFactory.newInstance();
-		Transformer t;
-		try {
-			t = tf.newTransformer();
-			t.transform(new DOMSource(document), new StreamResult(System.out));
-		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			e.printStackTrace();
-		}
-
+		this.updateDocument();
+		return null;
+	}
+	
+	public ArrayList<XMLElement> deleteBooks(Title title) {
+		this.iterateNodesAndApply("library/books/book", new BookDeleterByTitle(title));
+		this.updateDocument();
+		return null;
+	}
+	
+	public ArrayList<XMLElement> deleteBooks(Id id) {
+		this.iterateNodesAndApply("library/books/book", new BookDeleterById(id));
+		this.updateDocument();
+		return null;
+	}
+	
+	public ArrayList<XMLElement> deleteBooks(Author author) {
+		this.iterateNodesAndApply("library/books/book", new BookDeleterByAuthor(author));
+		this.updateDocument();
 		return null;
 	}
 
@@ -235,5 +250,18 @@ public class xPathParser {
 		}
 
 		return null;
+	}
+	
+	private void updateDocument() {
+		TransformerFactory tf = TransformerFactory.newInstance();
+		Transformer t;
+		try {
+			t = tf.newTransformer();
+			t.transform(new DOMSource(document), new StreamResult(System.out));
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
 	}
 }

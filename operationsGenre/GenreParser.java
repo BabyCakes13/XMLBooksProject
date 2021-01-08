@@ -1,9 +1,10 @@
-package elementsParserXPath;
+package operationsGenre;
 
 import org.w3c.dom.Element;
 
 import elements.Genre;
 import elements.XMLElement;
+import elementsParserXPath.ElementOperation;
 
 public class GenreParser implements ElementOperation {
 	public XMLElement elementOperation(Element el) {

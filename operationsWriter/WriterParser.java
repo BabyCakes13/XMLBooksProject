@@ -1,9 +1,10 @@
-package elementsParserXPath;
+package operationsWriter;
 
 import org.w3c.dom.Element;
 
 import elements.Writer;
 import elements.XMLElement;
+import elementsParserXPath.ElementOperation;
 
 public class WriterParser implements ElementOperation {
 	public XMLElement elementOperation(Element el) {

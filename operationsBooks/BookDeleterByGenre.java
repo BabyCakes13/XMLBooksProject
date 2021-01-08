@@ -1,14 +1,14 @@
-package elementsParserXPath;
+package operationsBooks;
 
 import org.w3c.dom.Element;
 
 import elements.Genre;
 import elements.XMLElement;
 
-public class BookParserByGenre extends BookParser {
+public class BookDeleterByGenre extends BookDeleter {
 	public Genre genre;
 
-	public BookParserByGenre(Genre genre) {
+	public BookDeleterByGenre(Genre genre) {
 		this.genre = genre;
 	}
 

@@ -1,4 +1,4 @@
-package elementsParserXPath;
+package operationsWriter;
 
 import org.w3c.dom.Element;
 

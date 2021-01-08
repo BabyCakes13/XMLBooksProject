@@ -1,10 +1,11 @@
-package elementsParserXPath;
+package operationsWriter;
 
 import org.w3c.dom.Element;
 
 import elements.XMLElement;
+import elementsParserXPath.ElementOperation;
 
-public class GenreDeleter implements ElementOperation{
+public class WriterDeleter implements ElementOperation{
 	public XMLElement elementOperation(Element el) {
 		el.getParentNode().removeChild(el);
 		return null;
