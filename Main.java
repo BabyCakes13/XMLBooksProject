@@ -85,6 +85,10 @@ public class Main {
 		xPathBook.editBooks(new Author("Aldous Huxley"), new Author("Not Aldous Huxley"));
 		xPathBook.editBooks(new Genre("Romance"), new Genre("Totally Not Romance"));
 		xPathBook.editBooks(new Id("b1"), new Id("NewB1"));
+		
+		xPathWriter.editWriter(new Author("Aldous Huxley"),new Author("Not Aldous Huxley"));
+		xPathWriter.editWriter(new Nationality("Colombian"), new Nationality("Ethiopian"));
+		xPathWriter.editWriter(new Id("a3"), new Id("NewA3"));
 	}
 
 	public static void oneFilterDelete(xPathParserBook xPathBook, xPathParserWriter xPathWriter,

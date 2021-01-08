@@ -3,15 +3,26 @@ package elementsParserXPath;
 import java.io.File;
 import java.util.ArrayList;
 
+import elements.Author;
+import elements.Genre;
 import elements.Id;
 import elements.Nationality;
+import elements.Title;
 import elements.WriterName;
 import elements.XMLElement;
+import elementsParserXPath.operations.bookOperations.BookDeleterByAuthor;
+import elementsParserXPath.operations.bookOperations.BookEditorByAuthor;
+import elementsParserXPath.operations.bookOperations.BookEditorByGenre;
+import elementsParserXPath.operations.bookOperations.BookEditorById;
+import elementsParserXPath.operations.bookOperations.BookEditorByTitle;
 import elementsParserXPath.operations.writerOperations.WriterDeleterByAlive;
 import elementsParserXPath.operations.writerOperations.WriterDeleterByDead;
 import elementsParserXPath.operations.writerOperations.WriterDeleterById;
 import elementsParserXPath.operations.writerOperations.WriterDeleterByName;
 import elementsParserXPath.operations.writerOperations.WriterDeleterByNationality;
+import elementsParserXPath.operations.writerOperations.WriterEditorById;
+import elementsParserXPath.operations.writerOperations.WriterEditorByName;
+import elementsParserXPath.operations.writerOperations.WriterEditorByNationality;
 import elementsParserXPath.operations.writerOperations.WriterParserByAlive;
 import elementsParserXPath.operations.writerOperations.WriterParserByName;
 import elementsParserXPath.operations.writerOperations.WriterParserByNationality;
@@ -60,6 +71,24 @@ public class xPathParserWriter extends xPathParser {
 	
 	public ArrayList<XMLElement> deleteWriters(Id id) {
 		this.iterateNodesAndApply("library/writers/writer", new WriterDeleterById(id));
+		this.updateDocument();
+		return null;
+	}
+	
+	public ArrayList<XMLElement> editWriter(Id id, Id newId) {
+		this.iterateNodesAndApply("library/writers/writer", new WriterEditorById(id, newId));
+		this.updateDocument();
+		return null;
+	}
+	
+	public ArrayList<XMLElement> editWriter(Author name, Author newName) {
+		this.iterateNodesAndApply("library/writers/writer", new WriterEditorByName(name, newName));
+		this.updateDocument();
+		return null;
+	}
+	
+	public ArrayList<XMLElement> editWriter(Nationality nationality, Nationality newNationality) {
+		this.iterateNodesAndApply("library/writers/writer", new WriterEditorByNationality(nationality, newNationality));
 		this.updateDocument();
 		return null;
 	}
