@@ -7,7 +7,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Set;
 
 import java.io.IOException;
@@ -45,17 +44,17 @@ public class Main {
 
 		File xmlInputFile = new File("library.xml");
 		Document xmlDocument = setupDocument(xmlInputFile);
-		
+
 		loadLibrary();
-//		solveWithDOM(xmlInputFile);
-		
+//		querryWithDOM(xmlInputFile);
+//
 //		querryWithXPath(xmlDocument);
-		
+//
 //		deleteWithXPath(xmlDocument);
 //		editWithXPath(xmlDocument);
 //		addWithXPath(xmlDocument);
 	}
-	
+
 	public static Document setupDocument(File inputXMLFile) {
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -69,24 +68,24 @@ public class Main {
 			return null;
 		}
 	}
-	
+
 	public static void addWithXPath(Document xmlDocument) {
 		xPathParserBook xPathBook = new xPathParserBook(xmlDocument);
 		xPathParserWriter xPathWriter = new xPathParserWriter(xmlDocument);
 		xPathParserGenre xPathGenre = new xPathParserGenre(xmlDocument);
-		
+
 		Book newBook = new Book("newBook", "Brand New Book", "Min", "Totally Fiction");
 		xPathBook.addBook(newBook);
-		
+
 		Writer newWriter = new Writer("r15", "Min", "1998", "-", "Romanian");
 		xPathWriter.addWriter(newWriter);
-		
+
 		Genre newGenre = new Genre("g15", "Totally Fiction");
 		xPathGenre.addGenre(newGenre);
-		
+
 		xPathBook.updateDocument();
 	}
-	
+
 	public static void querryWithXPath(Document xmlDocument) {
 		xPathParserBook xPathBook = new xPathParserBook(xmlDocument);
 		xPathParserWriter xPathWriter = new xPathParserWriter(xmlDocument);
@@ -105,7 +104,7 @@ public class Main {
 		oneFilterXPathDelete(xPathBook, xPathWriter, xPathGenre);
 		twoFilterXPathDelete(xPathBook, xPathWriter, xPathGenre);
 	}
-	
+
 	public static void editWithXPath(Document xmlDocument) {
 		xPathParserBook xPathBook = new xPathParserBook(xmlDocument);
 		xPathParserWriter xPathWriter = new xPathParserWriter(xmlDocument);
@@ -113,18 +112,18 @@ public class Main {
 
 		twoFilterXPathEdit(xPathBook, xPathWriter, xPathGenre);
 	}
-	
+
 	public static void twoFilterXPathEdit(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
 			xPathParserGenre xPathGenre) {
 		xPathGenre.editGenres("Romance", "New Romance");
 		xPathGenre.editGenres(new Id("g5"), new Id("newG5"));
-		
+
 		xPathBook.editBooks(new Title("Love in the Time of Cholera"), new Title("Love in the Time of Covid"));
 		xPathBook.editBooks(new Author("Aldous Huxley"), new Author("Not Aldous Huxley"));
 		xPathBook.editBooks(new Genre("Romance"), new Genre("Totally Not Romance"));
 		xPathBook.editBooks(new Id("b1"), new Id("NewB1"));
-		
-		xPathWriter.editWriter(new Author("Aldous Huxley"),new Author("Not Aldous Huxley"));
+
+		xPathWriter.editWriter(new Author("Aldous Huxley"), new Author("Not Aldous Huxley"));
 		xPathWriter.editWriter(new Nationality("Colombian"), new Nationality("Ethiopian"));
 		xPathWriter.editWriter(new Id("a3"), new Id("NewA3"));
 	}
