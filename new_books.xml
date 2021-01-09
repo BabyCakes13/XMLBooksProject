@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+The following XML database contains information represeting a library.
+
+Books, their authors and genres are stored as XML Elements below.
+ --><library>
+  <!--
+  The following XML database contains information about books.
+
+  We are storing the title of the book, its author and its genre.
+  We are also storing as attribute an unique identifier.
+   -->
+  <books>
+    <!--Fyodor Dostoevsky-->
+    <book id="b1">
+      <title>Notes from Underground</title>
+      <author>Fyodor Dostoevsky</author>      
+      <genre>Philosophical</genre>
+    </book>
+    <book id="b2">
+      <title>Crime and Punishment</title>
+      <author>Fyodor Dostoevsky</author>
+      <genre>Philosophical</genre>
+    </book>
+    <book id="b3">
+      <title>The Idiot</title>
+      <author>Fyodor Dostoevsky</author>
+      <genre>Philosophical</genre>
+    </book>
+    <book id="b4">
+      <title>The Brothers Karamazov</title>
+      <author>Fyodor Dostoevsky</author>
+      <genre>Philosophical</genre>
+    </book>
+
+    <!--George Orwell-->
+    <book id="b5">
+      <title>Animal Farm</title>
+      <author>George Orwell</author>
+      <genre>Political satire</genre>
+    </book>
+    <book id="b6">
+      <title>Nineteen Eighty-Four</title>
+      <author>George Orwell</author>
+      <genre>Dystopian</genre>
+    </book>
+
+    <!--Aldous Huxley-->
+    <book id="b7">
+      <title>Brave New World</title>
+      <author>Aldous Huxley</author>
+      <genre>Dystopian</genre>
+    </book>
+
+    <!--J. K. Rowling-->
+    <book id="b8">
+      <title>Philosopher's Stone</title>
+      <author>J. K. Rowling</author>
+      <genre>Fantasy</genre>
+    </book>
+    <book id="b9">
+      <title>Chamber of Secrets</title>
+      <author>J. K. Rowling</author>
+      <genre>Fantasy</genre>
+    </book>
+    <book id="b10">
+      <title>Prisoner of Azkaba</title>
+      <author>J. K. Rowling</author>
+      <genre>Fantasy</genre>
+    </book>
+    <book id="b11">
+      <title>Goblet of Fire</title>
+      <author>J. K. Rowling</author>
+      <genre>Fantasy</genre>
+    </book>
+    <book id="b12">
+      <title>Order of the Phoenix</title>
+      <author>J. K. Rowling</author>
+      <genre>Fantasy</genre>
+    </book>
+    <book id="b13">
+      <title>Half-Blood Prince</title>
+      <author>J. K. Rowling</author>
+      <genre>Fantasy</genre>
+    </book>
+    <book id="b14">
+      <title>Deathly Hallowse</title>
+      <author>Fyodor Dostoevsky</author>
+      <genre>Fantasy</genre>
+    </book>
+
+    <!--Gabriel García Márquez-->
+    <book id="b15">
+      <title>One Hundred Years of Solitude</title>
+      <author>Gabriel García Márquez</author>
+      <genre>Realism</genre>
+    </book>
+    <book id="b16">
+      <title>The Autumn of the Patriarch</title>
+      <author>Gabriel García Márquez</author>
+      <genre>Realism</genre>
+    </book>
+    <book id="b17">
+      <title>Love in the Time of Cholera</title>
+      <author>Gabriel García Márquez</author>
+      <genre>Romance</genre>
+    </book>
+    <book id="b18">
+      <title>Of Love and Other Demons</title>
+      <author>Gabriel García Márquez</author>
+      <genre>Romance</genre>
+    </book>
+  <book id="newBook">
+      <title>Brand New Book</title>
+      <author>Min</author>
+      <genre>Totally Fiction</genre>
+    </book>
+  </books>
+
+  <!--
+  The following XML database contains information about authors.
+
+  We are storing their names, birth and death year as well as nationality.
+  An unique identifier is also stored for each
+  -->
+  <writers>
+    <writer id="a1">
+      <name>Fyodor Dostoevsky</name>
+      <birthYear>1821</birthYear>
+      <deathYear>1821</deathYear>
+      <nationality>Russian</nationality>
+    </writer>
+    <writer id="a2">
+      <name>George Orwell</name>
+      <birthYear>1903</birthYear>
+      <deathYear>1950</deathYear>
+      <nationality>English</nationality>
+    </writer>
+    <writer id="a3">
+      <name>Aldous Huxley</name>
+      <birthYear>1894</birthYear>
+      <deathYear>1963</deathYear>
+      <nationality>English</nationality>
+    </writer>
+    <writer id="a4">
+      <name>J. K. Rowling</name>
+      <birthYear>1965</birthYear>
+      <deathYear>-</deathYear>
+      <nationality>English</nationality>
+    </writer>
+    <writer id="a5">
+      <name>Gabriel García Márquez</name>
+      <birthYear>1927</birthYear>
+      <deathYear>2014</deathYear>
+      <nationality>Colombian</nationality>
+    </writer>
+  </writers>
+
+  <!--
+  The following XML database contains different book genres.
+
+  For now, only the name of the genre is used.
+  -->
+  <genres>
+    <genre id="g1">
+      <name>Philosophical</name>
+    </genre>
+    <genre id="g2">
+      <name>Political satire</name>
+    </genre>
+    <genre id="g3">
+      <name>Dystopian</name>
+    </genre>
+    <genre id="g4">
+      <name>Fantasy</name>
+    </genre>
+    <genre id="g5">
+      <name>Realism</name>
+    </genre>
+    <genre id="g6">
+      <name>Romance</name>
+    </genre>
+  </genres>
+</library>

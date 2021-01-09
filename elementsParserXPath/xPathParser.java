@@ -2,6 +2,7 @@ package elementsParserXPath;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -30,8 +31,8 @@ import elementsParserXPath.operations.writerOperations.WriterParser;
 
 public class xPathParser {
 	private File inputXMLFile;
-	private Document document;
-	private XPath xPath;
+	protected Document document;
+	protected XPath xPath;
 
 	public xPathParser(File inputXMLFile) {
 		System.out.println("CREATING XPATH PARSER...");
@@ -133,7 +134,9 @@ public class xPathParser {
 		Transformer t;
 		try {
 			t = tf.newTransformer();
-			t.transform(new DOMSource(document), new StreamResult(System.out));
+			t.setOutputProperty(OutputKeys.INDENT, "yes");
+			t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+			t.transform(new DOMSource(document), new StreamResult("new_books.xml"));
 		} catch (TransformerConfigurationException e) {
 			e.printStackTrace();
 		} catch (TransformerException e) {
@@ -152,5 +155,11 @@ public class xPathParser {
 		}
 
 		return null;
+	}
+	
+	protected void appendChild(Node parentNode, String name, String textContent) {
+		Element element = document.createElement(name);
+		element.setTextContent(textContent);
+		parentNode.appendChild(element);
 	}
 }

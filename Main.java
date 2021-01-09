@@ -18,6 +18,7 @@ import javax.xml.validation.Validator;
 import org.xml.sax.SAXException;
 
 import elements.Author;
+import elements.Book;
 import elements.Genre;
 import elements.Id;
 import elements.Nationality;
@@ -46,9 +47,15 @@ public class Main {
 //		solveWithXPath(xmlInputFile);
 
 //		deleteWithXPath(xmlInputFile);
-		editWithXPath(xmlInputFile);
+//		editWithXPath(xmlInputFile);
+		addWithXPath(xmlInputFile);
 	}
-
+	
+	public static void addWithXPath(File xmlInputFile) {
+		xPathParserBook xPathBook = new xPathParserBook(xmlInputFile);
+		Book newBook = new Book("newBook", "Brand New Book", "Min", "Totally Fiction");
+		xPathBook.addBook(newBook);
+	}
 	public static void solveWithXPath(File xmlInputFile) {
 		xPathParserBook xPathBook = new xPathParserBook(xmlInputFile);
 		xPathParserWriter xPathWriter = new xPathParserWriter(xmlInputFile);
