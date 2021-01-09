@@ -34,8 +34,6 @@ public class xPathParser {
 	protected XPath xPath;
 
 	public xPathParser(Document xmlDocument) {
-		System.out.println("CREATING XPATH PARSER...");
-
 		this.document = xmlDocument;
 		this.xPath = XPathFactory.newInstance().newXPath();
 	}

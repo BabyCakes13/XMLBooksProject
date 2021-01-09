@@ -27,8 +27,6 @@ import elementsParserXPath.operations.bookOperations.BookEditorById;
 import elementsParserXPath.operations.bookOperations.BookEditorByTitle;
 import elementsParserXPath.operations.bookOperations.BookParserByAuthor;
 import elementsParserXPath.operations.bookOperations.BookParserByGenre;
-import elementsParserXPath.operations.genreOperations.GenreEditorById;
-import elementsParserXPath.operations.genreOperations.GenreEditorByName;
 import elementsParserXPath.operations.writerOperations.WriterParserByNationality;
 
 public class xPathParserBook extends xPathParser {
@@ -147,6 +145,8 @@ public class xPathParserBook extends xPathParser {
 			this.appendChild(element, "genre", book.getGenre());
 			
 			lastNode.appendChild(element);
+			
+			System.out.println("Added: " + book.toString());
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		}

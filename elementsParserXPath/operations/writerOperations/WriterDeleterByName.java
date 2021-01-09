@@ -2,19 +2,19 @@ package elementsParserXPath.operations.writerOperations;
 
 import org.w3c.dom.Element;
 
-import elements.WriterName;
+import elements.Author;
 import elements.XMLElement;
 
 public class WriterDeleterByName extends WriterDeleter {
-	public WriterName name;
+	public Author author;
 
-	public WriterDeleterByName(WriterName name) {
-		this.name = name;
+	public WriterDeleterByName(Author author) {
+		this.author = author;
 	}
 
 	public XMLElement elementOperation(Element el) {
 		String writerName = el.getElementsByTagName("name").item(0).getTextContent();
-		if (writerName.equals(this.name.getName()))
+		if (writerName.equals(this.author.getName()))
 			return super.elementOperation(el);
 		return null;
 	}

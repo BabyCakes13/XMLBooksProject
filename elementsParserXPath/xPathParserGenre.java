@@ -64,6 +64,8 @@ public class xPathParserGenre extends xPathParser {
 			this.appendChild(element, "title", genre.getName());
 			
 			lastNode.appendChild(element);
+			
+			System.out.println("Added: " + genre.toString());
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		}

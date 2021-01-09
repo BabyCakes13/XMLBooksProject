@@ -28,9 +28,7 @@ import elements.Id;
 import elements.Nationality;
 import elements.Title;
 import elements.Writer;
-import elements.WriterName;
 import elements.XMLElement;
-import elementsParserXPath.xPathParser;
 import elementsParserXPath.xPathParserBook;
 import elementsParserXPath.xPathParserGenre;
 import elementsParserXPath.xPathParserWriter;
@@ -50,10 +48,12 @@ public class Main {
 		
 		loadLibrary();
 //		solveWithDOM(xmlInputFile);
-//		solveWithXPath(xmlInputFile);
-//		deleteWithXPath(xmlInputFile);
-//		editWithXPath(xmlInputFile);
-		addWithXPath(xmlDocument);
+		
+//		querryWithXPath(xmlDocument);
+		
+//		deleteWithXPath(xmlDocument);
+//		editWithXPath(xmlDocument);
+//		addWithXPath(xmlDocument);
 	}
 	
 	public static Document setupDocument(File inputXMLFile) {
@@ -86,7 +86,8 @@ public class Main {
 		
 		xPathBook.updateDocument();
 	}
-	public static void solveWithXPath(Document xmlDocument) {
+	
+	public static void querryWithXPath(Document xmlDocument) {
 		xPathParserBook xPathBook = new xPathParserBook(xmlDocument);
 		xPathParserWriter xPathWriter = new xPathParserWriter(xmlDocument);
 		xPathParserGenre xPathGenre = new xPathParserGenre(xmlDocument);
@@ -101,8 +102,8 @@ public class Main {
 		xPathParserWriter xPathWriter = new xPathParserWriter(xmlDocument);
 		xPathParserGenre xPathGenre = new xPathParserGenre(xmlDocument);
 
-		oneFilterDelete(xPathBook, xPathWriter, xPathGenre);
-		twoFilterDelete(xPathBook, xPathWriter, xPathGenre);
+		oneFilterXPathDelete(xPathBook, xPathWriter, xPathGenre);
+		twoFilterXPathDelete(xPathBook, xPathWriter, xPathGenre);
 	}
 	
 	public static void editWithXPath(Document xmlDocument) {
@@ -110,10 +111,10 @@ public class Main {
 		xPathParserWriter xPathWriter = new xPathParserWriter(xmlDocument);
 		xPathParserGenre xPathGenre = new xPathParserGenre(xmlDocument);
 
-		twoFilterEdit(xPathBook, xPathWriter, xPathGenre);
+		twoFilterXPathEdit(xPathBook, xPathWriter, xPathGenre);
 	}
 	
-	public static void twoFilterEdit(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
+	public static void twoFilterXPathEdit(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
 			xPathParserGenre xPathGenre) {
 		xPathGenre.editGenres("Romance", "New Romance");
 		xPathGenre.editGenres(new Id("g5"), new Id("newG5"));
@@ -128,14 +129,14 @@ public class Main {
 		xPathWriter.editWriter(new Id("a3"), new Id("NewA3"));
 	}
 
-	public static void oneFilterDelete(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
+	public static void oneFilterXPathDelete(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
 			xPathParserGenre xPathGenre) {
 		xPathBook.deleteAll("library/books/book");
 		xPathWriter.deleteAll("library/writers/writer");
 		xPathGenre.deleteAll("library/genres/genre");
 	}
 
-	public static void twoFilterDelete(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
+	public static void twoFilterXPathDelete(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
 			xPathParserGenre xPathGenre) {
 		xPathBook.deleteBooks(new Genre("Romance"));
 		xPathBook.deleteBooks(new Title("Brave New World"));
@@ -149,7 +150,7 @@ public class Main {
 		xPathWriter.deleteWriters(new Nationality("Colombian"));
 		xPathWriter.deleteWriters("alive");
 		xPathWriter.deleteWriters("dead");
-		xPathWriter.deleteWriters(new WriterName("Aldous Huxley"));
+		xPathWriter.deleteWriters(new Author("Aldous Huxley"));
 	}
 
 	public static void oneFilterXPathQuerries(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
@@ -214,7 +215,7 @@ public class Main {
 		print(englishDystopianBooks);
 	}
 
-	public static void solveWithDOM(File xmlInputFile) {
+	public static void querryWithDOM(File xmlInputFile) {
 		DOMparser parser = new DOMparser(xmlInputFile);
 		Interogation interogation = new Interogation(parser);
 

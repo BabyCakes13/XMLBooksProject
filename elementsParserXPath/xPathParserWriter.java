@@ -14,7 +14,6 @@ import elements.Author;
 import elements.Id;
 import elements.Nationality;
 import elements.Writer;
-import elements.WriterName;
 import elements.XMLElement;
 import elementsParserXPath.operations.writerOperations.WriterDeleterByAlive;
 import elementsParserXPath.operations.writerOperations.WriterDeleterByDead;
@@ -58,8 +57,8 @@ public class xPathParserWriter extends xPathParser {
 		return null;
 	}
 	
-	public ArrayList<XMLElement> deleteWriters(WriterName name) {
-		this.iterateNodesAndApply("library/writers/writer", new WriterDeleterByName(name));
+	public ArrayList<XMLElement> deleteWriters(Author author) {
+		this.iterateNodesAndApply("library/writers/writer", new WriterDeleterByName(author));
 		this.updateDocument();
 		return null;
 	}
@@ -109,6 +108,8 @@ public class xPathParserWriter extends xPathParser {
 			this.appendChild(element, "nationality", writer.getNationality());
 			
 			lastNode.appendChild(element);
+			
+			System.out.println("Added: " + writer.toString());
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		}
