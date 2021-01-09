@@ -30,30 +30,14 @@ import elementsParserXPath.operations.writerOperations.WriterDeleter;
 import elementsParserXPath.operations.writerOperations.WriterParser;
 
 public class xPathParser {
-	private File inputXMLFile;
 	protected Document document;
 	protected XPath xPath;
 
-	public xPathParser(File inputXMLFile) {
+	public xPathParser(Document xmlDocument) {
 		System.out.println("CREATING XPATH PARSER...");
 
-		this.inputXMLFile = inputXMLFile;
-		this.document = this.setupDocument();
+		this.document = xmlDocument;
 		this.xPath = XPathFactory.newInstance().newXPath();
-	}
-
-	private Document setupDocument() {
-		try {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(this.inputXMLFile);
-			doc.getDocumentElement().normalize();
-
-			return doc;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	public ArrayList<XMLElement> iterateNodesAndApply(String expression, ElementOperation ep) {
@@ -129,14 +113,14 @@ public class xPathParser {
 		return null;
 	}
 	
-	protected void updateDocument() {
+	public void updateDocument() {
 		TransformerFactory tf = TransformerFactory.newInstance();
 		Transformer t;
 		try {
 			t = tf.newTransformer();
 			t.setOutputProperty(OutputKeys.INDENT, "yes");
 			t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-			t.transform(new DOMSource(document), new StreamResult("new_books.xml"));
+			t.transform(new DOMSource(this.document), new StreamResult("new_books.xml"));
 		} catch (TransformerConfigurationException e) {
 			e.printStackTrace();
 		} catch (TransformerException e) {

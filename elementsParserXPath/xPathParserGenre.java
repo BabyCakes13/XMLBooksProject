@@ -1,8 +1,16 @@
 package elementsParserXPath;
 
-import java.io.File;
 import java.util.ArrayList;
 
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import elements.Genre;
 import elements.Id;
 import elements.XMLElement;
 import elementsParserXPath.operations.genreOperations.GenreDeleterById;
@@ -12,8 +20,8 @@ import elementsParserXPath.operations.genreOperations.GenreEditorByName;
 import elementsParserXPath.operations.genreOperations.GenreParserByName;
 
 public class xPathParserGenre extends xPathParser {
-	public xPathParserGenre(File inputXMLFile) {
-		super(inputXMLFile);
+	public xPathParserGenre(Document xmlDocument) {
+		super(xmlDocument);
 	}
 	
 	public ArrayList<XMLElement> parseGenres(String name) {
@@ -42,6 +50,23 @@ public class xPathParserGenre extends xPathParser {
 		this.iterateNodesAndApply("library/genres/genre", new GenreEditorById(id, newId));
 		this.updateDocument();
 		return null;
+	}
+	
+	public void addGenre(Genre genre) {
+		try {
+			NodeList nodeList = (NodeList) this.xPath.compile("library/genres").evaluate(this.document,
+					XPathConstants.NODESET);
+			
+			Node lastNode = nodeList.item(nodeList.getLength() - 1);
+			Element element = document.createElement("genre");
+			element.setAttribute("id", genre.getId());
+			
+			this.appendChild(element, "title", genre.getName());
+			
+			lastNode.appendChild(element);
+		} catch (XPathExpressionException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

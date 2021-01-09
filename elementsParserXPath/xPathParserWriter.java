@@ -1,20 +1,21 @@
 package elementsParserXPath;
 
-import java.io.File;
 import java.util.ArrayList;
 
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import elements.Author;
-import elements.Genre;
 import elements.Id;
 import elements.Nationality;
-import elements.Title;
+import elements.Writer;
 import elements.WriterName;
 import elements.XMLElement;
-import elementsParserXPath.operations.bookOperations.BookDeleterByAuthor;
-import elementsParserXPath.operations.bookOperations.BookEditorByAuthor;
-import elementsParserXPath.operations.bookOperations.BookEditorByGenre;
-import elementsParserXPath.operations.bookOperations.BookEditorById;
-import elementsParserXPath.operations.bookOperations.BookEditorByTitle;
 import elementsParserXPath.operations.writerOperations.WriterDeleterByAlive;
 import elementsParserXPath.operations.writerOperations.WriterDeleterByDead;
 import elementsParserXPath.operations.writerOperations.WriterDeleterById;
@@ -28,8 +29,8 @@ import elementsParserXPath.operations.writerOperations.WriterParserByName;
 import elementsParserXPath.operations.writerOperations.WriterParserByNationality;
 
 public class xPathParserWriter extends xPathParser {
-	public xPathParserWriter(File inputXMLFile) {
-		super(inputXMLFile);
+	public xPathParserWriter(Document xmlDocument) {
+		super(xmlDocument);
 	}
 	
 	public ArrayList<XMLElement> parseWriters(String element, String elementType) {
@@ -91,5 +92,25 @@ public class xPathParserWriter extends xPathParser {
 		this.iterateNodesAndApply("library/writers/writer", new WriterEditorByNationality(nationality, newNationality));
 		this.updateDocument();
 		return null;
+	}
+	
+	public void addWriter(Writer writer) {
+		try {
+			NodeList nodeList = (NodeList) this.xPath.compile("library/writers").evaluate(this.document,
+					XPathConstants.NODESET);
+			
+			Node lastNode = nodeList.item(nodeList.getLength() - 1);
+			Element element = document.createElement("writer");
+			element.setAttribute("id", writer.getId());
+			
+			this.appendChild(element, "name", writer.getName());
+			this.appendChild(element, "birthYear", writer.getBirthYear());
+			this.appendChild(element, "deathYear", writer.getDeathYear());
+			this.appendChild(element, "nationality", writer.getNationality());
+			
+			lastNode.appendChild(element);
+		} catch (XPathExpressionException e) {
+			e.printStackTrace();
+		}
 	}
 }

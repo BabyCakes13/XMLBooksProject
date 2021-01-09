@@ -3,6 +3,8 @@ import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +17,8 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import elements.Author;
@@ -42,43 +46,69 @@ public class Main {
 		}
 
 		File xmlInputFile = new File("library.xml");
+		Document xmlDocument = setupDocument(xmlInputFile);
+		
 		loadLibrary();
 //		solveWithDOM(xmlInputFile);
 //		solveWithXPath(xmlInputFile);
-
 //		deleteWithXPath(xmlInputFile);
 //		editWithXPath(xmlInputFile);
-		addWithXPath(xmlInputFile);
+		addWithXPath(xmlDocument);
 	}
 	
-	public static void addWithXPath(File xmlInputFile) {
-		xPathParserBook xPathBook = new xPathParserBook(xmlInputFile);
+	public static Document setupDocument(File inputXMLFile) {
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputXMLFile);
+			doc.getDocumentElement().normalize();
+
+			return doc;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static void addWithXPath(Document xmlDocument) {
+		xPathParserBook xPathBook = new xPathParserBook(xmlDocument);
+		xPathParserWriter xPathWriter = new xPathParserWriter(xmlDocument);
+		xPathParserGenre xPathGenre = new xPathParserGenre(xmlDocument);
+		
 		Book newBook = new Book("newBook", "Brand New Book", "Min", "Totally Fiction");
 		xPathBook.addBook(newBook);
+		
+		Writer newWriter = new Writer("r15", "Min", "1998", "-", "Romanian");
+		xPathWriter.addWriter(newWriter);
+		
+		Genre newGenre = new Genre("g15", "Totally Fiction");
+		xPathGenre.addGenre(newGenre);
+		
+		xPathBook.updateDocument();
 	}
-	public static void solveWithXPath(File xmlInputFile) {
-		xPathParserBook xPathBook = new xPathParserBook(xmlInputFile);
-		xPathParserWriter xPathWriter = new xPathParserWriter(xmlInputFile);
-		xPathParserGenre xPathGenre = new xPathParserGenre(xmlInputFile);
+	public static void solveWithXPath(Document xmlDocument) {
+		xPathParserBook xPathBook = new xPathParserBook(xmlDocument);
+		xPathParserWriter xPathWriter = new xPathParserWriter(xmlDocument);
+		xPathParserGenre xPathGenre = new xPathParserGenre(xmlDocument);
 
 		oneFilterXPathQuerries(xPathBook, xPathWriter, xPathGenre);
 		twoFilterXPathQuerries(xPathBook, xPathWriter, xPathGenre);
 		threeFilterXPathQuerries(xPathBook, xPathWriter, xPathGenre);
 	}
 
-	public static void deleteWithXPath(File xmlInputFile) {
-		xPathParserBook xPathBook = new xPathParserBook(xmlInputFile);
-		xPathParserWriter xPathWriter = new xPathParserWriter(xmlInputFile);
-		xPathParserGenre xPathGenre = new xPathParserGenre(xmlInputFile);
+	public static void deleteWithXPath(Document xmlDocument) {
+		xPathParserBook xPathBook = new xPathParserBook(xmlDocument);
+		xPathParserWriter xPathWriter = new xPathParserWriter(xmlDocument);
+		xPathParserGenre xPathGenre = new xPathParserGenre(xmlDocument);
 
 		oneFilterDelete(xPathBook, xPathWriter, xPathGenre);
 		twoFilterDelete(xPathBook, xPathWriter, xPathGenre);
 	}
 	
-	public static void editWithXPath(File xmlInputFile) {
-		xPathParserBook xPathBook = new xPathParserBook(xmlInputFile);
-		xPathParserWriter xPathWriter = new xPathParserWriter(xmlInputFile);
-		xPathParserGenre xPathGenre = new xPathParserGenre(xmlInputFile);
+	public static void editWithXPath(Document xmlDocument) {
+		xPathParserBook xPathBook = new xPathParserBook(xmlDocument);
+		xPathParserWriter xPathWriter = new xPathParserWriter(xmlDocument);
+		xPathParserGenre xPathGenre = new xPathParserGenre(xmlDocument);
 
 		twoFilterEdit(xPathBook, xPathWriter, xPathGenre);
 	}

@@ -154,6 +154,12 @@ Books, their authors and genres are stored as XML Elements below.
       <deathYear>2014</deathYear>
       <nationality>Colombian</nationality>
     </writer>
+  <writer id="r15">
+      <name>Min</name>
+      <birthYear>1998</birthYear>
+      <deathYear>-</deathYear>
+      <nationality>Romanian</nationality>
+    </writer>
   </writers>
 
   <!--
@@ -179,6 +185,9 @@ Books, their authors and genres are stored as XML Elements below.
     </genre>
     <genre id="g6">
       <name>Romance</name>
+    </genre>
+  <genre id="g15">
+      <title>Totally Fiction</title>
     </genre>
   </genres>
 </library>

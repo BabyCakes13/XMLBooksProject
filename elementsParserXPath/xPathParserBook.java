@@ -1,17 +1,11 @@
 package elementsParserXPath;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -41,8 +35,8 @@ public class xPathParserBook extends xPathParser {
 
 	private String xPathBookArea = "library/books/book";
 
-	public xPathParserBook(File inputXMLFile) {
-		super(inputXMLFile);
+	public xPathParserBook(Document xmlDocument) {
+		super(xmlDocument);
 	}
 
 	public ArrayList<XMLElement> parseBooks(Genre genre) {
@@ -143,7 +137,6 @@ public class xPathParserBook extends xPathParser {
 		try {
 			NodeList nodeList = (NodeList) this.xPath.compile("library/books").evaluate(this.document,
 					XPathConstants.NODESET);
-			System.out.println(nodeList.getLength());
 			
 			Node lastNode = nodeList.item(nodeList.getLength() - 1);
 			Element element = document.createElement("book");
@@ -154,9 +147,6 @@ public class xPathParserBook extends xPathParser {
 			this.appendChild(element, "genre", book.getGenre());
 			
 			lastNode.appendChild(element);
-
-			this.updateDocument();
-
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		}
