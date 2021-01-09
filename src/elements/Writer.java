@@ -1,7 +1,5 @@
 package elements;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 
 public class Writer implements XMLElement{
   private String id;
@@ -25,7 +23,6 @@ public class Writer implements XMLElement{
     this.nationality = nationality;
   }
 
-  @XmlAttribute
   public String getId() {
     return this.id;
   }
@@ -34,7 +31,6 @@ public class Writer implements XMLElement{
     this.id = id;
   }
 
-  @XmlElement
   public String getName() {
     return this.name;
   }
@@ -43,7 +39,6 @@ public class Writer implements XMLElement{
     this.name = name;
   }
 
-  @XmlElement
   public String getBirthYear() {
     return this.birthYear;
   }
@@ -52,7 +47,6 @@ public class Writer implements XMLElement{
     this.birthYear = birthYear;
   }
 
-  @XmlElement
   public String getDeathYear() {
     return this.deathYear;
   }
@@ -61,7 +55,6 @@ public class Writer implements XMLElement{
     this.deathYear = deathYear;
   }
 
-  @XmlElement
   public String getNationality() {
     return this.nationality;
   }

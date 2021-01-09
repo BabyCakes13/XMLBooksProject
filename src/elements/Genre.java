@@ -1,7 +1,5 @@
 package elements;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 
 public class Genre implements XMLElement{
   private String id;
@@ -20,7 +18,6 @@ public class Genre implements XMLElement{
     this.name = name;
   }
 
-  @XmlAttribute
   public String getId() {
     return this.id;
   }
@@ -29,7 +26,6 @@ public class Genre implements XMLElement{
     this.id = id;
   }
 
-  @XmlElement
   public String getName() {
     return this.name;
   }

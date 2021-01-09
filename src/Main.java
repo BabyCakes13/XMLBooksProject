@@ -1,8 +1,5 @@
 import java.io.File;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -45,7 +42,8 @@ public class Main {
 		File xmlInputFile = new File("library.xml");
 		Document xmlDocument = setupDocument(xmlInputFile);
 
-		loadLibrary();
+//		loadLibrary(); //HW1
+		
 //		querryWithDOM(xmlInputFile);
 //
 //		querryWithXPath(xmlDocument);
@@ -229,20 +227,20 @@ public class Main {
 		System.out.println("\n");
 	}
 
-	public static void loadLibrary() {
-		System.out.println("Loading library...");
-		try {
-			File file = new File("library.xml");
-			JAXBContext jaxbContext = JAXBContext.newInstance(Library.class);
-
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			Library library = (Library) jaxbUnmarshaller.unmarshal(file);
-
-			System.out.println(library);
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void loadLibrary() {
+//		System.out.println("Loading library...");
+//		try {
+//			File file = new File("library.xml");
+//			JAXBContext jaxbContext = JAXBContext.newInstance(Library.class);
+//
+//			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+//			Library library = (Library) jaxbUnmarshaller.unmarshal(file);
+//
+//			System.out.println(library);
+//		} catch (JAXBException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	public static boolean validateXMLSchema(String xsdPath, String xmlPath) {
 		System.out.println("Validating XML schema based on XSD...");

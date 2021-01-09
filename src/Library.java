@@ -1,14 +1,8 @@
-import javax.xml.bind.annotation.XmlRootElement;
-
 import elements.Books;
 import elements.Genres;
 import elements.Writers;
 
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAccessType;
 
-@XmlRootElement(name = "library")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Library {
   // @XmlElement(name = "books")
   private Books books;

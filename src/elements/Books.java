@@ -1,11 +1,9 @@
 package elements;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 
 public class Books {
 
-	@XmlElement(name = "book")
 	private ArrayList<Book> books;
 
 	public Books() {

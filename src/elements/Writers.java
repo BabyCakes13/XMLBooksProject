@@ -1,12 +1,9 @@
 package elements;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import java.util.ArrayList;
 
 public class Writers {
 
-  @XmlElement(name = "writer")
   private ArrayList<Writer> writers;
 
   public Writers() {}

@@ -1,11 +1,9 @@
 package elements;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 
 public class Genres {
 
-  @XmlElement(name = "genre")
   private ArrayList<Genre> genre;
 
   public Genres() {}
