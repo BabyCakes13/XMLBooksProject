@@ -20,6 +20,7 @@ import elementsParserXPath.operations.genreOperations.GenreEditorById;
 import elementsParserXPath.operations.genreOperations.GenreEditorByName;
 import elementsParserXPath.operations.genreOperations.GenreParser;
 import elementsParserXPath.operations.genreOperations.GenreParserByName;
+import elementsParserXPath.operations.writerOperations.WriterParserByName;
 
 public class xPathParserGenre extends xPathParser {
 	public xPathParserGenre(Document xmlDocument) {
@@ -36,6 +37,19 @@ public class xPathParserGenre extends xPathParser {
 		return this.iterateNodesAndApply("library/genres/genre", new GenreParserByName(name));
 	}
 	
+	public String parseGenresCamel(String name) {
+		if (name != null) {
+			return parseGenresFilterName(name);
+		} else {
+			return parseAllToString();
+		}
+	}
+	
+	private String parseGenresFilterName(String name) {
+		System.out.println("Getting genre of name: " + name);
+		return convert(parseGenres(name));
+	}
+
 	public ArrayList<XMLElement> deleteGenres(String name) {
 		this.iterateNodesAndApply("library/genres/genre", new GenreDeleterByName(name));
 		this.updateDocument();

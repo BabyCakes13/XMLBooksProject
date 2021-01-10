@@ -46,7 +46,7 @@ public class xPathParserWriter extends xPathParser {
 	}
 	
 	public ArrayList<XMLElement> parseWriters(Writer writer) {
-		return this.iterateNodesAndApply("library/writers/writer", new WriterParserByNationality(writer.getName()));
+		return this.iterateNodesAndApply("library/writers/writer", new WriterParserByName(writer.getName()));
 	}
 
 	public ArrayList<XMLElement> parseWriters(boolean alive) {

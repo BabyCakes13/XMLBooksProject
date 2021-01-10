@@ -5,16 +5,19 @@ import org.apache.camel.model.rest.RestBindingMode;
 import org.w3c.dom.Document;
 
 import elementsParserXPath.xPathParserBook;
+import elementsParserXPath.xPathParserGenre;
 import elementsParserXPath.xPathParserWriter;
 
 public class CamelREST extends RouteBuilder{
 
 	private xPathParserBook xmlBookInteractor;
 	private xPathParserWriter xmlWriterInteractor;
+	private xPathParserGenre xmlGenreInteractor;
 
 	public CamelREST(Document xmlDocument) {
 		this.xmlBookInteractor = new xPathParserBook(xmlDocument);
 		this.xmlWriterInteractor = new xPathParserWriter(xmlDocument);
+		this.xmlGenreInteractor = new xPathParserGenre(xmlDocument);
 	}
 
 	@Override
@@ -41,6 +44,13 @@ public class CamelREST extends RouteBuilder{
 	        .produces("text/plain")
 	        .route()
 	        .bean(xmlWriterInteractor, "parseWritersCamel(${header.name},${header.nationality},${header.alive})")
+	        .endRest();
+		
+		rest("/library")
+			.get("/genres/list?name={name}")
+	        .produces("text/plain")
+	        .route()
+	        .bean(xmlGenreInteractor, "parseGenresCamel(${header.name})")
 	        .endRest();
 	}
 }
