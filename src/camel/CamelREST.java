@@ -17,27 +17,34 @@ public class CamelREST extends RouteBuilder{
 	@Override
 	public void configure() throws Exception {
 		restConfiguration().component("netty-http")
-		.host("localhost")
-		.port("9091")
-		.bindingMode(RestBindingMode.auto);
+			.host("localhost")
+			.port("9091")
+			.bindingMode(RestBindingMode.auto);
 
 		rest("/library")
-		.get("/hello")
-		.description("Basic Hello World")
-		.to("direct:library-hello");
+			.get("/hello")
+			.description("Basic Hello World")
+			.to("direct:library-hello");
 
 		rest("/library")
-		.get("/books")
-		.produces("application/xml")
-		.route()
-		.bean(xmlBookInteractor, "parseAllToBytes")
-		.endRest();
+			.get("/books")
+			.produces("application/xml")
+			.route()
+			.bean(xmlBookInteractor, "parseAllToBytes")
+			.endRest();
 		
 		rest("/library")
-		.get("/book?genre={genre}")
+			.get("/book-genre?genre={genre}")
+	        .produces("text/plain")
+	        .route()
+	        .bean(xmlBookInteractor, "parseBooksFilterGenre(${header.genre})")
+	        .endRest();
+		
+		rest("/library")
+		.get("/book-writer?writer={writer}")
         .produces("text/plain")
         .route()
-        .bean(xmlBookInteractor, "parseBooksToBytes(${header.genre})")
+        .bean(xmlBookInteractor, "parseBooksFilterWriter(${header.writer})")
         .endRest();
 	}
 }

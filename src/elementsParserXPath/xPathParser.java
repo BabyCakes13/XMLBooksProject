@@ -61,12 +61,12 @@ public class xPathParser {
 		return querryResults;
 	}
 	
-	protected byte[] convert(ArrayList<XMLElement> list) {
+	protected String convert(ArrayList<XMLElement> list) {
 		String str = "";
 		for (XMLElement s : list) {
 			str += s.toString() + "\n";
 		}
-		return str.getBytes();
+		return str;
 	}
 	
 	
@@ -74,7 +74,7 @@ public class xPathParser {
 		return null;
 	}
 	
-	public byte[] parseAllToBytes() {
+	public String parseAllToBytes() {
 		return convert(parseAll());
 	}
 

@@ -6,9 +6,9 @@ import org.w3c.dom.Document;
 import elementsParserXPath.xPathParserBook;
 
 public class CamelRoutes extends RouteBuilder {
-	
+
 	private xPathParserBook xmlBookInteractor;
-	
+
 	public CamelRoutes(Document xmlDocument) {
 		this.xmlBookInteractor = new xPathParserBook(xmlDocument);
 	}
@@ -16,15 +16,10 @@ public class CamelRoutes extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		from("direct:library-hello")
-			.routeId("LibraryHello")
-			.log("START:")
-			.setBody(constant("{hello: \"Hello, World!\"}"))
-			.log("END:");
-		
-		from("file:camel/input/books/")
-	        .bean(xmlBookInteractor, "parseAllToBytes")
-	        .to("file:camel/output/books")
-	        .end();
+		.routeId("LibraryHello")
+		.log("START:")
+		.setBody(constant("{hello: \"Hello, World!\"}"))
+		.log("END:");
 	}
 
 }
