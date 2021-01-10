@@ -88,33 +88,66 @@ public class xPathParserWriter extends xPathParser {
 			return null;
 		}
 	}
+	
+	// SIMPLE DELETE
 
 	public ArrayList<XMLElement> deleteWriters(String lifeStatus) {
+		System.out.println("Deleting writer by life status: " + lifeStatus);
+		ArrayList<XMLElement> deleted = new ArrayList<>();
+		
 		if(lifeStatus.equals("alive")) {
-			this.iterateNodesAndApply("library/writers/writer", new WriterDeleterByAlive());
+			deleted = this.iterateNodesAndApply("library/writers/writer", new WriterDeleterByAlive());
 		} else if (lifeStatus.equals("dead")) {
-			this.iterateNodesAndApply("library/writers/writer", new WriterDeleterByDead());
+			deleted = this.iterateNodesAndApply("library/writers/writer", new WriterDeleterByDead());
+		} else {
+			System.out.println("The Schrodinger's cat can be either alive, or dead.");
 		}
 
 		this.updateDocument();
-		return null;
+		return deleted;
 	}
 
 	public ArrayList<XMLElement> deleteWriters(Author author) {
-		this.iterateNodesAndApply("library/writers/writer", new WriterDeleterByName(author));
+		System.out.println("Deleting writer by name: " + author.getName());
+		ArrayList<XMLElement> deleted = this.iterateNodesAndApply("library/writers/writer", new WriterDeleterByName(author));
 		this.updateDocument();
-		return null;
+		return deleted;
 	}
 
 	public ArrayList<XMLElement> deleteWriters(Nationality nationality) {
-		this.iterateNodesAndApply("library/writers/writer", new WriterDeleterByNationality(nationality));
+		System.out.println("Deleting writer by nationality: " + nationality.getNationality());
+		ArrayList<XMLElement> deleted = this.iterateNodesAndApply("library/writers/writer", new WriterDeleterByNationality(nationality));
 		this.updateDocument();
-		return null;
+		return deleted;
 	}
 
 	public ArrayList<XMLElement> deleteWriters(Id id) {
-		this.iterateNodesAndApply("library/writers/writer", new WriterDeleterById(id));
+		System.out.println("Deleting writer by id: " + id.getId());
+		ArrayList<XMLElement> deleted = this.iterateNodesAndApply("library/writers/writer", new WriterDeleterById(id));
 		this.updateDocument();
+		return deleted;
+	}
+	
+	// CAMEL DELETE
+	
+	public String deleteCamelWriter(String id, String name, String nationality, String alive) {
+
+		if (id != null) {
+			return convert(deleteWriters(new Id(id)));
+		}
+
+		if (name != null) {
+			return convert(deleteWriters(new Author(name)));
+		}
+
+		if (nationality != null) {
+			return convert(deleteWriters(new Nationality(nationality)));
+		}
+		
+		if (alive != null) {
+			return convert(deleteWriters(alive));
+		}
+
 		return null;
 	}
 	
