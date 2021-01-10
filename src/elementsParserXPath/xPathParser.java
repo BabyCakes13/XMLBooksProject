@@ -60,28 +60,22 @@ public class xPathParser {
 
 		return querryResults;
 	}
-
-	public ArrayList<XMLElement> parseAll(String expression) {
-		String displayItem = this.getLastButOneElementOf(expression, "/");
-		System.out.println("\nDisplaying all " + displayItem + " from the library...");
-		ElementOperation ep;
-
-		switch (displayItem) {
-		case "books":
-			ep = new BookParser();
-			break;
-		case "writers":
-			ep = new WriterParser();
-			break;
-		case "genres":
-			ep = new GenreParser();
-			break;
-		default:
-			System.out.println("The parsing option " + displayItem + " does not exist.");
-			return null;
+	
+	protected byte[] convert(ArrayList<XMLElement> list) {
+		String str = "";
+		for (XMLElement s : list) {
+			str += s.toString() + "\n";
 		}
-
-		return this.iterateNodesAndApply(expression, ep);
+		return str.getBytes();
+	}
+	
+	
+	public ArrayList<XMLElement> parseAll()	{
+		return null;
+	}
+	
+	public byte[] parseAllToBytes() {
+		return convert(parseAll());
 	}
 
 	public ArrayList<XMLElement> deleteAll(String expression) {

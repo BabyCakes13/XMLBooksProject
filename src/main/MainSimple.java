@@ -30,7 +30,12 @@ import elementsParserXPath.xPathParserBook;
 import elementsParserXPath.xPathParserGenre;
 import elementsParserXPath.xPathParserWriter;
 
-public class Main {
+public class MainSimple extends MainSetup {
+
+	public MainSimple(File file) {
+		super(file);
+	}
+
 	public static void main(String[] args) {
 		System.out.println("Starting the application.\n");
 
@@ -40,32 +45,19 @@ public class Main {
 			System.out.println("The XML schema is valid.");
 		}
 
-		File xmlInputFile = new File("library.xml");
-		Document xmlDocument = setupDocument(xmlInputFile);
+		MainCamel mainCamel = new MainCamel(new File("library.xml"));
 
-//		loadLibrary(); //HW1
+		Document xmlDocument = mainCamel.getXMLDocument();
+
 		
-//		querryWithDOM(xmlInputFile);
-//
-//		querryWithXPath(xmlDocument);
-//
-//		deleteWithXPath(xmlDocument);
-//		editWithXPath(xmlDocument);
-//		addWithXPath(xmlDocument);
-	}
-
-	public static Document setupDocument(File inputXMLFile) {
-		try {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(inputXMLFile);
-			doc.getDocumentElement().normalize();
-
-			return doc;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+//				loadLibrary(); //HW1
+//				querryWithDOM(xmlInputFile); // TODO: Change input from File to Document
+		
+				querryWithXPath(xmlDocument);
+		
+				deleteWithXPath(xmlDocument);
+				editWithXPath(xmlDocument);
+				addWithXPath(xmlDocument);
 	}
 
 	public static void addWithXPath(Document xmlDocument) {
@@ -153,9 +145,9 @@ public class Main {
 
 	public static void oneFilterXPathQuerries(xPathParserBook xPathBook, xPathParserWriter xPathWriter,
 			xPathParserGenre xPathGenre) {
-		ArrayList<XMLElement> allBooks = xPathBook.parseAll("library/books/book");
-		ArrayList<XMLElement> allWriters = xPathWriter.parseAll("library/writers/writer");
-		ArrayList<XMLElement> allGenres = xPathGenre.parseAll("library/genres/genre");
+		ArrayList<XMLElement> allBooks = xPathBook.parseAll();
+		ArrayList<XMLElement> allWriters = xPathWriter.parseAll();
+		ArrayList<XMLElement> allGenres = xPathGenre.parseAll();
 
 		System.out.println("\nXPath querry to list all the books from the library...");
 		print(allBooks);
@@ -228,20 +220,20 @@ public class Main {
 		System.out.println("\n");
 	}
 
-//	public static void loadLibrary() {
-//		System.out.println("Loading library...");
-//		try {
-//			File file = new File("library.xml");
-//			JAXBContext jaxbContext = JAXBContext.newInstance(Library.class);
-//
-//			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-//			Library library = (Library) jaxbUnmarshaller.unmarshal(file);
-//
-//			System.out.println(library);
-//		} catch (JAXBException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	//	public static void loadLibrary() {
+	//		System.out.println("Loading library...");
+	//		try {
+	//			File file = new File("library.xml");
+	//			JAXBContext jaxbContext = JAXBContext.newInstance(Library.class);
+	//
+	//			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+	//			Library library = (Library) jaxbUnmarshaller.unmarshal(file);
+	//
+	//			System.out.println(library);
+	//		} catch (JAXBException e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
 
 	public static boolean validateXMLSchema(String xsdPath, String xmlPath) {
 		System.out.println("Validating XML schema based on XSD...");

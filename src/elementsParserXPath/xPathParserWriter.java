@@ -15,6 +15,7 @@ import elements.Id;
 import elements.Nationality;
 import elements.Writer;
 import elements.XMLElement;
+import elementsParserXPath.operations.genreOperations.GenreParser;
 import elementsParserXPath.operations.writerOperations.WriterDeleterByAlive;
 import elementsParserXPath.operations.writerOperations.WriterDeleterByDead;
 import elementsParserXPath.operations.writerOperations.WriterDeleterById;
@@ -23,6 +24,7 @@ import elementsParserXPath.operations.writerOperations.WriterDeleterByNationalit
 import elementsParserXPath.operations.writerOperations.WriterEditorById;
 import elementsParserXPath.operations.writerOperations.WriterEditorByName;
 import elementsParserXPath.operations.writerOperations.WriterEditorByNationality;
+import elementsParserXPath.operations.writerOperations.WriterParser;
 import elementsParserXPath.operations.writerOperations.WriterParserByAlive;
 import elementsParserXPath.operations.writerOperations.WriterParserByName;
 import elementsParserXPath.operations.writerOperations.WriterParserByNationality;
@@ -30,6 +32,12 @@ import elementsParserXPath.operations.writerOperations.WriterParserByNationality
 public class xPathParserWriter extends xPathParser {
 	public xPathParserWriter(Document xmlDocument) {
 		super(xmlDocument);
+	}
+	
+	public ArrayList<XMLElement> parseAll() {
+		System.out.println("\nDisplaying all writers from the library...");
+		ElementOperation ep = new WriterParser();
+		return this.iterateNodesAndApply("library/writers/writer", ep);
 	}
 	
 	public ArrayList<XMLElement> parseWriters(String element, String elementType) {

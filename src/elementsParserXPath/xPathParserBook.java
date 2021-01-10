@@ -25,8 +25,11 @@ import elementsParserXPath.operations.bookOperations.BookEditorByAuthor;
 import elementsParserXPath.operations.bookOperations.BookEditorByGenre;
 import elementsParserXPath.operations.bookOperations.BookEditorById;
 import elementsParserXPath.operations.bookOperations.BookEditorByTitle;
+import elementsParserXPath.operations.bookOperations.BookParser;
 import elementsParserXPath.operations.bookOperations.BookParserByAuthor;
 import elementsParserXPath.operations.bookOperations.BookParserByGenre;
+import elementsParserXPath.operations.genreOperations.GenreParser;
+import elementsParserXPath.operations.writerOperations.WriterParser;
 import elementsParserXPath.operations.writerOperations.WriterParserByNationality;
 
 public class xPathParserBook extends xPathParser {
@@ -37,6 +40,12 @@ public class xPathParserBook extends xPathParser {
 		super(xmlDocument);
 	}
 
+	public ArrayList<XMLElement> parseAll() {
+		System.out.println("\nDisplaying all books from the library...");
+		ElementOperation ep = new BookParser();
+		return this.iterateNodesAndApply(this.xPathBookArea, ep);
+	}
+	
 	public ArrayList<XMLElement> parseBooks(Genre genre) {
 		return this.iterateNodesAndApply(this.xPathBookArea, new BookParserByGenre(genre));
 	}
@@ -135,17 +144,17 @@ public class xPathParserBook extends xPathParser {
 		try {
 			NodeList nodeList = (NodeList) this.xPath.compile("library/books").evaluate(this.document,
 					XPathConstants.NODESET);
-			
+
 			Node lastNode = nodeList.item(nodeList.getLength() - 1);
 			Element element = document.createElement("book");
 			element.setAttribute("id", book.getId());
-			
+
 			this.appendChild(element, "title", book.getTitle());
 			this.appendChild(element, "author", book.getAuthor());
 			this.appendChild(element, "genre", book.getGenre());
-			
+
 			lastNode.appendChild(element);
-			
+
 			System.out.println("Added: " + book.toString());
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();

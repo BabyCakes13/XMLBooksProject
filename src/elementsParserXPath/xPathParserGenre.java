@@ -13,15 +13,23 @@ import org.w3c.dom.NodeList;
 import elements.Genre;
 import elements.Id;
 import elements.XMLElement;
+import elementsParserXPath.operations.bookOperations.BookParser;
 import elementsParserXPath.operations.genreOperations.GenreDeleterById;
 import elementsParserXPath.operations.genreOperations.GenreDeleterByName;
 import elementsParserXPath.operations.genreOperations.GenreEditorById;
 import elementsParserXPath.operations.genreOperations.GenreEditorByName;
+import elementsParserXPath.operations.genreOperations.GenreParser;
 import elementsParserXPath.operations.genreOperations.GenreParserByName;
 
 public class xPathParserGenre extends xPathParser {
 	public xPathParserGenre(Document xmlDocument) {
 		super(xmlDocument);
+	}
+	
+	public ArrayList<XMLElement> parseAll() {
+		System.out.println("\nDisplaying all genres from the library...");
+		ElementOperation ep = new GenreParser();
+		return this.iterateNodesAndApply("library/genres/genre", ep);
 	}
 	
 	public ArrayList<XMLElement> parseGenres(String name) {

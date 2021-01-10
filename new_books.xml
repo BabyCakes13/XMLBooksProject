@@ -4,28 +4,34 @@ The following XML database contains information represeting a library.
 
 Books, their authors and genres are stored as XML Elements below.
  --><library>
+    
   <!--
   The following XML database contains information about books.
 
   We are storing the title of the book, its author and its genre.
   We are also storing as attribute an unique identifier.
    -->
+    
   <books>
+        
     <!--Fyodor Dostoevsky-->
-    
+        
     
     
     
 
+    
     <!--George Orwell-->
-    
+        
     
 
+    
     <!--Aldous Huxley-->
-    
+        
 
+    
     <!--J. K. Rowling-->
-    
+        
     
     
     
@@ -33,52 +39,59 @@ Books, their authors and genres are stored as XML Elements below.
     
     
 
+    
     <!--Gabriel García Márquez-->
+        
     
     
     
-    
-  <book id="newBook">
+  
+    <book id="newBook">
       <title>Brand New Book</title>
       <author>Min</author>
       <genre>Totally Fiction</genre>
     </book>
   </books>
-
+    
   <!--
   The following XML database contains information about authors.
 
   We are storing their names, birth and death year as well as nationality.
   An unique identifier is also stored for each
   -->
+    
   <writers>
+        
     
     
     
     
-    
-  <writer id="r15">
+  
+    <writer id="r15">
       <name>Min</name>
       <birthYear>1998</birthYear>
       <deathYear>-</deathYear>
       <nationality>Romanian</nationality>
     </writer>
   </writers>
-
+    
   <!--
   The following XML database contains different book genres.
 
   For now, only the name of the genre is used.
   -->
+    
   <genres>
+        
     
     
     
     
     
-    
-  <genre id="g15">
+  
+    <genre id="g15">
       <title>Totally Fiction</title>
     </genre>
   </genres>
+  
 </library>
