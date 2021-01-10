@@ -18,6 +18,7 @@ public class BookEditorByGenre extends BookEditor {
 		String bookGenre = el.getElementsByTagName("genre").item(0).getTextContent();
 		if (bookGenre.equals(this.genre.getName())) {
 			el.getElementsByTagName("genre").item(0).setTextContent(newGenre.getName());
+			return super.elementOperation(el);
 		}
 		return null;
 	}

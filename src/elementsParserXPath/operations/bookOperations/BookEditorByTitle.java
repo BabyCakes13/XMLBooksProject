@@ -18,6 +18,7 @@ public class BookEditorByTitle extends BookEditor {
 		String bookTitle = el.getElementsByTagName("title").item(0).getTextContent();
 		if (bookTitle.equals(this.title.getTitle())) {
 			el.getElementsByTagName("title").item(0).setTextContent(newTitle.getTitle());
+			return super.elementOperation(el);
 		}
 		return null;
 	}

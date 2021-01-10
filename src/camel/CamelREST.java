@@ -87,6 +87,13 @@ public class CamelREST extends RouteBuilder{
 	        .bean(xmlBookInteractor, "editCamelBook(${header.title},${header.writer},${header.genre},${header.newTitle},${header.newWriter},${header.newGenre})")
 	        .endRest();
 		
+		rest("/library")
+			.get("/writers/edit?name={name}&nationality={nationality}&newName={newName}&newNationality={newNationality}")
+	        .produces("text/plain")
+	        .route()
+	        .bean(xmlWriterInteractor, "editCamelWriter(${header.name},${header.nationality},${header.newName},${header.newNationality})")
+	        .endRest();
+		
 		// DELETE
 	}
 }

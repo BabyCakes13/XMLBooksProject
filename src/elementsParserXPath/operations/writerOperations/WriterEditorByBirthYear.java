@@ -17,6 +17,7 @@ public class WriterEditorByBirthYear extends WriterEditor {
 		String writerBirthYear = el.getElementsByTagName("birthYear").item(0).getTextContent();
 		if (writerBirthYear.equals(this.birthYear)) {
 			el.getElementsByTagName("birthYear").item(0).setTextContent(newBirthYear);
+			return super.elementOperation(el);
 		}
 			
 		return null;

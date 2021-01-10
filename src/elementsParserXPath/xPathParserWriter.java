@@ -16,6 +16,7 @@ import elements.Book;
 import elements.Genre;
 import elements.Id;
 import elements.Nationality;
+import elements.Title;
 import elements.Writer;
 import elements.XMLElement;
 import elementsParserXPath.operations.genreOperations.GenreParser;
@@ -116,24 +117,47 @@ public class xPathParserWriter extends xPathParser {
 		this.updateDocument();
 		return null;
 	}
+	
+	// SIMPLE EDIT
 
 	public ArrayList<XMLElement> editWriter(Id id, Id newId) {
-		this.iterateNodesAndApply("library/writers/writer", new WriterEditorById(id, newId));
+		System.out.println("Replacing id: " + id + " with " + newId);
+		ArrayList<XMLElement> edited = this.iterateNodesAndApply("library/writers/writer", new WriterEditorById(id, newId));
 		this.updateDocument();
-		return null;
+		return edited;
 	}
 
 	public ArrayList<XMLElement> editWriter(Author name, Author newName) {
-		this.iterateNodesAndApply("library/writers/writer", new WriterEditorByName(name, newName));
+		System.out.println("Replacing name: " + name.getName() + " with " + newName.getName());
+		ArrayList<XMLElement> edited = this.iterateNodesAndApply("library/writers/writer", new WriterEditorByName(name, newName));
 		this.updateDocument();
-		return null;
+		return edited;
 	}
 
 	public ArrayList<XMLElement> editWriter(Nationality nationality, Nationality newNationality) {
-		this.iterateNodesAndApply("library/writers/writer", new WriterEditorByNationality(nationality, newNationality));
+		System.out.println("Replacing nationality: " + nationality.getNationality() + " with " + newNationality.getNationality());
+		ArrayList<XMLElement> edited = this.iterateNodesAndApply("library/writers/writer", new WriterEditorByNationality(nationality, newNationality));
 		this.updateDocument();
+		return edited;
+	}
+
+	// CAMEL EDIT
+
+	public String editCamelWriter(String name, String nationality,
+								  String newName, String newNationality) {
+
+		if (name != null && newName != null) {
+			return convert(editWriter(new Author(name), new Author(newName)));
+		}
+
+		if (nationality != null && newNationality != null) {
+			return convert(editWriter(new Nationality(nationality), new Nationality(newNationality)));
+		}
+
 		return null;
 	}
+
+	// SIMPLE ADD
 
 	public String addWriter(Writer writer) {
 		try {
@@ -152,7 +176,7 @@ public class xPathParserWriter extends xPathParser {
 			lastNode.appendChild(element);
 
 			System.out.println("Added: " + writer.toString());
-			
+
 			this.updateDocument();
 			return writer.toString();
 		} catch (XPathExpressionException e) {

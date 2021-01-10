@@ -18,6 +18,7 @@ public class WriterEditorByNationality extends WriterEditor {
 		String writerNationality = el.getElementsByTagName("nationality").item(0).getTextContent();
 		if (writerNationality.equals(this.nationality.getNationality())) {
 			el.getElementsByTagName("nationality").item(0).setTextContent(newNationality.getNationality());
+			return super.elementOperation(el);
 		}
 			
 		return null;

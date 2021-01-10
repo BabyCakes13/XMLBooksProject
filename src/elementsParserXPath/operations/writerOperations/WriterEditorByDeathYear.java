@@ -17,6 +17,7 @@ public class WriterEditorByDeathYear extends WriterEditor {
 		String writerDeathYear = el.getElementsByTagName("deathYear").item(0).getTextContent();
 		if (writerDeathYear.equals(this.deathYear)) {
 			el.getElementsByTagName("deathYear").item(0).setTextContent(newDeathYear);
+			return super.elementOperation(el);
 		}
 			
 		return null;
