@@ -1,11 +1,8 @@
-import elements.Book;
-import elements.Genre;
-import elements.Writer;
+package main;
 
 import java.util.HashSet;
 import java.util.Set;
 import org.w3c.dom.Element;
-import java.io.File;
 
 public class Interogation {
   private DOMparser parser;

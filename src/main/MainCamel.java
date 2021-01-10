@@ -1,3 +1,4 @@
+package main;
 import org.apache.camel.main.Main;
 import org.apache.camel.main.RestConfigurationProperties;
 
@@ -10,6 +11,7 @@ public class MainCamel {
 
 		main.configure().addRoutesBuilder(new CamelREST());
 		main.configure().addRoutesBuilder(new CamelRoutes());
+		
 		main.run(args);
 	}
 }

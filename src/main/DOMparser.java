@@ -1,3 +1,4 @@
+package main;
 import java.io.File;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -5,15 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import elements.Book;
-import elements.Genre;
-import elements.Writer;
-
 /**
 * Parser for an XML file.
 *
@@ -66,13 +60,6 @@ public class DOMparser {
   private NodeList nodes(String nodeName) {
     NodeList nodes = this.document.getElementsByTagName(nodeName + "s");
     NodeList subNodes = ((Element)nodes.item(0)).getElementsByTagName(nodeName);
-
-    if (false) {
-      for(int i = 0; i < subNodes.getLength(); i++) {
-        System.out.println("..." + subNodes.item(i).getTextContent());
-      }
-      System.out.println("Done.");
-    }
 
     return subNodes;
   }
