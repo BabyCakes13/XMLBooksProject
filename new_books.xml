@@ -63,7 +63,7 @@ Books, their authors and genres are stored as XML Elements below.
                   
             <title>Animal Farm</title>
                   
-            <author>George Orwell</author>
+            <author>Min</author>
                   
             <genre>Political satire</genre>
                 
@@ -73,7 +73,7 @@ Books, their authors and genres are stored as XML Elements below.
                   
             <title>Nineteen Eighty-Four</title>
                   
-            <author>George Orwell</author>
+            <author>Min</author>
                   
             <genre>Dystopian</genre>
                 
@@ -322,9 +322,6 @@ Books, their authors and genres are stored as XML Elements below.
                 
         </genre>
           
-        <genre id="755c16c7-9696-4297-a1de-9b14ae63a0ac">
-            <title>Cool</title>
-        </genre>
     </genres>
     
 </library>

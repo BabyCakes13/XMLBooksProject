@@ -18,6 +18,7 @@ public class BookEditorByAuthor extends BookEditor {
 		String bookAuthor = el.getElementsByTagName("author").item(0).getTextContent();
 		if (bookAuthor.equals(this.author.getName())) {
 			el.getElementsByTagName("author").item(0).setTextContent(newAuthor.getName());
+			return super.elementOperation(el);
 		}
 		return null;
 	}

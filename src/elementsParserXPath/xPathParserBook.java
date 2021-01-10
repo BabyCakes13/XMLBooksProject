@@ -40,6 +40,7 @@ public class xPathParserBook extends xPathParser {
 	}
 
 	// SIMPLE PARSING
+	
 	public ArrayList<XMLElement> parseAll() {
 		System.out.println("\nDisplaying all books from the library...");
 		ElementOperation ep = new BookParser();
@@ -161,30 +162,52 @@ public class xPathParserBook extends xPathParser {
 	// SIMPLE EDIT
 
 	public ArrayList<XMLElement> editBooks(Title title, Title newTitle) {
-		this.iterateNodesAndApply(this.xPathBookArea, new BookEditorByTitle(title, newTitle));
+		System.out.println("Replacing title: " + title + " with " + newTitle);
+		ArrayList<XMLElement> edited = this.iterateNodesAndApply(this.xPathBookArea, new BookEditorByTitle(title, newTitle));
 		this.updateDocument();
-		return null;
+		return edited;
 	}
 
 	public ArrayList<XMLElement> editBooks(Genre genre, Genre newGenre) {
-		this.iterateNodesAndApply(this.xPathBookArea, new BookEditorByGenre(genre, newGenre));
+		System.out.println("Replacing genre: " + genre + " with " + newGenre);
+		ArrayList<XMLElement> edited = this.iterateNodesAndApply(this.xPathBookArea, new BookEditorByGenre(genre, newGenre));
 		this.updateDocument();
-		return null;
+		return edited;
 	}
 
 	public ArrayList<XMLElement> editBooks(Author author, Author newAuthor) {
-		this.iterateNodesAndApply(this.xPathBookArea, new BookEditorByAuthor(author, newAuthor));
+		System.out.println("Replacing author: " + author + " with " + newAuthor);
+		ArrayList<XMLElement> edited = this.iterateNodesAndApply(this.xPathBookArea, new BookEditorByAuthor(author, newAuthor));
 		this.updateDocument();
-		return null;
+		return edited;
 	}
 
 	public ArrayList<XMLElement> editBooks(Id id, Id newId) {
-		this.iterateNodesAndApply(this.xPathBookArea, new BookEditorById(id, newId));
+		System.out.println("Replacing id: " + id + " with " + newId);
+		ArrayList<XMLElement> edited = this.iterateNodesAndApply(this.xPathBookArea, new BookEditorById(id, newId));
 		this.updateDocument();
-		return null;
+		return edited;
 	}
 	
 	// CAMEL EDIT
+	
+	public String editCamelBook(String title, String writer, String genre, 
+								String newTitle, String newWriter, String newGenre) {
+
+		if (title != null && newTitle != null) {
+			return convert(editBooks(new Title(title), new Title(newTitle)));
+		}
+		
+		if (writer != null && newWriter != null) {
+			return convert(editBooks(new Author(writer), new Author(newWriter)));
+		}
+		
+		if (genre != null && newGenre != null) {
+			return convert(editBooks(new Genre(genre), new Genre(newGenre)));
+		}
+		
+		return null;
+	}
 	
 	// SIMPLE ADD
 

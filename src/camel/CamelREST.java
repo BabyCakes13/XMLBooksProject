@@ -32,6 +32,8 @@ public class CamelREST extends RouteBuilder{
 			.description("Basic Hello World")
 			.to("direct:library-hello");
 		
+		// LIST
+		
 		rest("/library")
 			.get("/books/list?genre={genre}&writer={writer}&nationality={nationality}")
 	        .produces("text/plain")
@@ -53,6 +55,8 @@ public class CamelREST extends RouteBuilder{
 	        .bean(xmlGenreInteractor, "parseGenresCamel(${header.name})")
 	        .endRest();
 		
+		// ADD
+		
 		rest("/library")
 			.get("/books/add?title={title}&writer={writer}&genre={genre}")
 	        .produces("text/plain")
@@ -61,11 +65,11 @@ public class CamelREST extends RouteBuilder{
 	        .endRest();
 		
 		rest("/library")
-		.get("/genres/add?name={name}")
-        .produces("text/plain")
-        .route()
-        .bean(xmlGenreInteractor, "addCamelGenre(${header.name})")
-        .endRest();
+			.get("/genres/add?name={name}")
+	        .produces("text/plain")
+	        .route()
+	        .bean(xmlGenreInteractor, "addCamelGenre(${header.name})")
+	        .endRest();
 		
 		rest("/library")
 			.get("/writers/add?name={name}&nationality={nationality}&birthYear={birthYear}&deathYear={deathYear}")
@@ -73,5 +77,16 @@ public class CamelREST extends RouteBuilder{
 	        .route()
 	        .bean(xmlWriterInteractor, "addCamelWriter(${header.name},${header.nationality},${header.birthYear},${header.deathYear})")
 	        .endRest();
+		
+		// EDIT
+		
+		rest("/library")
+			.get("/books/edit?title={title}&writer={writer}&genre={genre}&newTitle={newTitle}&newWriter={newWriter}&newGenre={newGenre}")
+	        .produces("text/plain")
+	        .route()
+	        .bean(xmlBookInteractor, "editCamelBook(${header.title},${header.writer},${header.genre},${header.newTitle},${header.newWriter},${header.newGenre})")
+	        .endRest();
+		
+		// DELETE
 	}
 }
