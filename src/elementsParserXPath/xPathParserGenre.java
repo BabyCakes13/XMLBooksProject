@@ -15,6 +15,7 @@ import elements.Author;
 import elements.Genre;
 import elements.Id;
 import elements.Nationality;
+import elements.Title;
 import elements.Writer;
 import elements.XMLElement;
 import elementsParserXPath.operations.genreOperations.GenreDeleterById;
@@ -52,17 +53,34 @@ public class xPathParserGenre extends xPathParser {
 		return convert(parseGenres(name));
 	}
 	
-	// DELETE
+	// SIMPLE DELETE
 
 	public ArrayList<XMLElement> deleteGenres(String name) {
-		this.iterateNodesAndApply("library/genres/genre", new GenreDeleterByName(name));
+		System.out.println("Deleting genre by name: " + name);
+		ArrayList<XMLElement> deleted = this.iterateNodesAndApply("library/genres/genre", new GenreDeleterByName(name));
 		this.updateDocument();
-		return null;
+		return deleted;
 	}
 
 	public ArrayList<XMLElement> deleteGenres(Id id) {
-		this.iterateNodesAndApply("library/genres/genre", new GenreDeleterById(id));
+		System.out.println("Deleting genre by id: " + id.getId());
+		ArrayList<XMLElement> deleted = this.iterateNodesAndApply("library/genres/genre", new GenreDeleterById(id));
 		this.updateDocument();
+		return deleted;
+	}
+	
+	// CAMEL DELETE
+	
+	public String deleteCamelGenre(String id, String name) {
+
+		if (name != null) {
+			return convert(deleteGenres(name));
+		}
+		
+		if (id != null) {
+			return convert(deleteGenres(new Id(id)));
+		}
+
 		return null;
 	}
 
