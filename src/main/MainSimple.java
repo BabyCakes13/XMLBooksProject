@@ -162,8 +162,8 @@ public class MainSimple extends MainSetup {
 		ArrayList<XMLElement> romanceBooks = xPathBook.parseBooks(new Genre("Romance"));
 		ArrayList<XMLElement> fyodorWriter = xPathBook.parseBooks(new Writer("Fyodor Dostoevsky"));
 
-		ArrayList<XMLElement> fyodorBooks = xPathWriter.parseWriters("Fyodor Dostoevsky", "name");
-		ArrayList<XMLElement> englishWriters = xPathWriter.parseWriters("English", "nationality");
+		ArrayList<XMLElement> fyodorBooks = xPathWriter.parseWriters(new Writer("Fyodor Dostoevsky"));
+		ArrayList<XMLElement> englishWriters = xPathWriter.parseWriters(new Nationality("English"));
 		ArrayList<XMLElement> aliveWriters = xPathWriter.parseWriters(true);
 		ArrayList<XMLElement> deadAuthors = xPathWriter.parseWriters(false);
 

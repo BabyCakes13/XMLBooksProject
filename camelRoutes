@@ -1,0 +1,5 @@
+BOOKS:
+	WRITER: http://localhost:9091/library/books/list?writer=George+Orwell
+	GENRE: http://localhost:9091/library/books/list?genre=Romance
+	WRITER + GENRE http://localhost:9091/library/books/list?genre=Dystopian&writer=George+Orwell
+	GENRE + NATIONALITY http://localhost:9091/library/books/list?genre=Dystopian&nationality=Colombian

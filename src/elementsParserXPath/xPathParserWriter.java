@@ -11,6 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import elements.Author;
+import elements.Genre;
 import elements.Id;
 import elements.Nationality;
 import elements.Writer;
@@ -40,18 +41,49 @@ public class xPathParserWriter extends xPathParser {
 		return this.iterateNodesAndApply("library/writers/writer", ep);
 	}
 	
-	public ArrayList<XMLElement> parseWriters(String element, String elementType) {
-		if (elementType.equals("nationality")) {
-			return this.iterateNodesAndApply("library/writers/writer", new WriterParserByNationality(element));
-		} else if (elementType.equals("name")) {
-			return this.iterateNodesAndApply("library/writers/writer", new WriterParserByName(element));
-		}
-
-		return null;
+	public ArrayList<XMLElement> parseWriters(Nationality nationality) {
+		return this.iterateNodesAndApply("library/writers/writer", new WriterParserByNationality(nationality.getNationality()));
+	}
+	
+	public ArrayList<XMLElement> parseWriters(Writer writer) {
+		return this.iterateNodesAndApply("library/writers/writer", new WriterParserByNationality(writer.getName()));
 	}
 
 	public ArrayList<XMLElement> parseWriters(boolean alive) {
 		return this.iterateNodesAndApply("library/writers/writer", new WriterParserByAlive(alive));
+	}
+	
+	public String parseWritersCamel(String name, String nationality, String alive) {
+		if (name != null) {
+			return parseWritersFilterName(name);
+		} else if (nationality != null) {
+			return parseWritersFilterNationality(nationality);
+		} else if (alive != null) {
+			return parseWritersFilterAlive(alive);
+		} else {
+			return parseAllToString();
+		}
+	}
+	public String parseWritersFilterNationality(String nationality) {
+		System.out.println("Getting writer of nationality: " + nationality);
+		return convert(this.parseWriters(new Nationality(nationality)));
+	}
+	
+	public String parseWritersFilterName(String name) {
+		System.out.println("Getting writer of name: " + name);
+		return convert(this.parseWriters(new Writer(name)));
+	}
+	
+	public String parseWritersFilterAlive(String alive) {
+		if (alive.equals("yes")) {
+			System.out.println("Getting alive writers.");
+			return convert(parseWriters(true));
+		} else if (alive.equals("no")) {
+			System.out.println("Getting dead writers.");
+			return convert(parseWriters(false));
+		} else {
+			return null;
+		}
 	}
 	
 	public ArrayList<XMLElement> deleteWriters(String lifeStatus) {

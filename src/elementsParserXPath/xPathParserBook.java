@@ -64,9 +64,11 @@ public class xPathParserBook extends xPathParser {
 		return convert(this.parseBooks(new Writer(writer)));
 	}
 	
-	public String parseBooksCamel(String genre, String writer) {
+	public String parseBooksCamel(String genre, String writer, String nationality) {		
 		if (genre != null && writer != null) {
 			return parseBooksByGenreAndWriter(genre, writer);
+		} else if (genre != null && nationality != null) {
+			return parseBooksByGenreAndNationality(genre, nationality);
 		} else if (genre != null) {
 			return parseBooksFilterGenre(genre);
 		} else if(writer != null) {
@@ -94,6 +96,11 @@ public class xPathParserBook extends xPathParser {
 	public String parseBooksByGenreAndWriter(String genre, String writer) {
 		System.out.println("Getting book of genre: " + genre + " and writer: " + writer);
 		return convert(this.parseBooks(new Genre(genre), new Writer(writer)));
+	}
+	
+	public String parseBooksByGenreAndNationality(String genre, String nationality) {
+		System.out.println("Getting book of genre: " + genre + " and nationality: " + nationality);
+		return convert(this.parseBooks(new Genre(genre), nationality));
 	}
 	
 	public ArrayList<XMLElement> parseBooks(Genre genre, String nationality) {
