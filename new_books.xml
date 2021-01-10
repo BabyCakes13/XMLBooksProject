@@ -69,16 +69,8 @@ Books, their authors and genres are stored as XML Elements below.
                 
         </book>
             
-        <book id="b6">
-                  
-            <title>Nineteen Eighty-Four</title>
-                  
-            <author>George Orwell</author>
-                  
-            <genre>Dystopian</genre>
-                
-        </book>
-            
+
+    
         <!--Aldous Huxley-->
             
         <book id="b7">
@@ -318,7 +310,7 @@ Books, their authors and genres are stored as XML Elements below.
             
         <genre id="g6">
                   
-            <name>NotRomance</name>
+            <name>Romance</name>
                 
         </genre>
           

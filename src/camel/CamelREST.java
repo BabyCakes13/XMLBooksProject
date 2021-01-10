@@ -102,5 +102,12 @@ public class CamelREST extends RouteBuilder{
 	        .endRest();
 		
 		// DELETE
+		
+		rest("/library")
+			.get("/books/delete?title={title}&writer={writer}&genre={genre}&id={id}")
+	        .produces("text/plain")
+	        .route()
+	        .bean(xmlBookInteractor, "deleteCamelBook(${header.id},${header.title},${header.writer},${header.genre})")
+	        .endRest();
 	}
 }

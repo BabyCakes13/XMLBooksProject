@@ -40,22 +40,22 @@ public class xPathParserBook extends xPathParser {
 	}
 
 	// SIMPLE PARSING
-	
+
 	public ArrayList<XMLElement> parseAll() {
 		System.out.println("\nDisplaying all books from the library...");
 		ElementOperation ep = new BookParser();
 		return this.iterateNodesAndApply(this.xPathBookArea, ep);
 	}
-	
+
 	public ArrayList<XMLElement> parseBooks(Writer writer) {
 		return this.iterateNodesAndApply(this.xPathBookArea, new BookParserByAuthor(writer));
 	}
-	
-	
+
+
 	public ArrayList<XMLElement> parseBooks(Genre genre) {
 		return this.iterateNodesAndApply(this.xPathBookArea, new BookParserByGenre(genre));
 	}
-	
+
 	public ArrayList<XMLElement> parseBooks(Genre genre, Writer writer) {
 		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply(this.xPathBookArea,
 				new BookParserByGenre(genre));
@@ -70,7 +70,7 @@ public class xPathParserBook extends xPathParser {
 
 		return querryResult;
 	}
-	
+
 	public ArrayList<XMLElement> parseBooks(Genre genre, String nationality) {
 		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply(this.xPathBookArea,
 				new BookParserByGenre(genre));
@@ -95,7 +95,7 @@ public class xPathParserBook extends xPathParser {
 	}
 
 	// CAMEL PARSING
-	
+
 	public String parseBooksCamel(String genre, String writer, String nationality) {		
 		if (genre != null && writer != null) {
 			return parseBooksByGenreAndWriter(genre, writer);
@@ -109,56 +109,81 @@ public class xPathParserBook extends xPathParser {
 			return parseAllToString();
 		}
 	}
-	
+
 	public String parseBooksFilterGenre(String genre) {
 		System.out.println("Getting book of genre: " + genre);
 		return convert(this.parseBooks(new Genre(genre)));
 	}
-	
-	
+
+
 	public String parseBooksFilterWriter(String writer) {
 		System.out.println("Getting book of writer: " + writer);
 		return convert(this.parseBooks(new Writer(writer)));
 	}
-	
+
 	public String parseBooksByGenreAndWriter(String genre, String writer) {
 		System.out.println("Getting book of genre: " + genre + " and writer: " + writer);
 		return convert(this.parseBooks(new Genre(genre), new Writer(writer)));
 	}
-	
+
 	public String parseBooksByGenreAndNationality(String genre, String nationality) {
 		System.out.println("Getting book of genre: " + genre + " and nationality: " + nationality);
 		return convert(this.parseBooks(new Genre(genre), nationality));
 	}
-	
+
 	// SIMPLE DELETE
-	
+
 	public ArrayList<XMLElement> deleteBooks(Genre genre) {
-		this.iterateNodesAndApply(this.xPathBookArea, new BookDeleterByGenre(genre));
+		System.out.println("Deleting book with genre: " + genre.getName());
+		ArrayList<XMLElement> deleted = this.iterateNodesAndApply(this.xPathBookArea, new BookDeleterByGenre(genre));
 		this.updateDocument();
-		return null;
+		return deleted;
 	}
 
 	public ArrayList<XMLElement> deleteBooks(Title title) {
-		this.iterateNodesAndApply(this.xPathBookArea, new BookDeleterByTitle(title));
+		System.out.println("Deleting book with title: " + title.getTitle());
+		ArrayList<XMLElement> deleted = this.iterateNodesAndApply(this.xPathBookArea, new BookDeleterByTitle(title));
 		this.updateDocument();
-		return null;
+		return deleted;
 	}
 
 	public ArrayList<XMLElement> deleteBooks(Id id) {
-		this.iterateNodesAndApply(this.xPathBookArea, new BookDeleterById(id));
+		System.out.println("Deleting book with id: " + id.getId());
+		ArrayList<XMLElement> deleted = this.iterateNodesAndApply(this.xPathBookArea, new BookDeleterById(id));
 		this.updateDocument();
-		return null;
+		return deleted;
 	}
 
 	public ArrayList<XMLElement> deleteBooks(Author author) {
-		this.iterateNodesAndApply(this.xPathBookArea, new BookDeleterByAuthor(author));
+		System.out.println("Deleting book author: " + author.getName());
+		ArrayList<XMLElement> deleted = this.iterateNodesAndApply(this.xPathBookArea, new BookDeleterByAuthor(author));
 		this.updateDocument();
+		return deleted;
+	}
+
+	// CAMEL DELETE
+
+	public String deleteCamelBook(String id, String title, String writer, String genre) {
+
+		if (title != null) {
+			return convert(deleteBooks(new Title(title)));
+		}
+
+		if (writer != null) {
+			return convert(deleteBooks(new Author(writer)));
+		}
+
+		if (genre != null) {
+			return convert(deleteBooks(new Genre(genre)));
+		}
+		
+		if (id != null) {
+			return convert(deleteBooks(new Id(id)));
+		}
+
 		return null;
 	}
-	
-	// CAMEL DELETE
-	
+
 	// SIMPLE EDIT
 
 	public ArrayList<XMLElement> editBooks(Title title, Title newTitle) {
@@ -188,27 +213,27 @@ public class xPathParserBook extends xPathParser {
 		this.updateDocument();
 		return edited;
 	}
-	
+
 	// CAMEL EDIT
-	
+
 	public String editCamelBook(String title, String writer, String genre, 
-								String newTitle, String newWriter, String newGenre) {
+			String newTitle, String newWriter, String newGenre) {
 
 		if (title != null && newTitle != null) {
 			return convert(editBooks(new Title(title), new Title(newTitle)));
 		}
-		
+
 		if (writer != null && newWriter != null) {
 			return convert(editBooks(new Author(writer), new Author(newWriter)));
 		}
-		
+
 		if (genre != null && newGenre != null) {
 			return convert(editBooks(new Genre(genre), new Genre(newGenre)));
 		}
-		
+
 		return null;
 	}
-	
+
 	// SIMPLE ADD
 
 	public String addBook(Book book) {
@@ -228,20 +253,20 @@ public class xPathParserBook extends xPathParser {
 
 			System.out.println("Added: " + book.toString());
 			this.updateDocument();
-			
+
 			return book.toString();
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	// CAMEL ADD
-	
+
 	public String addCamelBook(String title, String writer, String genre) {
 		String randomId = UUID.randomUUID().toString();
 		Book book = new Book(randomId, title, writer, genre);
-		
+
 		return addBook(book);
 	}
 }

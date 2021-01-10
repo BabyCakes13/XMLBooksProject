@@ -51,6 +51,8 @@ public class xPathParserGenre extends xPathParser {
 		System.out.println("Getting genre of name: " + name);
 		return convert(parseGenres(name));
 	}
+	
+	// DELETE
 
 	public ArrayList<XMLElement> deleteGenres(String name) {
 		this.iterateNodesAndApply("library/genres/genre", new GenreDeleterByName(name));
