@@ -49,6 +49,11 @@ public class xPathParserBook extends xPathParser {
 	public ArrayList<XMLElement> parseBooks(Genre genre) {
 		return this.iterateNodesAndApply(this.xPathBookArea, new BookParserByGenre(genre));
 	}
+	
+	public byte[] parseBooksToBytes(String genre) {
+		System.out.println("Getting book of genre: " + genre);
+		return convert(this.parseBooks(new Genre(genre)));
+	}
 
 	public ArrayList<XMLElement> parseBooks(Genre genre, Writer writer) {
 		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply(this.xPathBookArea,
@@ -64,6 +69,7 @@ public class xPathParserBook extends xPathParser {
 
 		return querryResult;
 	}
+	
 
 	public ArrayList<XMLElement> parseBooks(Genre genre, String nationality) {
 		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply(this.xPathBookArea,

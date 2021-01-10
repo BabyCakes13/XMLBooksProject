@@ -32,5 +32,12 @@ public class CamelREST extends RouteBuilder{
 		.route()
 		.bean(xmlBookInteractor, "parseAllToBytes")
 		.endRest();
+		
+		rest("/library")
+		.get("/book?genre={genre}")
+        .produces("text/plain")
+        .route()
+        .bean(xmlBookInteractor, "parseBooksToBytes(${header.genre})")
+        .endRest();
 	}
 }
