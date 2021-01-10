@@ -27,6 +27,14 @@ public class xPathParserGenre extends xPathParser {
 		super(xmlDocument);
 	}
 	
+	public String parseGenresCamel(String name) {
+		if (name != null) {
+			return parseGenresFilterName(name);
+		} else {
+			return parseAllToString();
+		}
+	}
+	
 	public ArrayList<XMLElement> parseAll() {
 		System.out.println("\nDisplaying all genres from the library...");
 		ElementOperation ep = new GenreParser();
@@ -35,14 +43,6 @@ public class xPathParserGenre extends xPathParser {
 	
 	public ArrayList<XMLElement> parseGenres(String name) {
 		return this.iterateNodesAndApply("library/genres/genre", new GenreParserByName(name));
-	}
-	
-	public String parseGenresCamel(String name) {
-		if (name != null) {
-			return parseGenresFilterName(name);
-		} else {
-			return parseAllToString();
-		}
 	}
 	
 	private String parseGenresFilterName(String name) {
