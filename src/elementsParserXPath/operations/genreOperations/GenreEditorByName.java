@@ -17,6 +17,7 @@ public class GenreEditorByName extends GenreEditor {
 		String genreName = el.getElementsByTagName("name").item(0).getTextContent();
 		if (genreName.equals(this.name)) {
 			el.getElementsByTagName("name").item(0).setTextContent(newName);
+			return super.elementOperation(el);
 		}
 			
 		return null;

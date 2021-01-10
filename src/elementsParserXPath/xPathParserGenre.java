@@ -11,8 +11,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import elements.Author;
 import elements.Genre;
 import elements.Id;
+import elements.Nationality;
 import elements.Writer;
 import elements.XMLElement;
 import elementsParserXPath.operations.genreOperations.GenreDeleterById;
@@ -62,10 +64,13 @@ public class xPathParserGenre extends xPathParser {
 		return null;
 	}
 
+	// SIMPLE EDIT
+
 	public ArrayList<XMLElement> editGenres(String name, String newName) {
-		this.iterateNodesAndApply("library/genres/genre", new GenreEditorByName(name, newName));
+		System.out.println("Replacing name: " + name+ " with " + newName);
+		ArrayList<XMLElement> edited = this.iterateNodesAndApply("library/genres/genre", new GenreEditorByName(name, newName));
 		this.updateDocument();
-		return null;
+		return edited;
 	}
 
 	public ArrayList<XMLElement> editGenres(Id id, Id newId) {
@@ -73,6 +78,19 @@ public class xPathParserGenre extends xPathParser {
 		this.updateDocument();
 		return null;
 	}
+
+	// CAMEL EDIT
+
+	public String editCamelGenre(String name, String newName) {
+
+		if (name != null && newName != null) {
+			return convert(editGenres(name, newName));
+		}
+
+		return null;
+	}
+
+	// SIMPLE ADD
 
 	public String addGenre(Genre genre) {
 		try {
@@ -88,7 +106,7 @@ public class xPathParserGenre extends xPathParser {
 			lastNode.appendChild(element);
 
 			System.out.println("Added: " + genre.toString());
-			
+
 			this.updateDocument();
 			return genre.toString();
 		} catch (XPathExpressionException e) {
