@@ -25,26 +25,12 @@ public class CamelREST extends RouteBuilder{
 			.get("/hello")
 			.description("Basic Hello World")
 			.to("direct:library-hello");
-
-		rest("/library")
-			.get("/books")
-			.produces("application/xml")
-			.route()
-			.bean(xmlBookInteractor, "parseAllToBytes")
-			.endRest();
 		
 		rest("/library")
-			.get("/book-genre?genre={genre}")
-	        .produces("text/plain")
-	        .route()
-	        .bean(xmlBookInteractor, "parseBooksFilterGenre(${header.genre})")
-	        .endRest();
-		
-		rest("/library")
-		.get("/book-writer?writer={writer}")
+		.get("/books/list?genre={genre}&writer={writer}")
         .produces("text/plain")
         .route()
-        .bean(xmlBookInteractor, "parseBooksFilterWriter(${header.writer})")
+        .bean(xmlBookInteractor, "parseBooksCamel(${header.genre},${header.writer})")
         .endRest();
 	}
 }

@@ -74,7 +74,7 @@ public class xPathParser {
 		return null;
 	}
 	
-	public String parseAllToBytes() {
+	public String parseAllToString() {
 		return convert(parseAll());
 	}
 
