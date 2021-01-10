@@ -109,7 +109,7 @@ public class xPathParser {
 		try {
 			t = tf.newTransformer();
 			t.setOutputProperty(OutputKeys.INDENT, "yes");
-			t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+//			t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			t.transform(new DOMSource(this.document), new StreamResult("new_books.xml"));
 		} catch (TransformerConfigurationException e) {
 			e.printStackTrace();

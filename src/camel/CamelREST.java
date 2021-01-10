@@ -52,5 +52,26 @@ public class CamelREST extends RouteBuilder{
 	        .route()
 	        .bean(xmlGenreInteractor, "parseGenresCamel(${header.name})")
 	        .endRest();
+		
+		rest("/library")
+			.get("/books/add?title={title}&writer={writer}&genre={genre}")
+	        .produces("text/plain")
+	        .route()
+	        .bean(xmlBookInteractor, "addCamelBook(${header.title},${header.writer},${header.genre})")
+	        .endRest();
+		
+		rest("/library")
+		.get("/genres/add?name={name}")
+        .produces("text/plain")
+        .route()
+        .bean(xmlGenreInteractor, "addCamelGenre(${header.name})")
+        .endRest();
+		
+		rest("/library")
+			.get("/writers/add?name={name}&nationality={nationality}&birthYear={birthYear}&deathYear={deathYear}")
+	        .produces("text/plain")
+	        .route()
+	        .bean(xmlWriterInteractor, "addCamelWriter(${header.name},${header.nationality},${header.birthYear},${header.deathYear})")
+	        .endRest();
 	}
 }

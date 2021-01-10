@@ -1,6 +1,7 @@
 package elementsParserXPath;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -28,8 +29,6 @@ import elementsParserXPath.operations.bookOperations.BookEditorByTitle;
 import elementsParserXPath.operations.bookOperations.BookParser;
 import elementsParserXPath.operations.bookOperations.BookParserByAuthor;
 import elementsParserXPath.operations.bookOperations.BookParserByGenre;
-import elementsParserXPath.operations.genreOperations.GenreParser;
-import elementsParserXPath.operations.writerOperations.WriterParser;
 import elementsParserXPath.operations.writerOperations.WriterParserByNationality;
 
 public class xPathParserBook extends xPathParser {
@@ -40,44 +39,22 @@ public class xPathParserBook extends xPathParser {
 		super(xmlDocument);
 	}
 
+	// SIMPLE PARSING
 	public ArrayList<XMLElement> parseAll() {
 		System.out.println("\nDisplaying all books from the library...");
 		ElementOperation ep = new BookParser();
 		return this.iterateNodesAndApply(this.xPathBookArea, ep);
 	}
 	
-	public ArrayList<XMLElement> parseBooks(Genre genre) {
-		return this.iterateNodesAndApply(this.xPathBookArea, new BookParserByGenre(genre));
-	}
-	
-	public String parseBooksFilterGenre(String genre) {
-		System.out.println("Getting book of genre: " + genre);
-		return convert(this.parseBooks(new Genre(genre)));
-	}
-	
 	public ArrayList<XMLElement> parseBooks(Writer writer) {
 		return this.iterateNodesAndApply(this.xPathBookArea, new BookParserByAuthor(writer));
 	}
 	
-	public String parseBooksFilterWriter(String writer) {
-		System.out.println("Getting book of writer: " + writer);
-		return convert(this.parseBooks(new Writer(writer)));
+	
+	public ArrayList<XMLElement> parseBooks(Genre genre) {
+		return this.iterateNodesAndApply(this.xPathBookArea, new BookParserByGenre(genre));
 	}
 	
-	public String parseBooksCamel(String genre, String writer, String nationality) {		
-		if (genre != null && writer != null) {
-			return parseBooksByGenreAndWriter(genre, writer);
-		} else if (genre != null && nationality != null) {
-			return parseBooksByGenreAndNationality(genre, nationality);
-		} else if (genre != null) {
-			return parseBooksFilterGenre(genre);
-		} else if(writer != null) {
-			return parseBooksFilterWriter(writer);
-		} else {
-			return parseAllToString();
-		}
-	}
-
 	public ArrayList<XMLElement> parseBooks(Genre genre, Writer writer) {
 		ArrayList<XMLElement> booksByGenre = this.iterateNodesAndApply(this.xPathBookArea,
 				new BookParserByGenre(genre));
@@ -91,16 +68,6 @@ public class xPathParserBook extends xPathParser {
 		}
 
 		return querryResult;
-	}
-	
-	public String parseBooksByGenreAndWriter(String genre, String writer) {
-		System.out.println("Getting book of genre: " + genre + " and writer: " + writer);
-		return convert(this.parseBooks(new Genre(genre), new Writer(writer)));
-	}
-	
-	public String parseBooksByGenreAndNationality(String genre, String nationality) {
-		System.out.println("Getting book of genre: " + genre + " and nationality: " + nationality);
-		return convert(this.parseBooks(new Genre(genre), nationality));
 	}
 	
 	public ArrayList<XMLElement> parseBooks(Genre genre, String nationality) {
@@ -126,6 +93,45 @@ public class xPathParserBook extends xPathParser {
 		return querryResult;
 	}
 
+	// CAMEL PARSING
+	
+	public String parseBooksCamel(String genre, String writer, String nationality) {		
+		if (genre != null && writer != null) {
+			return parseBooksByGenreAndWriter(genre, writer);
+		} else if (genre != null && nationality != null) {
+			return parseBooksByGenreAndNationality(genre, nationality);
+		} else if (genre != null) {
+			return parseBooksFilterGenre(genre);
+		} else if(writer != null) {
+			return parseBooksFilterWriter(writer);
+		} else {
+			return parseAllToString();
+		}
+	}
+	
+	public String parseBooksFilterGenre(String genre) {
+		System.out.println("Getting book of genre: " + genre);
+		return convert(this.parseBooks(new Genre(genre)));
+	}
+	
+	
+	public String parseBooksFilterWriter(String writer) {
+		System.out.println("Getting book of writer: " + writer);
+		return convert(this.parseBooks(new Writer(writer)));
+	}
+	
+	public String parseBooksByGenreAndWriter(String genre, String writer) {
+		System.out.println("Getting book of genre: " + genre + " and writer: " + writer);
+		return convert(this.parseBooks(new Genre(genre), new Writer(writer)));
+	}
+	
+	public String parseBooksByGenreAndNationality(String genre, String nationality) {
+		System.out.println("Getting book of genre: " + genre + " and nationality: " + nationality);
+		return convert(this.parseBooks(new Genre(genre), nationality));
+	}
+	
+	// SIMPLE DELETE
+	
 	public ArrayList<XMLElement> deleteBooks(Genre genre) {
 		this.iterateNodesAndApply(this.xPathBookArea, new BookDeleterByGenre(genre));
 		this.updateDocument();
@@ -149,6 +155,10 @@ public class xPathParserBook extends xPathParser {
 		this.updateDocument();
 		return null;
 	}
+	
+	// CAMEL DELETE
+	
+	// SIMPLE EDIT
 
 	public ArrayList<XMLElement> editBooks(Title title, Title newTitle) {
 		this.iterateNodesAndApply(this.xPathBookArea, new BookEditorByTitle(title, newTitle));
@@ -173,8 +183,12 @@ public class xPathParserBook extends xPathParser {
 		this.updateDocument();
 		return null;
 	}
+	
+	// CAMEL EDIT
+	
+	// SIMPLE ADD
 
-	public void addBook(Book book) {
+	public String addBook(Book book) {
 		try {
 			NodeList nodeList = (NodeList) this.xPath.compile("library/books").evaluate(this.document,
 					XPathConstants.NODESET);
@@ -190,8 +204,21 @@ public class xPathParserBook extends xPathParser {
 			lastNode.appendChild(element);
 
 			System.out.println("Added: " + book.toString());
+			this.updateDocument();
+			
+			return book.toString();
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
+			return null;
 		}
+	}
+	
+	// CAMEL ADD
+	
+	public String addCamelBook(String title, String writer, String genre) {
+		String randomId = UUID.randomUUID().toString();
+		Book book = new Book(randomId, title, writer, genre);
+		
+		return addBook(book);
 	}
 }
